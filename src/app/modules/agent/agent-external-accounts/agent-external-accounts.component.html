@@ -1,0 +1,262 @@
+<!-- <div class="spinner-container position-absolute" *ngIf="connectingAccounts">
+
+    
+</div> -->
+<app-breadcrumbs title="External accounts" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+
+<div class="row align-items-center mb-4 g-3">
+    <div class="col-sm-3">
+        <!-- <div class="d-flex align-items-center gap-2">
+            <span class="text-muted flex-shrink-0">Sort by: </span>
+            <div class="w-md">
+                <select class="form-control mb-0" data-choices data-choices-search-false name="choices-single-default"
+                    id="choices-single-default" [(ngModel)]="contentService.currency">
+                    <option value="All" selected>All</option>
+                    <option value="USD">USD</option>
+                    <option value="ETH">ETH</option>
+                    <option value="BTC">BTC</option>
+                    <option value="EUR">EUR</option>
+                    <option value="JPY">JPY</option>
+                </select>
+            </div>
+        </div> -->
+    </div><!--end col-->
+    <div class="col-sm-auto ms-auto">
+        <div class="d-flex flex-wrap gap-2">
+            <a href="javascript:void(0);" (click)="setType('')" data-bs-toggle="modal"
+                class="btn btn-primary btn-sm">{{"ALL"|translate}}</a>
+            <a href="javascript:void(0);" (click)="setType('mt4')" data-bs-toggle="modal"
+                class="btn btn-success btn-sm">{{"MT4"|translate}}</a>
+            <a href="javascript:void(0);" (click)="setType('mt5')" data-bs-toggle="modal"
+                class="btn btn-warning btn-sm">{{"MT5"|translate}}</a>
+
+            <button class="btn btn-info btn-sm" (mousedown)="openConnectAccounts()">Connect external accounts</button>
+            <button class="btn btn-dark btn-sm" (mousedown)="OpenNewAccount()">Create external accounts</button>
+        </div>
+    </div><!--end col-->
+</div><!--end row-->
+<div class="row">
+    <!-- <div class="col-xxl-4 col-lg-6 mb-3" *ngFor="let a of externalAccounts$ |async"> 
+        <accounts-card [account]="a"></accounts-card>
+    </div> -->
+    <div class="card" id="contactList">
+        <div class="card-header">
+            <div class="d-flex align-items-center flex-wrap gap-2">
+                <div class="flex-grow-1 ">
+                    <!-- <div class="col-md-3">
+                        <h5 class="card-title mb-0" *ngIf="user">{{"ALFU"|translate}}: {{user}}</h5>
+                        <h5 class="card-title mb-0" *ngIf="!user">{{"SELECTACC"|translate}}</h5>
+                    </div> -->
+
+                    <!--end col-->
+                </div>
+                <div class="d-flex flex-wrap gap-2">
+                    <!-- <button class="btn btn-warning " *ngIf="user" (mousedown)="connect()">{{"COAFU"|translate}}</button>
+                    <button class="btn btn-success " *ngIf="user" (mousedown)="create()">{{"CRAFU"|translate}}</button>
+    
+     -->
+                </div>
+                <div class="flex-shrink-0">
+                    <div class="search-box">
+                        <input type="text" name="searchTerm" class="form-control" placeholder="{{'SFA'|translate}}"
+                            [(ngModel)]="contentService.searchTerm">
+                        <i class="ri-search-line search-icon"></i>
+                    </div>
+                </div>
+
+
+            </div><!--end row-->
+        </div><!--end card-header-->
+        <div class="card-body">
+            <div class="table-responsive table-card">
+                <table class="table align-middle table-nowrap" id="customerTable">
+                    <thead class="table-light text-muted">
+                        <tr>
+                            <th class="sort cursor-pointer {{sortCol == 'accountName'? sortClass:''}}"
+                            [sortable]="'accountName'" (sort)="onSort($event)" data-sort="accountName" scope="col">
+                                <p class="pe-3 mb-0">
+                                    {{"CLIENTACCOUNTS.ACCNAME.TEXT"|translate}}
+                                </p>
+                            </th>
+                            <th class="sort cursor-pointer {{sortCol == 'login'? sortClass:''}}"
+                            [sortable]="'login'" (sort)="onSort($event)" data-sort="login" scope="col">
+                                <p class="pe-3 mb-0">
+                                    {{"CLIENTACCOUNTS.LOGIN.TEXT"|translate}}
+                                </p>
+                            </th>
+                            <th class="sort cursor-pointer {{sortCol == 'currency'? sortClass:''}}"
+                            [sortable]="'currency'" (sort)="onSort($event)" data-sort="currency_name" scope="col">
+                                <p class="pe-3 mb-0">
+                                    {{"CURRENCY"|translate}}
+                                </p>
+                            </th>
+                            <th class="sort cursor-pointer {{sortCol == 'accountType'? sortClass:''}}"
+                            [sortable]="'accountType'" (sort)="onSort($event)" data-sort="account_type" scope="col">
+                                <p class="pe-3 mb-0">
+                                    {{"TYPE"|translate}}
+                                </p>
+                            </th>
+                            <th class="sort cursor-pointer {{sortCol == 'balance'? sortClass:''}}"
+                            [sortable]="'balance'" (sort)="onSort($event)" data-sort="balance" scope="col">
+                                <p class="pe-3 mb-0">
+                                    {{"BALANCE"|translate}}
+                                </p>
+                            </th>
+                            <th class="sort cursor-pointer {{sortCol == 'platform'? sortClass:''}}"
+                            [sortable]="'platform'" (sort)="onSort($event)" data-sort="platform" scope="col">
+                                <p class="pe-3 mb-0">
+                                    {{"PLATFORM"|translate}}
+                                </p>
+                            </th>
+                            <th class="sort cursor-pointer {{sortCol == 'leverage'? sortClass:''}}"
+                            [sortable]="'leverage'" (sort)="onSort($event)" data-sort="leverage" scope="col">
+                                <p class="pe-3 mb-0">
+                                    {{"CLIENTACCOUNTS.LEVERAGE.TEXT"|translate}}
+                                </p>
+                            </th>
+                            <th class="sort cursor-pointer {{sortCol == 'status'? sortClass:''}}"
+                            [sortable]="'status'" (sort)="onSort($event)" data-sort="status" scope="col">
+                                <p class="pe-3 mb-0">
+                                    {{"STATUS"|translate}}
+                                </p>
+                            </th>
+                            <th scope="col">{{"ACTIONS"|translate}}</th>
+                        </tr><!--end tr-->
+                    </thead>
+                    <tbody class="list form-check-all">
+                        <tr *ngFor="let data of externalAccounts$ | async">
+                            <td class=""><ngb-highlight [result]="data.accountName"
+                                    [term]="contentService.searchTerm"></ngb-highlight>
+                            </td>
+                            <td class="currency_name">
+                                <div class="d-flex align-items-center">
+                                    <ngb-highlight [result]="data?.login?.toString()"
+                                        [term]="contentService.searchTerm"></ngb-highlight>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    {{data.currency}}
+                                </div>
+                            </td>
+                            <td><ngb-highlight [result]="(data.accountType==AccountType.Live?'LIVE':'DEMO' )|translate"
+                                    [term]="contentService.searchTerm"></ngb-highlight></td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <ngb-highlight [result]="data?.balance?.toString()"
+                                        [term]="contentService.searchTerm"></ngb-highlight>
+                                </div>
+                            </td>
+                            <td><ngb-highlight
+                                    [result]="data.platform.toString() "
+                                    [term]="contentService.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <ngb-highlight [result]="data.leverage.toString()"
+                                        [term]="contentService.searchTerm"></ngb-highlight>
+                                </div>
+                            </td>
+                            <td class="status">
+                                <!-- <span class="badge badge-soft-{{data.status_color}} fs-11"><i
+                                        class="ri-checkbox-circle-line align-bottom"></i>
+                                    {{(data.status|uppercase) | translate}}
+                                </span> -->
+                                <span *ngIf="data.external"
+                                    class="small badge badge-soft-warning fs-11 ms-1">{{"External"|translate}}</span>
+                                <span *ngIf="!data.enabled"
+                                    class="small badge badge-soft-dark fs-11 ms-1">{{"Disabled"|translate}}</span>
+                                <span *ngIf="data.masterAccountMT5 || data.masterAccountMT4"
+                                    class="small badge badge-soft-info fs-11 ms-1">{{"MASTERACC"|translate}}</span>
+                            </td>
+                            <td>
+                                <div *ngIf="data.platform!=2 && !data.deletedAt" class="dropdown" ngbDropdown>
+                                    <a href="javascript:void(0);" class="arrow-none" role="button" id="dropdownMenuLink2"
+                                        data-bs-toggle="dropdown" (click)="$event.stopPropagation()" aria-expanded="false"
+                                        ngbDropdownToggle>
+                                        <i class="ri-more-2-fill fs-14"></i>
+                                    </a>
+                
+                                    <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuLink2" ngbDropdownMenu>
+                                        <li><a class="dropdown-item" href="javascript:void(0);"
+                                                (mousedown)="changeName(data.id)">{{'CLIENTACCOUNTS.CHACCNAME.TEXT'|translate}}</a>
+                                            <!-- </li><li><a class="dropdown-item" href="javascript:void(0);" (mousedown)="changeFirstName()">Change first name</a> -->
+                                            <!-- </li><li><a class="dropdown-item" href="javascript:void(0);" (mousedown)="changeLastName()">Change last name</a> -->
+                                        </li>
+                                        <!-- <li><a class="dropdown-item" href="javascript:void(0);" (mousedown)="changeNote()">Change note</a></li> -->
+                                        <li><a class="dropdown-item" href="javascript:void(0);" (mousedown)="changeLeverage(data.id,data.leverage)">
+                                                {{'CLIENTACCOUNTS.CHACCLEV.TEXT'|translate}}</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="javascript:void(0);" (mousedown)="changeMasterPassword(data.id)">
+                                                {{'CLIENTACCOUNTS.CHMP.TEXT'|translate}}
+                                            </a></li>
+                                        <li><a class="dropdown-item" href="javascript:void(0);" (mousedown)="changeInvestorPassword(data.id)">
+                                                {{'CLIENTACCOUNTS.CHIP.TEXT'|translate}}</a></li>
+                                        <li *ngIf="!data.masterAccountMT5 && !data.masterAccountMT4"><a class="dropdown-item"
+                                                href="javascript:void(0);" (mousedown)="deleteAccount(data.id)">{{'DELETE'|translate}}</a></li>
+                                    </ul>
+                                </div>
+                                <!-- <div class="d-flex gap-2">
+                                    <a href="javascript:void(0);"
+                                        *ngIf="role == UserTypes.Customer && data.status == 'Pending'"
+                                        class="btn btn-danger btn-sm "
+                                        (mousedown)="do('cancel',data.id)">{{"CANCEL"|translate}}</a>
+                                    <a href="javascript:void(0);"
+                                        *ngIf="role == UserTypes.Customer && data.status == 'Rejected'"
+                                        class="btn btn-warning btn-sm"
+                                        (mousedown)="do('retry',data.id)">{{"RETRY"|translate}}</a>
+                                    <a href="javascript:void(0);"
+                                        *ngIf="(role == UserTypes.Agent || role == UserTypes.Admin) && data.status == 'Pending'"
+                                        class="btn btn-danger btn-sm"
+                                        (mousedown)="do('reject',data.id)">{{"REJECT"|translate}}</a>
+                                    <a href="javascript:void(0);"
+                                        *ngIf="(role == UserTypes.Agent || role == UserTypes.Admin) && data.status == 'Pending'"
+                                        class="btn btn-success btn-sm"
+                                        (mousedown)="do('approve',data.id)">{{"APPROVE"|translate}}</a>
+                                    <a href="javascript:void(0);"
+                                        *ngIf="(role == UserTypes.Agent || role == UserTypes.Admin) && userType==UserTypes.Agent && !data.external && data.platform!='Wallet' && !data.masterAccountMT5 && !data.masterAccountMT4 && data.accountType == 'Live'"
+                                        class="btn btn-success btn-sm"
+                                        (mousedown)="do('setMAMT',data.id)">{{"SETMASTERACCOUNT"|translate}}</a>
+                                    <a href="javascript:void(0);"
+                                        *ngIf="(role == UserTypes.Agent || role == UserTypes.Admin) && userType==UserTypes.Agent && data.platform!='Wallet' && (data.masterAccountMT5 || data.masterAccountMT4)"
+                                        class="btn btn-success btn-sm"
+                                        (mousedown)="do('unsetMAMT',data.platform)">{{"UNSETMASTERACCOUNT"|translate}}</a>
+                                    <a href="javascript:void(0);"
+                                        *ngIf="(role == UserTypes.Agent || role == UserTypes.Admin) && data.platform!='Wallet'"
+                                        class="btn btn-secondary btn-sm"
+                                        (mousedown)="mtAccountHistory(data.id)">{{"MTHISTORY"|translate}}</a>
+                                </div> -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table><!--end table-->
+            </div>
+            <div class="row justify-content-md-between align-items-md-center mt-3">
+                <div class="col col-sm-6">
+                    <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                        {{"SHOWING"|translate}}
+                        {{contentService.startIndex}} {{'TO'|translate}}
+                        {{contentService.endIndex}} {{"OF"|translate}} {{contentService.totalRecords}}
+                        {{"ENTERIES"|translate}}
+                    </div>
+                </div>
+                <!-- Pagination -->
+                <div class="col col-sm-6">
+                    <div class="text-sm-right float-end listjs-pagination">
+                        <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="contentService.page"
+                            [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+                            [pageSize]="contentService.pageSize">
+                        </ngb-pagination>
+                    </div>
+                </div>
+                <!-- End Pagination -->
+            </div>
+            <div id="elmLoader" [ngClass]="{'d-none':!(loading$ | async)}">
+                <div class="spinner-border text-primary avatar-sm" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div><!--end card-body-->
+    </div><!--end card-->
+
+</div>

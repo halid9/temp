@@ -1,0 +1,84 @@
+<div class="modal-header bg-light p-3" *ngIf="isDialog">
+    <h5 class="modal-title" id="exampleModalLabel">Convert to {{convertTo}}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+        id="close-modal" (click)="closeDialog()"></button>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit(convertTo)">
+    <div class="modal-body">
+
+<div class="row">
+
+<div class="col-md-12">
+    <div class="mb-3">
+        
+        <label for="EndleaveDate" class="form-label">{{'First name' | translate }}</label>
+        <div class="input-group ">
+            <input type="text" class="form-control form-control-lg" aria-label="input" formControlName="firstName"
+            aria-describedby="inputGroup" [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }"
+            placeholder="First name">
+            <div *ngIf="submitted && f['firstName'].errors" class="invalid-feedback">
+                <div *ngIf="f['firstName'].errors['required']">First name is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        
+        <label for="EndleaveDate" class="form-label">{{'Last name' | translate }}</label>
+        <div class="input-group ">
+            <input type="text" class="form-control form-control-lg" aria-label="input" formControlName="lastName"
+            aria-describedby="inputGroup"[ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }"
+            placeholder="Last name">
+            <div *ngIf="submitted && f['lastName'].errors" class="invalid-feedback">
+                <div *ngIf="f['lastName'].errors['required']">Last name is required</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mb-3">
+        
+        <label for="EndleaveDate" class="form-label">{{'Address' | translate }}</label>
+        <div class="input-group ">
+            <input type="text" class="form-control form-control-lg" aria-label="input" formControlName="address"
+            aria-describedby="inputGroup " [ngClass]="{ 'is-invalid': submitted && f['address'].errors }"
+            placeholder="Address">
+            <div *ngIf="submitted && f['address'].errors" class="invalid-feedback">
+                <div *ngIf="f['address'].errors['required']">Address is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        
+        <label for="EndleaveDate" class="form-label">{{'Phone' | translate }}</label>
+        <div class="input-group ">
+            <input type="text" class="form-control form-control-lg" aria-label="input" formControlName="phone"
+            aria-describedby="inputGroup" [ngClass]="{ 'is-invalid': submitted && f['phone'].errors }"
+            placeholder="Phone">
+            <div *ngIf="submitted && f['phone'].errors" class="invalid-feedback">
+                <div *ngIf="f['phone'].errors['required']">Phone is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        
+        <label for="EndleaveDate" class="form-label">{{'Email' | translate }}</label>
+        <div class="input-group ">
+            <input type="email" class="form-control form-control-lg" aria-label="input" formControlName="email"
+            aria-describedby="inputGroup"[ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+            placeholder="Email">
+            <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                <div *ngIf="f['email'].errors['required']">Email is required</div>
+            </div>
+        </div>
+    </div>
+       
+    </div>
+</div>
+    
+    <div class="text-end">
+        <button type="submit" class="btn btn-success">{{'proceed' | translate }}</button>
+    </div>
+
+    </div>
+
+</form>

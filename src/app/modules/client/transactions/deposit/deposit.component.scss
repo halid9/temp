@@ -1,0 +1,21 @@
+.btn {
+    width: 150px;
+    &:hover{
+        background-color: var(--vz-btn-active-bg);
+        color: #f4f4f4;
+    }
+}
+
+code {
+    display: inline-block;
+    background-color: #f4f4f4;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 20px;
+    max-width: 100%;
+    overflow-wrap: break-word;
+}
+::ng-deep .accordion-button{
+    background-color: rgba(252, 185, 0, 0.18) !important;
+}

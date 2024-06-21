@@ -1,0 +1,18 @@
+<input type="file" (change)="onFileChange($event)" />
+<table>
+  <thead>
+    <tr>
+      <th>Column 1</th>
+      <th>Column 2</th>
+      <!-- Add more column headers as needed -->
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Render table rows dynamically -->
+    <tr *ngFor="let row of rowData">
+      <td>{{ row.column1 }}</td>
+      <td>{{ row.column2 }}</td>
+      <!-- Add more table cells as needed -->
+    </tr>
+  </tbody>
+</table>

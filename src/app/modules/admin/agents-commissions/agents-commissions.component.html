@@ -1,0 +1,83 @@
+<app-breadcrumbs title="Agents commissions"
+    [breadcrumbItems]="[{ label: 'Admin' },{ label: 'Agents commissions', active: true }]"></app-breadcrumbs>
+
+<div class="card" id="contactList" *ngIf="agents.length">
+    <div class="card-header">
+        <div class="row g-3">
+            <div class="col-lg-3">
+                <label>{{'Select Agent' | translate }}</label>
+                <select class="form-select form-select-lg" [(ngModel)]="selectedAgentId"
+                    (ngModelChange)="onChangeAgent()">
+                    <option *ngFor="let agent of agents" [value]="agent.id">
+                        {{agent.firstName}} {{agent.lastName}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label>{{'Select Customer' | translate }}</label>
+                <select class="form-select form-select-lg" [(ngModel)]="selectedCustomerId"
+                    (ngModelChange)="applyFilters()">
+                    <option value="0">All Customers</option>
+                    <option *ngFor="let user of selectedAgentCustomers" [value]="user.id">
+                        {{user.firstName}} {{user.lastName}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label>{{'Select Date' | translate }}</label>
+                <div class="form-group mb-3 d-flex align-items-center">
+                    <input type="date" id="fromDate" class="form-control form-select-lg w-auto" [(ngModel)]="fromDate">
+                    <input type="date" id="toDate" class="form-control form-select-lg w-auto ms-1" [(ngModel)]="toDate">
+                </div>
+            </div>
+            <div class="col-md-1">
+                <label>{{'Select Platform' | translate }}</label>
+                <select class="form-select form-select-lg" [(ngModel)]="selectedPlatform"
+                    (ngModelChange)="applyFilters()">
+                    <option value="-1">All Platforms</option>
+                    <option value="0">MT4</option>
+                    <option value="1">MT5</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100 mb-1" (click)="viewTrades()">View Trades</button>
+                <button class="btn btn-danger w-100" (click)="toggleAutoCollect()" *ngIf="autoCollect">Stop commissions collection</button>
+                <button class="btn btn-success w-100" (click)="toggleAutoCollect()" *ngIf="!autoCollect">Start commissions collection</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive table-card">
+            <table class="table align-middle table-nowrap table-hover" id="customerTable">
+                <thead class="table-light text-muted">
+                    <tr>
+                        <th>{{'Customer Name' | translate }}</th>
+                        <th>{{'Login' | translate }}</th>
+                        <th>{{'Time' | translate }}</th>
+                        <th>{{'Profit' | translate }}</th>
+                        <th>{{'Volume' | translate }}</th>
+                        <th>{{'Commission' | translate }}</th>
+                        <th>{{'Symbol' | translate }}</th>
+                        <th>{{'Type' | translate }}</th>
+                        <th>{{'Comment' | translate }}</th>
+                        <th>{{'Platform' | translate }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let trade of filteredTradesData">
+                        <td>{{ trade.customerName }}</td>
+                        <td>{{ trade.login }}</td>
+                        <td>{{ trade.time }}</td>
+                        <td>{{ trade.profit }}</td>
+                        <td>{{ trade.volume }}</td>
+                        <td>{{ trade.commission }}</td>
+                        <td>{{ trade.symbol }}</td>
+                        <td>{{ trade.type }}</td>
+                        <td>{{ trade.comment }}</td>
+                        <td>{{ trade.platform == 0 ? 'MT4' : 'MT5' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

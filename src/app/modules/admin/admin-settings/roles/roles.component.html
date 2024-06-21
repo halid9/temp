@@ -1,0 +1,82 @@
+<app-breadcrumbs title="Roles" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+
+
+<div class="card" id="contactList">
+    <div class="card-header">
+        <div class="row align-items-center g-3">
+            <div class="col-md-3 d-flex gap-2 align-items-center">
+                <button class="btn shadow-none btn-link text-decoration-none text-muted p-0" type="button"
+                    id="password-addon" (mousedown)="refresh()"><i class=" ri-refresh-line fs-20"></i></button>
+                <h5 class="card-title mb-0">{{'Roles'}}</h5>
+            </div><!--end col-->
+            <div class="col-md-auto ms-auto">
+                <div class="d-flex gap-2">
+                    <!-- <div class="search-box">
+                        <input type="text" name="searchTerm" class="form-control"
+                            placeholder="Search for transactions..." [(ngModel)]="txService.searchTerm">
+                        <i class="ri-search-line search-icon"></i>
+                    </div> -->
+                    <button class="btn btn-success " (mousedown)="createRole()" [disabled]="loading"><i
+                            class=" ri-add-line align-bottom me-1"></i> Create role</button>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end card-header-->
+
+    <div class="card-body p-0">
+        <div class="emLoader d-flex justify-content-center align-items-center col-12 mt-3 mb-3" *ngIf="loading">
+            <div class="spinner-border text-primary avatar-sm text-center" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <h1 class="text-danger" *ngIf="!loading &&!roles.length"> No roles found!</h1>
+        <ngb-accordion #acc="ngbAccordion" activeIds="static-0" [closeOthers]="true" *ngIf="!loading &&roles.length">
+            <ngb-panel id="static-{{i+1}}" *ngFor="let r of roles;let i = index">
+                <ng-template ngbPanelTitle>
+                    <a class=" shadow-none" data-bs-toggle="collapse" href="javascript:void(0);" aria-expanded="true"
+                        aria-controls="collapseOne">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <div class="avatar-xs">
+                                    <div class="avatar-title bg-soft-warning text-warning rounded-circle fs-16">
+                                        <i class="bi bi-arrow-right-left"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="fs-14 mb-0 ">
+                                    {{r.name}}
+                                </h6>
+                                <!-- <small class="text-muted">
+                                {{activity.creationDate | date:'yyyy-MM-dd'}}</small> -->
+                            </div>
+                        </div>
+                    </a>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    <div class="ps-5 mb-3">
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                            data-bs-parent="#accordionExample">
+                            <div class="d-flex flex-wrap gap-3">
+                                <span class="badge badge-soft-primary fs-16" *ngFor="let p of r.permissions">
+                                    {{p.name}}</span>
+                            </div>
+
+                        </div>
+                        <div id="collapseOne" class="accordion-collapse collapse show text-danger"
+                            aria-labelledby="headingOne" data-bs-parent="#accordionExample"
+                            *ngIf=" !r.permissions.length">
+                            {{'No permissions found in this role!'}}
+                        </div>
+                    </div>
+                    <div class="d-flex gap-3 ps-5">
+                        <button class="btn btn-success" (mousedown)="edit(r.permissions,r.id)">Add/Delete
+                            permissions</button>
+                        <button class="btn btn-danger" (mousedown)="deleteRole(r.id)">delete role</button>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+    </div>
+
+</div>

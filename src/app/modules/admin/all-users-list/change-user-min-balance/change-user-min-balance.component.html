@@ -1,0 +1,41 @@
+<div class="modal-header bg-light ">
+    <h4 class="modal-title mb-3" id="modal-basic-title">Change user minimum balance</h4>
+    <button type="button" class="btn-close" aria-label="Close" (mousedown)="close()"></button>
+</div>
+<div class="modal-body h-100">
+    <div class="alert alert-info mb-3">
+        User: <strong>{{user.firstName}} {{user.lastName}}</strong><br />
+        Email: <strong>{{user.email}}</strong><br />
+        Phone: <strong>{{user.phone}}</strong>
+    </div>
+    <form class="form" (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
+        <div class="mb-3">
+            <label for="commission">{{'Agent Commision Per Lot' | translate }}</label>
+            <input id="commission" type="text" class="form-control" [(ngModel)]="user.commission"
+                name="commission" required pattern="^-?\d+(\.\d{1,2})?$">
+            <div *ngIf="userForm.submitted && userForm.controls['commission'].errors" class="text-danger">
+                Please enter a valid commission.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="usdMinBalance">{{'Minimum Balance USD' | translate }}</label>
+            <input id="usdMinBalance" type="text" class="form-control" [(ngModel)]="user.usdMinBalance"
+                name="usdMinBalance" required pattern="^-?\d+(\.\d{1,2})?$">
+            <div *ngIf="userForm.submitted && userForm.controls['usdMinBalance'].errors" class="text-danger">
+                Please enter a valid USD minimum balance.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="eurMinBalance">{{'Minimum Balance EUR' | translate }}</label>
+            <input id="eurMinBalance" type="text" class="form-control" [(ngModel)]="user.eurMinBalance"
+                name="eurMinBalance" required pattern="^-?\d+(\.\d{1,2})?$">
+            <div *ngIf="userForm.submitted && userForm.controls['eurMinBalance'].errors" class="text-danger">
+                Please enter a valid EUR minimum balance.
+            </div>
+        </div>
+        <div class="text-end mb-3">
+            <button class="btn btn-danger mx-3" type="button" (mousedown)="close()">Cancel</button>
+            <button class="btn btn-success" type="submit">Change</button>
+        </div>
+    </form>
+</div>

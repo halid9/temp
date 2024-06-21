@@ -1,0 +1,105 @@
+<div class="modal-header">
+    <h3 class="">
+        {{"ACCREQUSERINFO"|translate}}
+    </h3>
+</div>
+<div class="modal-body">
+    <div class="card mb-0">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-12 col-lg-6 mb-3">
+                    <p class="text-muted text-uppercase fw-medium fs-12 mb-1">{{"FNAME"|translate}}</p>
+                <h6>{{user.firstName}}</h6>
+                     
+                </div>
+                <div class="col-sm-12 col-lg-6 mb-3">
+
+                    <p class="text-muted text-uppercase fw-medium fs-12 mb-1"> {{"LNAME"|translate}}</p>
+                <h6>{{user.lastName}}</h6>
+                    
+
+                </div>
+                <div class="col-sm-12 col-lg-6 mb-3">
+
+                    <p class="text-muted text-uppercase fw-medium fs-12 mb-1"> {{"EMAIL"|translate}} </p>
+                    <h6> {{user.email}}</h6>
+                   
+
+                </div>
+                <div class="col-sm-12 col-lg-6 mb-3">
+                    <p class="text-muted text-uppercase fw-medium fs-12 mb-1"> {{"PHONE"|translate}} </p>
+                    <h6>   {{user.phone}}</h6>
+                   
+
+                </div>
+                <div class="col-sm-12 col-lg-6 mb-3">
+                    <p class="text-muted text-uppercase fw-medium fs-12 mb-1"> {{"CONSENT-STATE"|translate}} </p>
+                    <h6>  {{user.info?.consent.employment}}</h6>
+                </div>
+                <div class="col-sm-12 col-lg-6 mb-3">
+                    <p class="text-muted text-uppercase fw-medium fs-12 mb-1">{{"INCOME-SOURCES"|translate}} </p>
+                    <h6>  {{user.info?.consent.incomeSources.join(', ')}}</h6>
+                </div>
+                <div class="col-sm-12 col-lg-6 mb-3" *ngIf="user.info?.consent.otherIncomeSource">
+                    <p class="text-muted text-uppercase fw-medium fs-12 mb-1">{{"OTHER-INCOME-SOURCES"|translate}}</p>
+                    <h6> {{user.info?.consent.otherIncomeSource??"Not provided"}}</h6>
+                </div>
+                <div class="col-sm-12 col-lg-6 mb-3">
+                    <p class="text-muted text-uppercase fw-medium fs-12 mb-1">{{"FINANCIAL-RISK-STATE"|translate}}</p>
+                    <h6> {{user.info?.experience.financial_risk}}</h6>
+                </div>
+                <div class="col-sm-12 col-lg-6 mb-3">
+                    <p class="text-muted text-uppercase fw-medium fs-12 mb-1">{{"FINANCIAL-EXPERIENCE-STATE"|translate}}</p>
+                    <h6>{{user.info?.experience.financial_experience}}</h6>
+                </div>
+                <div class="col-sm-12 col-lg-6 mb-3">
+                    <p class="text-muted text-uppercase fw-medium fs-12 mb-1">{{"INVESTMENT-EXPERIENCE-STATE"|translate}}</p>
+                    <h6>{{user.info?.experience.experience_type.join(', ')}}</h6>
+                </div>
+                <div class="col-sm-12 col-lg-6 mb-3" *ngIf="user.info?.experience.otherExperienceType">
+                    <p class="text-muted text-uppercase fw-medium fs-12 mb-1">{{"OTHER-INVESTMENTS-STATE"|translate}}</p>
+                    <h6>{{user.info?.experience.otherExperienceType??"Not provided"}}</h6>
+                </div>
+                <div class="col-sm-12 col-lg-6 mb-3">
+                    <p class="text-muted text-uppercase fw-medium fs-12 mb-1">{{"EXPERIENCE-YEARS-STATE"|translate}}</p>
+                    <h6> {{user.info?.experience.experience_years}}</h6>
+                </div>
+
+                <hr>
+                <div class="col-12 mb-3  text-center">
+                    <h3>
+
+                        - {{"DOCS"|translate}} -
+                    </h3>
+                </div>
+                <div class="col-12">
+                    <div class="card-body">
+                        <div class="text-center mt-3" *ngIf="loading">
+                            <a href="javascript:void(0);" class="text-success "><i
+                                    class="mdi mdi-loading mdi-spin fs-20 align-middle me-2"></i>
+                                Loading </a>
+                        </div>
+                        <div class="table-responsive table-card" *ngIf="!loading">
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item list-group-item-action cursor-pointer" *ngFor="let doc of docs" (mousedown)="preview(doc)">
+                                    <div class="d-flex align-items-center">
+
+                                        <div class="ms-3 flex-grow-1">
+                                            <h6 class="fs-14 mb-1">{{doc.name|translate}}</h6>
+                                        </div>
+                                        <div>
+                                            <p class="mb-0" [ngClass]="{'text-warning': doc.status == 'pending','text-danger': doc.status == 'rejected','text-success': doc.status == 'approved'}" >{{doc.status|translate}}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

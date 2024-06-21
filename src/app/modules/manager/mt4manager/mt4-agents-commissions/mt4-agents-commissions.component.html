@@ -1,0 +1,71 @@
+<app-breadcrumbs title="Agents commissions"
+    [breadcrumbItems]="[{ label: 'MT5 Manager' },{ label: 'Agents commissions', active: true }]"></app-breadcrumbs>
+
+<div class="card" id="contactList">
+    <div class="card-header">
+        <div class="row g-3">
+            <div class="col-lg-2">
+                <label>{{'Agent' | translate }}</label>
+                <input type="text" class="form-control" [(ngModel)]="selectedAgentLogin" />
+            </div>
+            <div class="col-lg-2">
+                <label>{{'Commision' | translate }}</label>
+                <input type="text" class="form-control" [(ngModel)]="selectedAgentCommission" />
+            </div>
+            <div class="col-md-3">
+                <label>{{'Select Customer' | translate }}</label>
+                <select class="form-select " [(ngModel)]="selectedCustomerId" (ngModelChange)="applyFilters()">
+                    <option value="0">All Customers</option>
+                    <option *ngFor="let user of selectedAgentCustomers" [value]="user">
+                        {{user}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label>{{'Select Date' | translate }}</label>
+                <div class="form-group mb-3 d-flex align-items-center">
+                    <input type="date" id="fromDate" class="form-control  w-auto" [(ngModel)]="fromDate">
+                    <input type="date" id="toDate" class="form-control  w-auto ms-1" [(ngModel)]="toDate">
+                </div>
+            </div>
+            <div class="col-md-2 d-flex">
+                <button class="btn btn-primary w-100 mb-3 mt-auto" (click)="viewTrades()">View Trades</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive table-card">
+            <table class="table align-middle table-nowrap table-hover" id="customerTable">
+                <thead class="table-light text-muted">
+                    <tr>
+                        <th>{{'Login' | translate }}</th>
+                        <th>{{'Order' | translate }}</th>
+                        <th>{{'Time' | translate }}</th>
+                        <th>{{'Profit' | translate }}</th>
+                        <th>{{'Volume' | translate }}</th>
+                        <th>{{'Commission' | translate }}</th>
+                        <th>{{'Symbol' | translate }}</th>
+                        <th>{{'Type' | translate }}</th>
+                        <th>{{'Comment' | translate }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let trade of filteredTradesData">
+                        <td>{{ trade.login }}</td>
+                        <td>{{ trade.orderId }}</td>
+                        <td>{{ trade.time }}</td>
+                        <td>{{ trade.profit }}</td>
+                        <td>{{ trade.volume }}</td>
+                        <td>{{ trade.commission }}</td>
+                        <td>{{ trade.symbol }}</td>
+                        <td>{{ trade.type }}</td>
+                        <td>{{ trade.comment }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer">
+        Total Volume: <strong>{{totalVolume}}</strong> Total Commission: <strong>{{totalCommission}}</strong>
+    </div>
+</div>

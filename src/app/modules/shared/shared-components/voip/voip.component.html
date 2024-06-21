@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <div class="col-12 text-center" *ngIf="user">
+        <p class="fs-18 fw-semibold">
+            {{'CALLING'|translate}} {{user.firstName}} {{user.lastName}}
+        </p>
+    </div>
+</div>
+<div class="modal-body h-100 text-center">
+
+        <div class="spinner-grow text-warning p-0" *ngIf="connectionState=='connecting'" role="status"
+            style="height: 100px;width: 100px;">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="bg-success rounded-circle m-auto" *ngIf="connectionState=='connected'" style="height: 100px;width: 100px;">
+        </div>
+        <div class="bg-danger rounded-circle m-auto" *ngIf="connectionState=='connection failed'"
+            style="height: 100px;width: 100px;">
+        </div>
+        <p class="text-warning mt-2" *ngIf="connectionState=='connecting'">Connecting</p>
+        <p class="text-success mt-2" *ngIf="connectionState=='connected'">Connected</p>
+        <p class="text-danger mt-2" *ngIf="connectionState=='connection failed'">Connection failed</p>
+    <div class="text-center mb-3">
+        <button class="btn btn-danger mx-3" (mousedown)="close()">{{'CLOSE'|translate}}</button>
+    </div>
+</div>

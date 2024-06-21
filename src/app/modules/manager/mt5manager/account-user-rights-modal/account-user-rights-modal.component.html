@@ -1,0 +1,81 @@
+<form #passwordForm="ngForm">
+    <div class="modal-header">
+        <h5 class="modal-title">Change Rights for {{ account.name }}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <label>
+            <input type="checkbox" [(ngModel)]="enabled" name="enabled"> Enable Account
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" [(ngModel)]="allowTrade" name="allowTrade"> Allow Trading
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" [(ngModel)]="password" name="password"> Client allowed to change password
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" [(ngModel)]="investor" name="investor"> Client is investor
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" [(ngModel)]="confirmed" name="confirmed"> Client certificate confirmed
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" [(ngModel)]="trailing" name="trailing"> Trailing stops are allowed
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" [(ngModel)]="expert" name="expert"> Expert advisors are allowed
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" [(ngModel)]="obsolete" name="obsolete"> Obsolete value
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" [(ngModel)]="reports" name="reports"> Trade reports are allowed
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" [(ngModel)]="readonly" name="readonly"> Client is readonly
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" [(ngModel)]="reset_pass" name="reset_pass"> Client must change password at next login
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" [(ngModel)]="otp_enabled" name="otp_enabled"> Client allowed to use one-time password
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" [(ngModel)]="sponsored_hosting" name="sponsored_hosting"> Client allowed to use sponsored by broker MetaTrader Virtual Hosting
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" [(ngModel)]="api_enabled" name="api_enabled"> Client API are allowed
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" [(ngModel)]="push_notification" name="push_notification"> Allow to subscribe on trade notifications
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" [(ngModel)]="technical" name="technical"> Technical account
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" [(ngModel)]="exclude_reports" name="exclude_reports"> Exclude from reports
+        </label>
+    </div>    
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="changeRights()">Save changes</button>
+    </div>
+</form>

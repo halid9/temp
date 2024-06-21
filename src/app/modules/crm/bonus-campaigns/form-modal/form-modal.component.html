@@ -1,0 +1,72 @@
+<div class="modal-header">
+    <h5 *ngIf="!new_campagin" class="modal-title">Edit {{ campagin.name }}
+    </h5>
+    <h5 *ngIf="new_campagin" class="modal-title">New Campagin Info</h5>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form #infoForm="ngForm">
+        <div class="form-group mb-3">
+            <label for="name">Campagin Title:</label>
+            <input type="text" class="form-control" [(ngModel)]="campagin.name" name="name" id="name" required>
+            <label for="name_ar">Arabic:</label>
+            <input type="text" class="form-control" [(ngModel)]="campagin.name_ar" name="name_ar" id="name_ar" required>
+        </div>
+        <div class="form-group mb-3 row">
+            <div class="" style="flex-grow: 1;">
+                <label for="leverage">Bounce Amount:</label>
+                <input type="number" class="form-control" [(ngModel)]="campagin.amount" name="amount" id="amount"
+                    required>
+            </div>
+        </div>
+        <div class="form-group mb-3 row">
+            <div class="col">
+                <label for="campagin_start">Campaign Start:</label>
+                <input type="datetime-local" class="form-control" [(ngModel)]="campagin.campagin_start"
+                    name="campagin_start" id="campagin_start" #start="ngModel">
+            </div>
+            <div class="col">
+                <label for="campagin_end">Campaign End:</label>
+                <input type="datetime-local" class="form-control" [(ngModel)]="campagin.campagin_end"
+                    name="campagin_end" id="campagin_end" #end="ngModel" [min]="campagin.campagin_start">
+                <div *ngIf="end.errors?.['min']" class="error-message">End date should be after start date</div>
+            </div>
+        </div>
+
+        <div class="form-group mb-3 row">
+            <div class="col">
+                <label for="trade_start">Trade Start:</label>
+                <input type="datetime-local" class="form-control" [(ngModel)]="campagin.trade_start" name="trade_start"
+                    id="trade_start">
+            </div>
+            <div class="col">
+                <label for="trade_end">Trade End:</label>
+                <input type="datetime-local" class="form-control" [(ngModel)]="campagin.trade_end" name="trade_end"
+                    id="trade_end">
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="comment">Comment:</label>
+            <textarea class="form-control" [(ngModel)]="campagin.comment" name="comment" id="comment"></textarea>
+            <label for="comment_ar">Arabic:</label>
+            <textarea class="form-control" [(ngModel)]="campagin.comment_ar" name="comment_ar"
+                id="comment_ar"></textarea>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="terms">Terms:</label>
+            <textarea class="form-control" [(ngModel)]="campagin.terms" name="terms" id="terms"></textarea>
+            <label for="terms_ar">Arabic:</label>
+            <textarea class="form-control" [(ngModel)]="campagin.terms_ar" name="terms_ar" id="terms_ar"></textarea>
+        </div>
+
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+    <button type="button" class="btn btn-primary" [disabled]="!infoForm.valid" (click)="saveChanges()">Save
+        changes</button>
+</div>

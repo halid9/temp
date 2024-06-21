@@ -1,0 +1,181 @@
+<div class="card" id="contactList">
+    <div class="card-header">
+        <div class="d-flex align-items-center flex-wrap gap-2">
+            <div class="flex-grow-1 ">
+                <div class="col-md-3" *ngIf="!isTabe">
+                    <h5 class="card-title mb-0" *ngIf="user">{{"ALFU"|translate}}: {{user}}</h5>
+                    <h5 class="card-title mb-0" *ngIf="!user">{{"SELECTACC"|translate}}</h5>
+                </div><!--end col-->
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-warning " *ngIf="user" (mousedown)="connect()">{{"COAFU"|translate}}</button>
+                <button class="btn btn-success " *ngIf="user" (mousedown)="create()">{{"CRAFU"|translate}}</button>
+
+
+            </div>
+            <div class="flex-shrink-0">
+                <div class="search-box">
+                    <input type="text" name="searchTerm" class="form-control" placeholder="{{'SFA'|translate}}"
+                        [(ngModel)]="contentService.searchTerm">
+                    <i class="ri-search-line search-icon"></i>
+                </div>
+            </div>
+
+
+        </div><!--end row-->
+    </div><!--end card-header-->
+    <div class="card-body">
+        <div class="table-responsive table-card mb-3">
+            <table class="table align-middle table-nowrap" id="customerTable">
+                <thead class="table-light text-muted">
+                    <tr>
+                        <th class="sort" data-sort="name" scope="col">
+                            <p class="pe-3 mb-0">
+                                {{"CLIENTACCOUNTS.ACCNAME.TEXT"|translate}}
+                            </p>
+                        </th>
+                        <th class="sort" data-sort="login" scope="col">
+                            <p class="pe-3 mb-0">
+                                {{"CLIENTACCOUNTS.LOGIN.TEXT"|translate}}
+                            </p>
+                        </th>
+                        <th class="sort" data-sort="currency_name" scope="col">
+                            <p class="pe-3 mb-0">
+                                {{"CURRENCY"|translate}}
+                            </p>
+                        </th>
+                        <th class="sort" data-sort="account_type" scope="col">
+                            <p class="pe-3 mb-0">
+                                {{"TYPE"|translate}}
+                            </p>
+                        </th>
+                        <th class="sort" data-sort="balance" scope="col">
+                            <p class="pe-3 mb-0">
+                                {{"BALANCE"|translate}}
+                            </p>
+                        </th>
+                        <th class="sort" data-sort="platform" scope="col">
+                            <p class="pe-3 mb-0">
+                                {{"PLATFORM"|translate}}
+                            </p>
+                        </th>
+                        <th class="sort" data-sort="leverage" scope="col">
+                            <p class="pe-3 mb-0">
+                                {{"CLIENTACCOUNTS.LEVERAGE.TEXT"|translate}}
+                            </p>
+                        </th>
+                        <th class="sort" data-sort="status" scope="col">
+                            <p class="pe-3 mb-0">
+                                {{"STATUS"|translate}}
+                            </p>
+                        </th>
+                        <th scope="col">{{"ACTIONS"|translate}}</th>
+                    </tr><!--end tr-->
+                </thead>
+                <tbody class="list form-check-all">
+                    <ng-container *ngFor="let data of AccountsList$ | async">
+                        <tr *ngIf="!(data.platform=='Wallet' && data.currency !== 'USD')">
+                            <td class=""><ngb-highlight [result]="data.accountName"
+                                    [term]="contentService.searchTerm"></ngb-highlight>
+                            </td>
+                            <td class="currency_name">
+                                <div class="d-flex align-items-center">
+                                    <ngb-highlight [result]="data?.login?.toString()"
+                                        [term]="contentService.searchTerm"></ngb-highlight>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    {{data.currency}}
+                                </div>
+                            </td>
+                            <td><ngb-highlight [result]="(data.accountType|uppercase )|translate"
+                                    [term]="contentService.searchTerm"></ngb-highlight></td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <ngb-highlight [result]="data?.balance?.toString()"
+                                        [term]="contentService.searchTerm"></ngb-highlight>
+                                </div>
+                            </td>
+                            <td><ngb-highlight [result]="data.platform"
+                                    [term]="contentService.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <ngb-highlight [result]="data.leverage.toString()"
+                                        [term]="contentService.searchTerm"></ngb-highlight>
+                                </div>
+                            </td>
+                            <td class="status">
+                                <span class="badge badge-soft-{{data.status_color}} fs-11"><i
+                                        class="ri-checkbox-circle-line align-bottom"></i>
+                                    {{(data.status|uppercase) | translate}}
+                                </span>
+                                <span *ngIf="data.external"
+                                    class="small badge badge-soft-warning fs-11 ms-1">{{"External"|translate}}</span>
+                                <span *ngIf="data.masterAccountMT5 || data.masterAccountMT4"
+                                    class="small badge badge-soft-info fs-11 ms-1">{{"MASTERACC"|translate}}</span>
+                            </td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <a href="javascript:void(0);"
+                                        *ngIf="role == UserTypes.Customer && data.status == 'Pending'"
+                                        class="btn btn-danger btn-sm "
+                                        (mousedown)="do('cancel',data.id)">{{"CANCEL"|translate}}</a>
+                                    <a href="javascript:void(0);"
+                                        *ngIf="role == UserTypes.Customer && data.status == 'Rejected'"
+                                        class="btn btn-warning btn-sm"
+                                        (mousedown)="do('retry',data.id)">{{"RETRY"|translate}}</a>
+                                    <a href="javascript:void(0);"
+                                        *ngIf="(role == UserTypes.Agent || role == UserTypes.Admin) && data.status == 'Pending'"
+                                        class="btn btn-danger btn-sm"
+                                        (mousedown)="do('reject',data.id)">{{"REJECT"|translate}}</a>
+                                    <a href="javascript:void(0);"
+                                        *ngIf="(role == UserTypes.Agent || role == UserTypes.Admin) && data.status == 'Pending'"
+                                        class="btn btn-success btn-sm"
+                                        (mousedown)="do('approve',data.id)">{{"APPROVE"|translate}}</a>
+                                    <a href="javascript:void(0);"
+                                        *ngIf="(role == UserTypes.Agent || role == UserTypes.Admin) && userType==UserTypes.Agent && !data.external && data.platform!='Wallet' && !data.masterAccountMT5 && !data.masterAccountMT4 && data.accountType == 'Live'"
+                                        class="btn btn-success btn-sm"
+                                        (mousedown)="do('setMAMT',data.id)">{{"SETMASTERACCOUNT"|translate}}</a>
+                                    <a href="javascript:void(0);"
+                                        *ngIf="(role == UserTypes.Agent || role == UserTypes.Admin) && userType==UserTypes.Agent && data.platform!='Wallet' && (data.masterAccountMT5 || data.masterAccountMT4)"
+                                        class="btn btn-success btn-sm"
+                                        (mousedown)="do('unsetMAMT',data.platform)">{{"UNSETMASTERACCOUNT"|translate}}</a>
+                                    <a href="javascript:void(0);"
+                                        *ngIf="(role == UserTypes.Agent || role == UserTypes.Admin) && data.platform!='Wallet'"
+                                        class="btn btn-secondary btn-sm"
+                                        (mousedown)="mtAccountHistory(data.id)">{{"MTHISTORY"|translate}}</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table><!--end table-->
+        </div>
+        <div class="row justify-content-md-between align-items-md-center mt-3">
+            <div class="col col-sm-6">
+                <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                    {{"SHOWING"|translate}}
+                    {{contentService.startIndex}} {{'TO'|translate}}
+                    {{contentService.endIndex}} {{"OF"|translate}} {{contentService.totalRecords}}
+                    {{"ENTERIES"|translate}}
+                </div>
+            </div>
+            <!-- Pagination -->
+            <div class="col col-sm-6">
+                <div class="text-sm-right float-end listjs-pagination">
+                    <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="contentService.page" [maxSize]="5"
+                        [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [pageSize]="contentService.pageSize">
+                    </ngb-pagination>
+                </div>
+            </div>
+            <!-- End Pagination -->
+        </div>
+        <div id="elmLoader" [ngClass]="{'d-none':!(loading$ | async)}">
+            <div class="spinner-border text-primary avatar-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div><!--end card-body-->
+</div><!--end card-->

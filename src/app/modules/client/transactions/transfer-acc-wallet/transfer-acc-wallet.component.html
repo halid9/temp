@@ -1,0 +1,320 @@
+<app-breadcrumbs title="TRANSFERBTWEENACCOUNTSANDWALLETS" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<div class="col text-center">
+
+    <div class="spinner-border text-primary" *ngIf="loading" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+
+</div>
+<div class="card mb-0" *ngIf="!loading && accounts?.length <2">
+
+    <div class="card-body text-center">
+
+        <div class="mb-4">
+            <lord-icon src="https://cdn.lordicon.com/hrqwmuhr.json" trigger="loop"
+                colors="primary:#121331,secondary:#e83a30" style="width:250px;height:250px">
+            </lord-icon>
+        </div>
+        <h5 class="text-danger fs-24 mb-5">{{'CLIENTTXS.ACCWARN4.TEXT'| translate}} <strong>{{'CLIENTTXS.LIVE.TEXT'|
+                translate |lowercase}}</strong> {{'CLIENTTXS.ACCWARN5.TEXT'| translate |lowercase}}</h5>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-4">
+
+                <button type="button" class="btn btn-success  w-100" (mousedown)="  goToAccounts()">
+                    {{'CLIENTTXS.GOTOACC.TEXT' | translate }}</button>
+            </div>
+            <div class="col-4">
+
+                <button type="button" class="btn btn-primary w-100" (mousedown)="  goToTxHistory()">
+                    {{'CLIENTTXS.GOTOTXS.TEXT' | translate }}</button>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+</div>
+
+<form (ngSubmit)="onSubmit()" *ngIf="!loading && accounts?.length >=2">
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">
+                        {{'CLIENTTXS.TRANSPROCESS.TEXT' | translate }}
+                    </h4>
+                </div><!-- end card header -->
+                <div class="card-body form-steps">
+                    <div class="text-center pt-3 pb-4 mb-1">
+                        <h5>
+                            {{'CLIENTTXS.FOLLOWTRANSFERSTEPS.TEXT' | translate }}
+                        </h5>
+                    </div>
+                    <aw-wizard [navBarLayout]="'large-empty-symbols'" class="nav nav-pills progress-bar-tab custom-nav">
+                        <aw-wizard-step>
+                            <ng-template awWizardStepSymbol>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link rounded-pill active" data-progressbar="custom-progress-bar"
+                                        id="pills-gen-info-tab" data-bs-toggle="pill" data-bs-target="#pills-gen-info"
+                                        type="button" role="tab" aria-controls="pills-gen-info"
+                                        aria-selected="true">1</button>
+                                </li>
+                            </ng-template>
+                            <div>
+                                <div class="mb-4">
+                                    <label>{{'CLIENTTXS.ACCFROM.TEXT' | translate }}</label>
+                                    <app-transactions-account-select-option [accounts]="accounts"
+                                        [selectedAccountId]="fromAccount?.id"
+                                        (accountChanged)="FromAccountChanged($event)"></app-transactions-account-select-option>
+                                    <div *ngIf="!fromAccount" class="text-danger p-1">
+                                        {{'CLIENTTXS.ACCREQ.TEXT' | translate }}
+                                    </div>
+                                    <div *ngIf="fromAccount && fromAccount.balance<=0" class="text-danger p-1">
+                                        {{'The Balance must be positive' | translate }}
+                                    </div>
+                                    <div *ngIf="fromAccount && fromAccount.platform!=2" class="alert alert-warning mt-2">
+                                        <div class="d-flex align-items-center">
+                                            <span class="mdi mdi-alert-circle-outline me-2 fs-24"></span>
+                                            <div>
+                                                <b>Please note the following:</b><br/>
+                                                If you have an open position on your account, you will not be able to transfer more than your free margin.<br/>
+                                                You can close your open positions or transfer the amount you need to your wallet or another account.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- wizard-tab -->
+                            <div class="d-flex align-items-start gap-3 mt-4">
+                                <button type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab"
+                                    data-nexttab="pills-info-desc-tab" awNextStep><i
+                                        class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>{{'CLIENTTXS.NEXT.TEXT'
+                                    | translate }}</button>
+                            </div>
+                        </aw-wizard-step>
+                        <aw-wizard-step [canEnter]="validateFrom()">
+                            <ng-template awWizardStepSymbol>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link rounded-pill" data-progressbar="custom-progress-bar"
+                                        id="pills-success-tab" data-bs-toggle="pill" data-bs-target="#pills-success"
+                                        type="button" role="tab" aria-controls="pills-success"
+                                        aria-selected="false">2</button>
+                                </li>
+                            </ng-template>
+                            <div>
+                                <div class="mb-4">
+                                    <label>{{'CLIENTTXS.ACCTO.TEXT' | translate }}</label>
+
+                                    <app-transactions-account-select-option [accounts]="toAccounts"
+                                        [selectedAccountId]="toAccount?.id"
+                                        (accountChanged)="ToAccountChanged($event)"></app-transactions-account-select-option>
+
+                                    <div *ngIf="typeError" class="text-danger p-1">
+                                        {{'CLIENTTXS.CANTTRANSFERWARN.TEXT' | translate }}
+                                    </div>
+                                    <div *ngIf="!toAccount" class="text-danger p-1">{{'CLIENTTXS.ACCREQ.TEXT' |
+                                        translate}}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-start gap-3 mt-4">
+                                <button type="button" class="btn btn-link text-decoration-none btn-label previestab"
+                                    data-previous="pills-gen-info-tab" awPreviousStep><i
+                                        class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>
+                                    {{'CLIENTTXS.BACK.TEXT' | translate }}</button>
+                                <button type="button" class="btn btn-success btn-label right ms-auto nexttab
+                                    nexttab" (mousedown)="typeCheck()" data-nexttab="pills-success-tab" awNextStep>
+                                    <i
+                                        class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>{{'CLIENTTXS.NEXT.TEXT'
+                                    | translate }}</button>
+                            </div>
+                        </aw-wizard-step>
+                        <aw-wizard-step [canEnter]="validateTo()">
+                            <ng-template awWizardStepSymbol>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link rounded-pill" data-progressbar="custom-progress-bar"
+                                        id="pills-success-tab" data-bs-toggle="pill" data-bs-target="#pills-success"
+                                        type="button" role="tab" aria-controls="pills-success"
+                                        aria-selected="false">3</button>
+                                </li>
+                            </ng-template>
+
+                            <div class="mb-3">
+                                <label for="EndleaveDate" class="form-label">{{'CLIENTTXS.AMOUNT.TEXT' | translate }}
+                                </label>
+
+                                <input type="number" class="form-control" aria-label="input" value="100" name="amount"
+                                    aria-describedby="inputGroup" [(ngModel)]="amount" (change)="checkAmount()"
+                                    (input)="validAmount = amount && +amount>0 && +amount<fromAccount.balance ? true : false"
+                                    [ngClass]="{ 'is-invalid': (amount && +amount <= 0) || +amount > fromAccount?.balance || !validAmount }">
+                                <div *ngIf="!fromAccount || !toAccount" class="text-danger p-1">
+                                    Account is required!
+                                </div>
+                                <div *ngIf="+amount <= 0" class="text-danger p-1">
+                                    {{'CLIENTTXS.AMOUNTREQBIG.TEXT' | translate }}
+                                </div>
+                                <div *ngIf="+amount > fromAccount?.balance || !amount" class="text-danger p-1">
+                                    {{'CLIENTTXS.AMOUNTLIMIT.TEXT' | translate }}
+                                </div>
+
+                            </div>
+                            <div class="mb-3"><span class="text-success fs-18">({{'CLIENTTXS.SOURCEBALANCE.TEXT' |
+                                    translate }}
+                                    {{fromAccount?.balance}})</span></div>
+                            <div class="d-flex align-items-start gap-3 mt-4">
+                                <button type="button" class="btn btn-link text-decoration-none btn-label previestab"
+                                    data-previous="pills-gen-info-tab" awPreviousStep><i
+                                        class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>
+                                    {{'CLIENTTXS.BACK.TEXT' | translate }}</button>
+                                <button type="button" class="btn btn-success btn-label right ms-auto nexttab
+                                    nexttab" data-nexttab="pills-success-tab" (mousedown)="checkAmount()" awNextStep>
+                                    <i
+                                        class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>{{'CLIENTTXS.NEXT.TEXT'
+                                    | translate }}</button>
+                            </div>
+                        </aw-wizard-step>
+                        <aw-wizard-step [canEnter]="validateAmount()">
+                            <ng-template awWizardStepSymbol>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link rounded-pill" data-progressbar="custom-progress-bar"
+                                        id="pills-success-tab" data-bs-toggle="pill" data-bs-target="#pills-success"
+                                        type="button" role="tab" aria-controls="pills-success"
+                                        aria-selected="false">4</button>
+                                </li>
+                            </ng-template>
+
+                            <div class="mb-3">
+                                <div class="hstack gap-2 flex">
+                                    <div class="col-sm-2">
+                                        <p class="fw-medium">{{'CLIENTTXS.INFO.TEXT' | translate }}</p>
+                                    </div>
+                                    <div *ngIf="fromAccount && toAccount" class="col-sm-4 flex-grow-1">
+                                        <p>From: {{accountDescription(fromAccount)}}</p>
+                                        <p>To: {{accountDescription(toAccount)}}</p>
+                                    </div>
+                                </div>
+                                <!-- <div class="hstack gap-2 flex">
+                                    <div class="col-sm-2">
+                                        <p class="fw-medium">{{'CLIENTTXS.TIMETOFUND.TEXT' | translate }}</p>
+                                    </div>
+                                    <div class="col-sm-4 flex-grow-1">
+                                        <p>{{'CLIENTTXS.DEPINFINGBCH.TEXT' | translate }}</p>
+                                    </div>
+                                </div> -->
+                                <div class="hstack gap-2 flex border-primary border-bottom">
+                                    <div class="col-sm-2">
+                                        <p class="fw-medium">{{'CLIENTTXS.AMOUNT.TEXT' | translate }}</p>
+                                    </div>
+                                    <div class="col-sm-4 flex-grow-1">
+                                        <p class="fs-18">{{amount }} {{fromAccount?.currency}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-start gap-3 mt-4">
+                                <button type="button" class="btn btn-link text-decoration-none btn-label previestab"
+                                    data-previous="pills-gen-info-tab" awPreviousStep><i
+                                        class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>
+                                    {{'CLIENTTXS.BACK.TEXT' | translate }}</button>
+                                <button type="submit" class="btn btn-success btn-label right ms-auto nexttab
+                            nexttab" data-nexttab="pills-success-tab" awNextStep>
+                                    <i
+                                        class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>{{'CLIENTTXS.SUBMIT.TEXT'
+                                    | translate }}</button>
+                            </div>
+                        </aw-wizard-step>
+                        <aw-wizard-step>
+                            <ng-template awWizardStepSymbol>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link rounded-pill" data-progressbar="custom-progress-bar"
+                                        id="pills-success-tab" data-bs-toggle="pill" data-bs-target="#pills-success"
+                                        type="button" role="tab" aria-controls="pills-success"
+                                        aria-selected="false">5</button>
+                                </li>
+                            </ng-template>
+                            <div class="col text-center" *ngIf="loadingTx">
+
+                                <div class="spinner-border text-primary" *ngIf="loadingTx" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                            <div *ngIf="!loadingTx">
+                                <div class="text-center" *ngIf="!error">
+
+                                    <div class="mb-4">
+                                        <lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop"
+                                            colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px">
+                                        </lord-icon>
+                                    </div>
+                                    <h5 class="text-success fs-24">
+                                        {{'CLIENTTXS.TRABSDONE.TEXT' | translate }}
+                                    </h5>
+                                    <p class="text-muted fs-20" *ngIf="approved">
+                                        {{'CLIENTTXS.TRABSDONEMSG.TEXT' | translate }}
+                                    </p>
+                                    <p class="text-warning fs-20" *ngIf="!approved">
+                                        {{'CLIENTTXS.APPROVALDURATIONMSG.TEXT' | translate }}
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-2"></div>
+                                        <div class="col-4">
+
+                                            <button type="button" class="btn btn-success  w-100"
+                                                data-nexttab="pills-success-tab" awResetWizard>
+                                                {{'CLIENTTXS.NEWTRANS.TEXT' | translate }}
+                                            </button>
+                                        </div>
+                                        <div class="col-4">
+
+                                            <button type="button" class="btn btn-primary w-100"
+                                                (mousedown)="goToTxHistory()">
+                                                {{'CLIENTTXS.GOTOTXS.TEXT' | translate }}</button>
+                                        </div>
+                                        <div class="col-2"></div>
+                                    </div>
+
+
+                                </div>
+                                <div class="text-center" *ngIf="error">
+
+                                    <div class="mb-4">
+                                        <lord-icon src="https://cdn.lordicon.com/hrqwmuhr.json" trigger="loop"
+                                            colors="primary:#121331,secondary:#e83a30" style="width:250px;height:250px">
+                                        </lord-icon>
+                                    </div>
+                                    <h5 class="text-danger fs-24">{{'CLIENTTXS.TXFAILED.TEXT' | translate }}
+                                    </h5>
+                                    <p class="text-danger fs-20">{{note}}</p>
+                                    <div class="row">
+                                        <div class="col-2"></div>
+                                        <div class="col-4">
+
+                                            <button type="button" class="btn btn-success  w-100"
+                                                data-nexttab="pills-success-tab" awResetWizard>
+                                                {{'CLIENTTXS.NEWTRANS.TEXT' | translate }}</button>
+                                        </div>
+                                        <div class="col-4">
+
+                                            <button type="button" class="btn btn-primary w-100"
+                                                (mousedown)="goToTxHistory()">
+                                                {{'CLIENTTXS.GOTOTXS.TEXT' | translate }}</button>
+                                        </div>
+                                        <div class="col-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </aw-wizard-step>
+                    </aw-wizard>
+                </div>
+                <!-- end card body -->
+            </div>
+            <!-- end card -->
+        </div>
+        <!-- end col -->
+    </div><!-- end row -->
+</form>

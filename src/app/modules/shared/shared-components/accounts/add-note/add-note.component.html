@@ -1,0 +1,21 @@
+
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" >
+        {{'CLIENTACCOUNTS.ADDREJECTNOTE.TEXT' | translate }}
+        </h4>
+    <button type="button" class="btn-close" aria-label="Close"(mousedown)="close()" ></button>
+</div>
+<div class="modal-body">
+<div class="row mb-2">
+    <!-- Example Textarea -->
+    <!-- <label for="exampleFormControlTextarea5" class="form-label">note:</label> -->
+  
+    <textarea class="form-control" id="exampleFormControlTextarea5" [(ngModel)]="note" name="" id="" cols="30" rows="10" placeholder="Type your reason here"></textarea>
+</div>
+<div class="row">
+
+    <button class="btn btn-success" (mousedown)="submit()">
+        {{'CLIENTACCOUNTS.SUBMIT.TEXT' | translate }}
+        </button>
+</div>
+</div>

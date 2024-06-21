@@ -1,0 +1,158 @@
+<div class="row align-items-center mb-4 g-3">
+
+</div><!--end row-->
+
+<div class="card" id="contactList">
+    <div class="card-header">
+        <div class="row align-items-center g-3">
+            <div class="col-md-3">
+                <h5 class="card-title mb-0">
+                    {{'PROFILE.DEALS.TEXT' | translate }} </h5>
+            </div><!--end col-->
+            <div class="col-md-auto ms-auto">
+                <div class="d-flex gap-2">
+                    <div class="search-box">
+                        <input type="text" name="searchTerm" class="form-control"
+                            placeholder="{{'Search for...'|translate}}" [(ngModel)]="contentService.searchTerm">
+                        <i class="ri-search-line search-icon"></i>
+                    </div>
+                    <!-- <button class="btn btn-success"><i class="ri-equalizer-line align-bottom me-1"></i> Filters</button> -->
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end card-header-->
+
+    <div class="card-body" *ngIf="!deals.length">
+            <div class="d-flex  align-items-center">
+                <div
+                    class=" text-danger rounded-circle fs-16">
+                    <i class="ri-alert-fill fs-24"></i>
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    <h5 class="card-title mb-0 fs-14">
+                        {{'NODEALS'| translate}}</h5>
+
+                    <!-- <p class="text-muted mb-0">{{d.platform}}</p> -->
+                </div>
+
+
+        </div>
+    </div>
+    <div class="card-body" *ngIf="deals.length">
+        <div class="table-responsive table-card">
+            <table class="table align-middle table-nowrap" id="customerTable">
+                <thead class="table-light text-muted">
+                    <tr>
+                        <th class="sort" data-sort="time" scope="col">
+                            <p class="pe-3 mb0">
+                                {{'Time'|translate}}
+                            </p>
+                        </th>
+                        <th class="sort" data-sort="type" scope="col">
+                            <p class="pe-3 mb0">
+                                {{'Type'|translate}}
+                            </p>
+                        </th>
+                        <th class="sort" data-sort="dealId" scope="col">
+                            <p class="pe-3 mb0">
+                                {{'Deal ID'|translate}}
+                            </p>
+                        </th>
+                        <th class="sort" data-sort="login" scope="col">
+                            <p class="pe-3 mb0">
+                                {{'Login'|translate}}
+                            </p>
+                        </th>
+                        <th class="sort" data-sort="platform" scope="col">
+                            <p class="pe-3 mb0">
+                                {{'Platform'|translate}}
+                            </p>
+                        </th>
+                        <th class="sort" data-sort="symbol" scope="col">
+                            <p class="pe-3 mb0">
+                                {{'Symbol'|translate}}
+                            </p>
+                        </th>
+                        <th class="sort" data-sort="volume" scope="col">
+                            <p class="pe-3 mb0">
+                                {{'Volume'|translate}}
+                            </p>
+                        </th>
+                        <th class="sort" data-sort="profit" scope="col">
+                            <p class="pe-3 mb0">
+                                {{'Profit'|translate}}
+                            </p>
+                        </th>
+                        <th class="sort" data-sort="status" scope="col">
+                            <p class="pe-3 mb0">
+                                {{'Status'|translate}}
+                            </p>
+                        </th>
+                        <th class="sort" data-sort="comment" scope="col">
+                            <p class="pe-3 mb0">
+                                {{'Comment'|translate}}
+                            </p>
+                        </th>
+
+                    </tr><!--end tr-->
+                </thead>
+                <tbody class="list form-check-all">
+                    <tr *ngFor="let deal of dealList$ | async">
+                        <td class="date">{{deal.time }}
+                            <!-- <small class="text-muted">{{data.time}}</small> -->
+                        </td>
+
+                        <td><ngb-highlight [result]="deal.type" [term]="contentService.searchTerm"></ngb-highlight>
+                        </td>
+                        <td><ngb-highlight [result]="deal.dealId" [term]="contentService.searchTerm"></ngb-highlight>
+                        </td>
+                        <td><ngb-highlight [result]="deal.login" [term]="contentService.searchTerm"></ngb-highlight>
+                        </td>
+                        <td><ngb-highlight [result]="deal.platform" [term]="contentService.searchTerm"></ngb-highlight>
+                        </td>
+                        <td><ngb-highlight [result]="deal.symbol" [term]="contentService.searchTerm"></ngb-highlight>
+                        </td>
+                        <td><ngb-highlight [result]="deal.volume" [term]="contentService.searchTerm"></ngb-highlight>
+                        </td>
+                        <td class="text-{{+deal.profit > 0? 'success':'danger'}}"><ngb-highlight [result]="deal.profit"
+                                [term]="contentService.searchTerm"></ngb-highlight></td>
+
+                        <td class="status">
+                            <span class="badge badge-soft-{{+deal.profit > 0? 'success':'danger'}} fs-11"><i
+                                    class="ri-checkbox-circle-line align-bottom"></i> {{+deal.profit > 0?
+                                'success':'lose'}}</span>
+                        </td>
+                        <td><ngb-highlight [result]="deal.comment" [term]="contentService.searchTerm"></ngb-highlight>
+                        </td>
+
+
+                    </tr>
+                </tbody>
+            </table><!--end table-->
+        </div>
+        <div class="row justify-content-md-between align-items-md-center mt-2">
+            <div class="col col-sm-6">
+                <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                    {{"SHOWING"|translate}}
+                    {{contentService.startIndex}} {{'TO'|translate}}
+                    {{contentService.endIndex}} {{"OF"|translate}} {{contentService.totalRecords}}
+                    {{"ENTERIES"|translate}}
+                </div>
+            </div>
+            <!-- Pagination -->
+            <div class="col col-sm-6">
+                <div class="text-sm-right float-end listjs-pagination">
+                    <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="contentService.page" [maxSize]="5"
+                        [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [pageSize]="contentService.pageSize">
+                    </ngb-pagination>
+                </div>
+            </div>
+            <!-- End Pagination -->
+        </div>
+        <div id="elmLoader" *ngIf="loading">
+            <div class="spinner-border text-primary avatar-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div><!--end card-body-->
+</div><!--end card-->

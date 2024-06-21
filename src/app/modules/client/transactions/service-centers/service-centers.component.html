@@ -1,0 +1,128 @@
+
+<hr>
+
+
+<div class="card" [style.direction]="dir" id="contactList">
+    <div class="card-header">
+        <div class="row align-items-center g-3">
+            <div class="col-md-3">
+                <h5 class="card-title mb-0">
+                    {{'SERVICECENTER' | translate }}
+                </h5>
+            </div><!--end col-->
+            <div class="col-md-auto ms-auto">
+                <div class="d-flex gap-2">
+                    <div class="search-box">
+                        <input type="text" name="searchTerm" class="form-control" placeholder="{{'SFR'|translate}}"
+                            [(ngModel)]="contentService.searchTerm">
+                        <i class="ri-search-line search-icon"></i>
+                    </div>
+                    <!-- <button class="btn btn-success"><i class="ri-equalizer-line align-bottom me-1"></i> Filters</button> -->
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end card-header-->
+    <div class="card-body">
+        <div class="table-responsive table-card">
+            <table class="table align-middle table-nowrap table-hover" id="customerTable">
+                <thead class="table-light text-muted">
+                    <tr>
+                        <th  class="sort cursor-pointer {{sortCol == 'name'? sortClass:''}}"
+                            [sortable]="'name'" (sort)="onSort($event)" data-sort="name" scope="col">
+                            <p class="mb-0 pe-3">
+                                {{'NAME' | translate }}
+                            </p>
+                        </th>
+                        <th 
+                            class="sort cursor-pointer {{sortCol == 'phone'? sortClass:''}}" [sortable]="'phone'"
+                            (sort)="onSort($event)" data-sort="phone" scope="col">
+                            <p class="mb-0 pe-3">
+                                {{'Phone' | translate }}
+                            </p>
+                        </th>
+                        <th  class="sort cursor-pointer {{sortCol == 'country'? sortClass:''}}"
+                            [sortable]="'country'" (sort)="onSort($event)" data-sort="country" scope="col">
+                            <p class="mb-0 pe-3">
+                                {{'COUNTRY' | translate }}
+                            </p>
+                        </th>
+                        <th 
+                            class="sort cursor-pointer {{sortCol == 'city'? sortClass:''}}"
+                            [sortable]="'city'" (sort)="onSort($event)" data-sort="city" scope="col">
+                            <p class="mb-0 pe-3">
+                                {{'CITY' | translate }}
+                            </p>
+                        </th>
+                        <th 
+                            class="sort cursor-pointer {{sortCol == 'street'? sortClass:''}}"
+                            [sortable]="'street'" (sort)="onSort($event)" data-sort="street" scope="col">
+                            <p class="mb-0 pe-3">
+                                {{'STREET' | translate }}
+                            </p>
+                        </th>
+                        
+                        <th 
+                            class="sort cursor-pointer {{sortCol == 'location'? sortClass:''}}"
+                            [sortable]="'location'" (sort)="onSort($event)" data-sort="location" scope="col">
+                            <p class="mb-0 pe-3">
+                                {{'LOCATION' | translate }}
+                            </p>
+                        </th>
+                    </tr><!--end tr-->
+                </thead>
+                <tbody class="list form-check-all">
+                    <tr *ngFor="let data of ContentList$ | async"
+                        class="cursor-pointer">
+                        <td ><ngb-highlight [result]="data.name"
+                                [term]="contentService.searchTerm"></ngb-highlight>
+                        </td>
+                        <td ><ngb-highlight [result]="data.phone"
+                            [term]="contentService.searchTerm"></ngb-highlight>
+                    </td>
+                        <td ><ngb-highlight [result]="data.country"
+                                [term]="contentService.searchTerm"></ngb-highlight>
+                        </td>
+                        <td ><ngb-highlight [result]="data.city"
+                                [term]="contentService.searchTerm"></ngb-highlight>
+                        </td>
+                        <td ><ngb-highlight [result]="data.street"
+                                [term]="contentService.searchTerm"></ngb-highlight></td>
+                       
+                        <td>
+                            <div class="d-flex gap-2">
+                                <a href="javascript:void(0);"
+                                   
+                                    class="btn btn-success btn-sm"  (mousedown)="ShowLocation(data.location)">{{'SHOWLOCATION' | translate }}</a>
+                            </div>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table><!--end table-->
+        </div>
+        <div class="row justify-content-md-between align-items-md-center mt-2">
+            <div class="col col-sm-6">
+                <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                    {{"SHOWING"|translate}}
+                    {{contentService.startIndex}} {{'TO'|translate}}
+                    {{contentService.endIndex}} {{"OF"|translate}} {{contentService.totalRecords}}
+                    {{"ENTERIES"|translate}}
+                </div>
+            </div>
+            <!-- Pagination -->
+            <div class="col col-sm-6">
+                <div class="text-sm-right float-end listjs-pagination">
+                    <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="contentService.page" [maxSize]="5"
+                        [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [pageSize]="contentService.pageSize">
+                    </ngb-pagination>
+                </div>
+            </div>
+            <!-- End Pagination -->
+        </div>
+        <div id="elmLoader" [ngClass]="{'d-none':!(loading$ | async)}">
+            <div class="spinner-border text-primary avatar-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div><!--end card-body-->
+</div><!--end card-->

@@ -1,0 +1,70 @@
+<app-breadcrumbs title="Crypto Payments"
+    [breadcrumbItems]="[{ label: 'Admin' },{ label: 'Settings' },{ label: 'Crypto Payments', active: true }]"></app-breadcrumbs>
+
+
+<div class="card" id="contactList">
+    <div class="card-header">
+
+    </div>
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-lg-6 text-center mb-4">
+                <h2 class="mb-0">TRC20</h2>
+                <qrcode [qrdata]="TRX_TRC20_WalletAddress" [width]="128" [errorCorrectionLevel]="'M'"></qrcode>
+                <code id="walletAddress" (click)="copyToClipboard()"
+                    class="user-select-all cursor-pointer">{{ TRX_TRC20_WalletAddress }}</code>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <ul>
+                    <li>You can send TRX to this address to add gas fees.</li>
+                    <li>You can send USDT to this address to finance withdrawals.</li>
+                    <li>You may send it in multiple transactions.</li>
+                    <li>Click on the address to copy it to your clipboard or scan the QR code.</li>
+                </ul>
+                <p class="mb-2">
+                    Click "Refresh" to refresh the status of your deposit.<br />
+                </p>
+                <!-- <div class="alert alert-info" *ngIf="TRX_TRC20_WalletBalance > 0">Recieved Amount {{
+                    TRX_TRC20_WalletBalance }} TRX - {{USDT_TRC20_WalletBalance}} USDT</div> -->
+                <button class="btn btn-secondary me-2" (click)="refreshTRC20()">{{'Refresh' | translate}}</button>
+                <button class="btn btn-success me-2" *ngIf="USDT_TRC20_WalletBalance > 0" (click)="processTRC20USDT()">{{'Withdraw USDT to Cashier' | translate}}</button>
+                <button class="btn btn-danger" (click)="resetCryptoPaymentsError()">{{'Reset Error' | translate}}</button>
+            </div>
+        </div>
+
+        <div class="alert alert-info">
+            <h3>System Wallets Total Balance</h3>
+            Total TRX Balance: {{ totalTrxBalance }} <br />
+            Total USDT Balance: {{ totalUsdtBalance }} <br />
+            Pending USDT Balance: {{ totalUsdtProcessing }} <br />
+        </div>
+
+        <h3>System Active Wallets - Those wallets still have balance</h3>
+
+        <div class="table-responsive table-card">
+            <table class="table align-middle table-nowrap table-hover mt-4">
+                <thead class="table-light text-muted">
+                    <tr>
+                        <th>#</th>
+                        <th>User</th>
+                        <th>Address</th>
+                        <th>Network</th>
+                        <th>TRX</th>
+                        <th>USDT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let w of systemWallets">
+                        <td>{{ w.id }}</td>
+                        <td>{{ w.user.firstName }} {{ w.user.lastName }}</td>
+                        <td>{{ w.address }}</td>
+                        <td>{{ w.network }}</td>
+                        <td>{{ +w.last_trx_balance }}</td>
+                        <td>{{ +w.last_usdt_balance }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

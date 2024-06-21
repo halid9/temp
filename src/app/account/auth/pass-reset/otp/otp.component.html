@@ -1,0 +1,127 @@
+<div class="auth-page-wrapper pt-5">
+  <!-- auth page bg -->
+  <div class="auth-one-bg-position auth-one-bg"  id="auth-particles">
+      <div class="bg-overlay"></div>
+
+      <div class="shape">
+          <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1440 120">
+              <path d="M 0,36 C 144,53.6 432,123.2 720,124 C 1008,124.8 1296,56.8 1440,40L1440 140L0 140z"></path>
+          </svg>
+      </div>
+  </div>
+
+  <!-- auth page content -->
+  <div class="auth-page-content">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-12">
+                  <div class="text-center mt-sm-5 mb-4 text-white-50">
+                      <div>
+                          <a routerLink="/" class="d-inline-block auth-logo">
+                              <img src="assets/images/logo-colored.png" alt="" height="100">
+                          </a>
+                      </div>
+                      <p class="mt-3 fs-15 fw-medium">{{"Alamiya Markets Client Zone"|translate}}</p>
+                  </div>
+              </div>
+          </div>
+          <!-- end row -->
+
+          <div class="row justify-content-center">
+              <div class="col-md-8 col-lg-6 col-xl-5">
+                  <div class="card mt-4">
+
+                      <div class="card-body p-4 position-relative">
+                        <div class="d-flex justify-content-end mt-2 top-0 end-0">
+
+                            <div class="dropdown ms-1 topbar-head-dropdown " ngbDropdown>
+                                <button type="button"
+                                    class="btn p-0  btn-topbar btn-ghost-secondary rounded-2 shadow-none d-flex"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    ngbDropdownToggle>
+                                    <img *ngIf="flagvalue !== undefined" src="{{flagvalue}}"
+                                        alt="Header Language" height="20" class="rounded me-1 ms-1">
+                                    <img *ngIf="flagvalue === undefined" src="{{valueset}}"
+                                        alt="Header Language" height="20" class="rounded">
+                                </button>
+                                <div class="dropdown-menu"
+                                    [ngClass]="{'dropdown-menu-end':dir === 'ltr','dropdown-menu-start':dir === 'rtl'}"
+                                    ngbDropdownMenu>
+
+                                    <!-- item-->
+                                    <a href="javascript:void(0);"
+                                        class="dropdown-item notify-item language py-2" data-lang="eng"
+                                        [style.direction]="'ltr'" *ngFor="let item of listLang"
+                                        (click)="setLanguage(item.text, item.lang, item.flag)"
+                                        [ngClass]="{'active': cookieValue === item.lang}">
+                                        <img src="{{item.flag}}" alt="user-image" class="me-2 rounded"
+                                            height="18"> <span
+                                            class="align-middle me-2">{{item.text}}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-2">
+                              <h5 class="text-primary">{{"Forgot Password?"|translate}}</h5>
+                              <p class="text-muted">{{"Reset password with Alamiya CRM"|translate}}</p>
+                              <!-- <lord-icon
+                                    src="https://cdn.lordicon.com/rhvddzym.json"
+                                    trigger="loop"
+                                    colors="primary:#0ab39c"
+                                    class="avatar-xl">
+                                </lord-icon> -->
+                          </div>
+
+                          <div [dir]="dir" class="alert alert-borderless alert-warning text-center mb-2 mx-2" role="alert">
+                              {{"Enter your OTP that you received to"|translate}} '{{otp.email}}'!
+                          </div>
+                          <div class="p-2">
+                              <form [formGroup]="otpForm" (ngSubmit)="onSubmit()" [dir]="dir">
+                                  <div class="mb-4">
+                                      <label class="form-label">{{"OTP"|translate}}</label>
+                                      <input [dir]="'ltr'" type="text" class="form-control" id="otp" placeholder="{{'Enter OTP'|translate}}" formControlName="otp" [ngClass]="{ 'is-invalid': submitted && f['otp'].errors }">
+                                      <div *ngIf="submitted && f['otp'].errors" class="invalid-feedback" align="left">
+                                        <div *ngIf="f['otp'].errors['required']">{{"OTP is required"|translate}}</div>
+                                    </div>
+                                  </div>
+
+                                  <div class="text-center mt-4">
+                                    <div class="spinner-border text-primary" *ngIf="loading" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                      <button class="btn btn-success w-100" [disabled]="f['otp'].value.length != 6" *ngIf="!loading" type="submit">{{"Verify"|translate}}</button>
+                                  </div>
+                              </form><!-- end form -->
+                          </div>
+                      </div>
+                      <!-- end card body -->
+                  </div>
+                  <!-- end card -->
+
+                  <div class="mt-4 text-center">
+                      <p class="mb-0">{{"Wait, I remember my password..."|translate}} <a routerLink="/auth/login" class="fw-semibold text-primary text-decoration-underline"> {{"Click here"|translate}} </a> </p>
+                  </div>
+
+              </div>
+          </div>
+          <!-- end row -->
+      </div>
+      <!-- end container -->
+  </div>
+  <!-- end auth page content -->
+
+  <!-- footer -->
+  <footer class="footer">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-12">
+                  <div class="text-center">
+                      <p class="mb-0 text-muted">&copy; <script>document.write(new Date().getFullYear())</script> Alamiya CRM.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <!-- end Footer -->
+</div>
+<!-- end auth-page-wrapper -->

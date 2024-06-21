@@ -1,0 +1,27 @@
+
+
+<div class="modal-header bg-light ">
+    <h4 class="modal-title mb-3" id="modal-basic-title">{{status}} role to user</h4>
+    <button type="button" class="btn-close" aria-label="Close" (mousedown)="close()"></button>
+</div>
+<div class="modal-body h-100">
+
+    <form class="form" [formGroup]="roleForm">
+        <div class="row mb-3">
+            <label>{{'Select role' | translate }}</label>
+            <select class="form-select form-select-lg"
+                formControlName="role">
+                <option *ngFor="let role of roles" [value] = "role.id">
+                    {{role.name}}
+                </option>
+            </select>
+         
+        </div>
+       
+        <div class="text-end mb-3">
+            <button class="btn btn-danger mx-3" (mousedown)="close()">Cancel</button>
+            <button class="btn btn-success" (mousedown)="add()">{{status}}</button>
+
+        </div>
+    </form>
+</div>

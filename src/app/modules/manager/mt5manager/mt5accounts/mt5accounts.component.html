@@ -1,0 +1,159 @@
+<ng-template #visibleColumnsModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Change Visible Columns</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="form-check" *ngFor="let column of columnsConfig">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="column.visible"
+                (change)="toggleColumnVisibility()" id="{{ column.name }}" />
+            <label class="form-check-label" for="{{ column.name }}">
+                {{ column.label }}
+            </label>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>
+
+<div class="card" id="contactList">
+    <div class="card-header">
+        <div class="row align-items-center g-3">
+            <div class="col-md-3">
+                <h5 class="card-title mb-0 d-flex align-items-center gap-2">MT5 Accounts List 
+
+                    <select id="pageSize" class="form-select" [(ngModel)]="selectedAccountType" (change)="changeAccounts()"
+                            style="width: 100px;">
+                            <option value="0">Demo</option>
+                            <option value="1">Live</option>
+                            <option value="2">Bonus</option>
+                        </select>
+                </h5>
+            </div><!--end col-->
+            <div class="col-md-auto ms-auto">
+                <div class="d-flex flex-wrap gap-2">
+
+                    <div class="d-flex gap-2 mb-2 mb-md-0">
+                        <button class="btn btn-warning" routerLink="/mt5manager/agents-commissions">Agents commissions</button>
+
+                        <button (click)="openOnlineUsersModal()" class="btn btn-success">Online Users</button>
+                        
+                        <button (click)="openChangeInfoModal()" class="btn btn-primary">
+                            New Account
+                        </button>
+
+                        <button class="btn btn-outline-primary" (click)="open(visibleColumnsModal)">Columns</button>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2">
+                        <select id="pageSize" class="form-select" [(ngModel)]="pageSize" (change)="onPageSizeChange()"
+                            style="width: 100px;">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+
+                        
+                    </div>
+                    <div class="search-box">
+                        <input type="text" name="searchTerm" class="form-control"
+                            placeholder="Search for accounts..." [(ngModel)]="searchTerm"
+                            (ngModelChange)="onSearchChange()">
+                        <i class="ri-search-line search-icon"></i>
+                    </div>
+
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end card-header-->
+    <div class="card-body">
+        <div class="table-responsive table-card">
+            <table class="table align-middle table-nowrap" id="customerTable">
+                <thead class="table-light text-muted">
+                    <tr>
+                        <ng-container *ngFor="let column of columnsConfig">
+                            <th *ngIf="column.visible" [style.order]="column.order" class="sortable" scope="col"
+                                (click)="onSort(column.name)" [class.sorted]="sortColumn === column.name"
+                                [class.asc]="sortDirection === 'asc' && sortColumn === column.name"
+                                [class.desc]="sortDirection === 'desc' && sortColumn === column.name">{{column.label}}
+                            </th>
+                        </ng-container>
+
+                        <!-- Assuming the 'Action' column is non-sortable -->
+                        <th scope="col">Action</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr *ngFor="let account of AccountsList$ | async">
+                        <ng-container *ngFor="let column of columnsConfig">
+                            <td *ngIf="column.visible" [style.order]="column.order">
+                                {{ column.name=='balance' ||
+                                column.name=='equity' ||
+                                column.name=='profit' ||
+                                column.name=='margin' || column.name=='margin_free' ||
+                                column.name=='margin_level'?
+                                (account[column.name] | currency: account.currency:'symbol-narrow') :
+                                (column.name=='color'?'':(column.name=='registration'?timestampToDate(account[column.name])
+                                :account[column.name]))
+                                }}
+                                <div *ngIf="column.name=='color'"
+                                    style="width: 28px; height: 28px; border-radius: 50%; display: inline-block; margin-right: 5px;border:solid black 1px;"
+                                    [ngStyle]="{'background-color': decimalToRgb(account.color)}">
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <td>
+                            <button (click)="openChangePasswordModal(account)" class="btn btn-link btn-icon">
+                                <i class="mdi mdi-lock-reset"></i>
+                            </button>
+                            <button (click)="openChangeInfoModal(account)" class="btn btn-link btn-icon">
+                                <i class="mdi mdi-account-edit"></i>
+                            </button>
+                            <button (click)="openBalanceOperationsModal(account)" class="btn btn-link btn-icon">
+                                <i class="mdi mdi-bank-transfer"></i>
+                            </button>
+                            <button (click)="openChangeRolesModal(account)" class="btn btn-link btn-icon">
+                                <i class="mdi mdi-account-cog"></i>
+                            </button>
+                            <button (click)="openConnectCRMModal(account)" class="btn btn-link btn-icon">
+                                <i class="mdi mdi-link"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row justify-content-md-between align-items-md-center my-5">
+            <div class="col col-sm-6">
+                <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                    Showing
+                    {{startIndex}} to
+                    {{endIndex}} of {{totalRecords}}
+                    entries
+                </div>
+            </div>
+            <!-- Pagination -->
+            <div class="col col-sm-6">
+                <div class="text-sm-left float-end listjs-pagination">
+                    <ngb-pagination [collectionSize]="total$ | async" [(page)]="page" [pageSize]="pageSize"
+                    [rotate]="true"
+                    [ellipses]="false"
+                    [boundaryLinks]="true"
+                        (pageChange)="onPageChange($event)" [maxSize]="5">
+                    </ngb-pagination>
+
+                </div>
+            </div>
+            <!-- End Pagination -->
+        </div>
+        <div id="elmLoader" [ngClass]="{'d-none':!(loading$ | async)}" style="min-height: 600px;">
+            <div class="spinner-border text-primary avatar-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div><!--end card-body-->
+</div><!--end card-->

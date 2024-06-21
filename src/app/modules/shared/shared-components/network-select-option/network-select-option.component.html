@@ -1,0 +1,31 @@
+<ng-select  class="network-select" [items]="networks" bindLabel="name" bindValue="code"  [(ngModel)]="selectedNetworkId" [loading]="networks?.length == 0" loadingText= "Fetcing available currencies" [searchable]="true" typeToSearchText="Search for currency..."
+    [searchFn]="customSearchFn" (change)="onNetworkChanged()">
+    <ng-template ng-label-tmp let-item="item">
+        <div class="d-flex align-items-center gap-2">
+            <img [src]="'https://nowpayments.io'+item.logo_url" class="img-fluid" alt=""
+                style="width: 35px; height: 35px; object-fit: contain;">
+                <div class="flex-grow-1">
+                    <h5 class="mb-0 d-flex gap-1 align-items-center">
+                        {{item.code}}
+                        <span class="badge badge-soft-primary fs-11 network {{item.network}}">
+                            {{item.network}}</span>
+                    </h5>
+                    <p class="mb-0">{{item.name}}</p>
+                </div>
+        </div>
+    </ng-template>
+    <ng-template ng-option-tmp let-item="item">
+        <div class="d-flex align-items-center gap-2 mb-1">
+            <img [src]="'https://nowpayments.io'+item.logo_url" class="img-fluid" alt=""
+                style="width: 35px; height: 35px; object-fit: contain;">
+            <div class="flex-grow-1">
+                <h5 class="mb-0 d-flex gap-1 align-items-center">
+                    {{item.code}}
+                    <span class="badge badge-soft-primary fs-11 network {{item.network}}">
+                        {{item.network}}</span>
+                </h5>
+                <p class="mb-0">{{item.name}}</p>
+            </div>
+        </div>
+    </ng-template>
+</ng-select>

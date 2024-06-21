@@ -1,0 +1,45 @@
+<div class="modal-header bg-light p-3">
+    <h5 class="modal-title" id="exampleModalLabel">{{'ADDTICKET'|translate}}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"
+        (click)="closeModal()"></button>
+</div>
+
+<form (ngSubmit)="onSubmit()">
+    <div class="modal-body">
+
+        <div class="mb-3">
+
+            <label for="channelId" class="form-label">{{'CHANNEL' | translate }}</label>
+            <div class="input-group ">
+                <select class="form-control form-control-lg" aria-label="Select" [(ngModel)]="ticket.channelId" id="channelId" name="channelId" required>
+                    <option value="General">{{'GENERAL' | translate }}</option>
+                    <option value="Deposit">{{'DEPOSIT' | translate }}</option>
+                    <option value="Withdraw">{{'WITHDRAW' | translate }}</option>
+                    <option value="ID verification">{{'IDVERIFICATION' | translate }}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="topic" class="form-label">{{'TOPIC' | translate }}</label>
+            <div class="input-group ">
+                <input type="text" class="form-control form-control-lg" aria-label="input" value="" required [(ngModel)]="ticket.topic" id="topic" name="topic"
+                    [ngClass]="{ 'is-invalid' :  ticket.topic=='' && isSubmitted }" aria-describedby="inputGroup">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">{{'DESCRIPTION' | translate }}</label>
+            <div class="input-group ">
+                <textarea class="form-control form-control-lg" aria-label="input" [(ngModel)]="ticket.description" id="description" name="description" rows="3" required
+                          [ngClass]="{ 'is-invalid' :  ticket.description=='' && isSubmitted }" aria-describedby="inputGroup">
+                </textarea>
+            </div>
+        </div>
+
+        <div class="text-end">
+            <button type="submit" class="btn btn-success" [disabled]="!isValid()">{{'SUBMIT' | translate
+                }}</button>
+        </div>
+    </div>
+</form>

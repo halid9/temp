@@ -1,0 +1,344 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="Users list" *ngIf="singleComponent" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+
+
+<div class="row align-items-center mb-4 g-3" *ngIf="singleComponent">
+    <div class="col-sm-3">
+        <!-- <div class="d-flex align-items-center gap-2">
+            <span class="text-muted flex-shrink-0">Sort by: </span>
+            <div class="w-md">
+                <select class="form-control mb-0" data-choices data-choices-search-false name="choices-single-default"
+                    id="choices-single-default" [(ngModel)]="contentService.currency">
+                    <option value="All" selected>All</option>
+                    <option value="agent">agent</option>
+                    <option value="crm">crm</option>
+                    <option value="customer">customer</option>
+                    <option value="admin">admin</option>
+                    <option value="manager">manager</option>
+                </select>
+            </div>
+        </div> -->
+    </div><!--end col-->
+    <div class="col-sm-auto ms-auto">
+        <div class="d-flex flex-wrap gap-2">
+            <button class="btn btn-soft-primary" data-bs-toggle="modal" data-bs-target="#addmembers"
+            (click)="openEnd(filtetcontent)"><i class="ri-filter-2-line me-1 align-bottom"></i>
+            {{"FILTERS"|translate}}</button>
+
+            <a href="javascript:void(0);" (click)="setType('')" data-bs-toggle="modal"
+                class="btn btn-primary">{{"ALL"|translate}}</a>
+            <a href="javascript:void(0);" (click)="setType('Admin')" data-bs-toggle="modal"
+                class="btn btn-success">{{"ADMIN"|translate}}</a>
+            <a href="javascript:void(0);" (click)="setType('Agent')" data-bs-toggle="modal"
+                class="btn btn-danger">{{"AGENT"|translate}}</a>
+            <a href="javascript:void(0);" (click)="setType('CRM')" data-bs-toggle="modal"
+                class="btn btn-info">{{"CALLCENTER"|translate}}</a>
+            <a href="javascript:void(0);" (click)="setType('Manager')" data-bs-toggle="modal"
+                class="btn btn-warning">{{"MANAGER"|translate}}</a>
+            <a href="javascript:void(0);" (click)="setType('Customer')" data-bs-toggle="modal"
+                class="btn btn-dark">{{"CUSTOMER"|translate}}</a>
+        </div>
+    </div><!--end col-->
+</div><!--end row-->
+
+<div class="card" id="contactList">
+    <div class="card-header">
+        <div class="row align-items-center g-3">
+            <div class="col-md-3">
+                <h5 class="card-title mb-0">{{"ALLUSERS"|translate}}</h5>
+            </div><!--end col-->
+            <div class="col-md-auto ms-auto">
+                <div class="d-flex gap-2">
+                    <button class="btn btn-success" (mousedown)="CreateNewUser()">{{"CREATEUSER"|translate}}</button>
+                    <div class="search-box">
+                        <input type="text" name="searchTerm" class="form-control"
+                            placeholder="{{'SERCHFORUSER'|translate}}" [(ngModel)]="contentService.searchTerm">
+                        <i class="ri-search-line search-icon"></i>
+                    </div>
+                    <!-- <button class="btn btn-success"><i class="ri-equalizer-line align-bottom me-1"></i> Filters</button> -->
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end card-header-->
+    <div class="card-body">
+        <div class="table-responsive table-card">
+            <table class="table align-middle table-nowrap table-hover" id="customerTable">
+                <thead class="table-light text-muted">
+                    <tr >
+
+                        <!-- <th class="sort cursor-pointer" [sortable]="'username'" [direction]="'desc'" (sort)="onSort($event)" data-sort="username" scope="col">Username</th> -->
+                        <th class="text-center" style="max-width:50px" scope="col">
+                            <p class="pe-3 mb-0">
+                            {{"VERIFIED"|translate}}
+                            </p>
+</th>
+<th class="sort cursor-pointer" [sortable]="'firstName'" [direction]="'desc'"
+                            (sort)="onSort($event)" data-sort="firstName" scope="col">
+                            <p class="pe-3 mb-0">
+{{"CREATEDAT"|translate}}
+                            </p>
+                            </th>
+                        <th class="sort cursor-pointer" [sortable]="'firstName'" [direction]="'desc'"
+                            (sort)="onSort($event)" data-sort="firstName" scope="col">
+                            <p class="pe-3 mb-0">
+{{"FULLNAME"|translate}}
+                            </p>
+                            </th>
+                       
+                        <th class="sort cursor-pointer" [sortable]="'email'" [direction]="'desc'"
+                            (sort)="onSort($event)" data-sort="email" scope="col">
+                            <p class="pe-3 mb-0">
+{{"EMAIL"|translate}}
+                            </p>
+                            </th>
+                        <th class="sort cursor-pointer" [sortable]="'phone'" [direction]="'desc'"
+                            (sort)="onSort($event)" data-sort="phone" scope="col">
+                            <p class="pe-3 mb-0">
+{{"PHONE"|translate}}
+                            </p>
+                            </th>
+                        <th class="sort cursor-pointer" [sortable]="'address'" [direction]="'desc'"
+                            (sort)="onSort($event)" data-sort="country" scope="col">
+                            <p class="pe-3 mb-0">
+                            {{"COUNTRY"|translate}}
+                            </p>
+</th>
+                        <th class="sort cursor-pointer" [sortable]="'agentId'" [direction]="'desc'"
+                            (sort)="onSort($event)" data-sort="agent" scope="col">
+                            <p class="pe-3 mb-0">
+{{"AGENT"|translate}}
+                            </p>
+                            </th>
+                        <th class="sort cursor-pointer" [sortable]="'type'" [direction]="'desc'" (sort)="onSort($event)"
+                            data-sort="type" scope="col">
+                            <p class="pe-3 mb-0">
+{{"TYPE"|translate}}
+                            </p>
+                            </th>
+                        <th class="sort cursor-pointer" [sortable]="'roles'" [direction]="'desc'"
+                            (sort)="onSort($event)" data-sort="roles" scope="col">
+                            <p class="pe-3 mb-0">
+{{"ROLES"|translate}}
+                            </p>
+                            </th>
+                        <th scope="col">{{"ACTION"|translate}}</th>
+
+                    </tr><!--end tr-->
+                </thead>
+                <tbody class="list form-check-all" *ngIf="!(loading$ | async)">
+                    <tr *ngFor="let data of AllUsers$ | async" class="cursor-pointer" (click)="manageUser(data)">
+                        <!-- <td>
+                            <div class="avatar-xs">
+                                <div
+                                    class="avatar-title bg-soft-{{data.bg_color}} text-{{data.bg_color}} rounded-circle fs-16">
+                                    <i class="{{data.icon}}"></i>
+                                </div>
+                            </div>
+                        </td> -->
+                        <!-- <td class="date">{{data.date }}
+                             <small class="text-muted">{{data.time}}</small>
+                            </td> -->
+                        <!-- <td class="currency_name">
+                            <div class="d-flex align-items-center">
+                                <img src="{{data.image}}" alt="" class="avatar-xxs me-2 rounded-circle shadow">
+                                {{data.currency}}
+                            </div>
+                        </td> -->
+                        <!-- <td><ngb-highlight [result]="data?.username?.length > 10? data?.username.slice(0,10)+'...':data?.username" [term]="contentService.searchTerm" ></ngb-highlight></td> -->
+                        <td class="d-flex justify-content-center">
+                            <div class="avatar-xs">
+                                <div
+                                    class="avatar-title bg-soft-{{data?.verificationState?.verified?'success':'danger'}} text-{{data?.verificationState?.verified?'success':'danger'}} rounded-circle fs-16">
+                                    <i class="ri-check-fill fs-24"
+                                        *ngIf="data?.verificationState?.verified === true"></i>
+                                    <i class="ri-close-fill fs-24" *ngIf="!data?.verificationState?.verified"></i>
+                                </div>
+                            </div>
+                        </td>
+                        <td><ngb-highlight [result]="data.createdAt | date:'yyyy-MM-dd'"
+                            [term]="contentService.searchTerm"></ngb-highlight></td>
+                        <td><ngb-highlight [result]="trimText(data?.firstName,20)"
+                                [term]="contentService.searchTerm"></ngb-highlight> {{" "}} <ngb-highlight [result]="trimText(data?.lastName,10)"
+                                [term]="contentService.searchTerm"></ngb-highlight></td>
+                        <td>
+                            <div class="d-flex align-items-center ">
+                                <i class="text-success ri-checkbox-circle-line fs-18 me-1" ngbTooltip="Verified"
+                                    *ngIf="data?.emailVerified"></i>
+                                <i class="text-danger ri-close-circle-line fs-18 me-1" ngbTooltip="Not verified!"
+                                    *ngIf="!data?.emailVerified"></i>
+                                <ngb-highlight [result]="data?.email"
+                                    [term]="contentService.searchTerm"></ngb-highlight>
+                            </div>
+                            <!-- <span class="ms-3 badge badge-soft-danger fs-11" *ngIf="!data.emailVerified" >
+                                not Verified!</span>
+                                <span class="ms-3 badge badge-soft-success fs-11" *ngIf="data.emailVerified" >
+                                    Verified!</span> -->
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center ">
+                                <i class="text-success ri-checkbox-circle-line fs-18 me-1" ngbTooltip="Verified"
+                                    *ngIf="data?.phoneVerified"></i>
+                                <i class="text-danger ri-close-circle-line fs-18 me-1" ngbTooltip="Not verified!"
+                                    *ngIf="!data?.phoneVerified"></i>
+                                <ngb-highlight [result]="data?.phone"
+                                    [term]="contentService.searchTerm"></ngb-highlight>
+                            </div>
+                            <!-- <span class="ms-3 badge badge-soft-danger fs-11" *ngIf="!data.phoneVerified" >
+                                not Verified!</span>
+                                <span class="ms-3 badge badge-soft-success fs-11" *ngIf="data.phoneVerified" >
+                                    Verified!</span> -->
+                        </td>
+                        <td><ngb-highlight [result]="data.address?.country"
+                                [term]="contentService.searchTerm"></ngb-highlight></td>
+                        <!-- <td><ngb-highlight [result]="getAgent(data?.agentId)"
+                                [term]="contentService.searchTerm"></ngb-highlight>
+                        </td> -->
+                        <td>
+                            {{
+                            data.parent ?
+                            ((data.parent['firstName']??'')+ ' ' + (data.parent['lastName']??'')) :
+                            'No Agent'
+                            }}
+                        </td>
+                        <td><ngb-highlight [result]="((data.userType | uppercase )|translate)"
+                                [term]="contentService.searchTerm"></ngb-highlight> <span
+                                *ngIf="data.status==UserStatus.Disable"
+                                class="badge badge-soft-danger fs-11">Disabled</span></td>
+                        <!-- <td>
+                            <h6 class="text-{{data.bg_color}} mb-1 amount">{{data.amount}}</h6>
+                            <p class="text-muted mb-0">{{data.amount1}}</p>
+                        </td> -->
+                        <td class="tags" style="max-width: 150px;">
+                            <div class="d-flex flex-wrap gap-1">
+                                <span class="badge badge-soft-primary fs-11" *ngFor="let r of data.roles">
+                                    <!-- <i class="ri-checkbox-circle-line align-bottom"></i> -->
+                                    {{r.name}}</span>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="flex-shrink-0">
+                                <div class="dropdown" container="body" ngbDropdown>
+                                    <a href="javascript:void(0);" class="arrow-none" role="button"  (click)="$event.stopPropagation()"
+                                        id="dropdownMenuLink2" data-bs-toggle="dropdown" aria-expanded="false"
+                                        ngbDropdownToggle>
+                                        <i class="ri-more-2-fill fs-14"></i>
+                                    </a>
+
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink2" 
+                                        ngbDropdownMenu>
+                                        <li><a class="dropdown-item" href="javascript:void(0);"
+                                                (mousedown)="editUser(data)">{{"EDITUSER"|translate}}</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="javascript:void(0);"
+                                                (mousedown)="showUserAccounts(data)">{{"SHOWACC"|translate}}</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="javascript:void(0);"
+                                                (mousedown)="addRole(data.id,data.roles)">{{"ADDROLE"|translate}}</a>
+                                        </li>
+                                        <li *ngIf="!data.verificationState?.verified"><a class="dropdown-item"
+                                                href="javascript:void(0);"
+                                                (mousedown)="setAsVerified(data.id)">{{"SETASVER"|translate}}</a>
+                                        </li>
+                                        <li *ngIf="data.roles.length"><a class="dropdown-item"
+                                                href="javascript:void(0);"
+                                                (mousedown)="removeRole(data.id,data.roles)">{{"REMOVEROLE"|translate}}</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="javascript:void(0);"
+                                                (mousedown)="changeType(data.id)">{{"CHANGETYPE"|translate}}</a>
+                                        </li>
+                                        <li><a *ngIf="data.type == UserTypes.Agent" class="dropdown-item" href="javascript:void(0);"
+                                                (mousedown)="changeAgentSettings(data)">Change Agent Settings</a>
+                                        </li>
+                                        <li><a *ngIf="data.type == UserTypes.Customer" class="dropdown-item" href="javascript:void(0);"
+                                                (mousedown)="updateUserAgent(data)">{{"CHANGEAGENT"|translate}}</a>
+                                        </li>
+                                        <li *ngIf="data.status!=UserStatus.Disable"><a class="dropdown-item text-danger"
+                                                href="javascript:void(0);"
+                                                (mousedown)="disableUser(data.id)">{{"DISABLE"|translate}}</a>
+                                        </li>
+                                        <li *ngIf="data.status!=UserStatus.Active"><a class="dropdown-item text-success"
+                                                href="javascript:void(0);"
+                                                (mousedown)="activateUser(data.id)">{{"ACTIVATE"|translate}}</a>
+                                        <li><a class="dropdown-item text-danger" href="javascript:void(0);"
+                                                (mousedown)="deleteUser(data.id)">{{"DELETE"|translate}}</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="javascript:void(0);"
+                                                (mousedown)="loginAs(data.id)">{{"LOGINAS"|translate}} {{data.firstName}}</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="javascript:void(0);"
+                                                (mousedown)="sendTestNotification(data.id)">Send Test notification</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table><!--end table-->
+        </div>
+        <div class="row justify-content-md-between align-items-md-center mt-2">
+            <div class="col col-sm-6">
+                <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                    {{"SHOWING"|translate}}
+                    {{contentService.startIndex}} {{'TO'|translate}}
+                    {{contentService.endIndex}} {{"OF"|translate}} {{contentService.totalRecords}}
+                    {{"ENTERIES"|translate}}
+                </div>
+            </div>
+            <!-- Pagination -->
+            <div class="col col-sm-6">
+                <div class="text-sm-right float-end listjs-pagination">
+                    <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="contentService.page"
+                    [maxSize]="5"
+                    [rotate]="true"
+                    [ellipses]="false"
+                    [boundaryLinks]="true"
+                        [pageSize]="contentService.pageSize">
+                    </ngb-pagination>
+                </div>
+            </div>
+            <!-- End Pagination -->
+        </div>
+        <div id="elmLoader" *ngIf="loading$ | async">
+            <div class="spinner-border text-primary avatar-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div><!--end card-body-->
+</div><!--end card-->
+<ng-template #filtetcontent let-offcanvas>
+    <div class="offcanvas-header bg-light">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{"TXSFILTER"|translate}}</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"
+            (click)="offcanvas.dismiss('Cross click')"></button>
+    </div>
+    <!--end offcanvas-header-->
+    <form action="" class="d-flex flex-column justify-content-end h-100">
+        <div class="offcanvas-body">
+             <div>
+                <label for="leads-tags"
+                    class="form-label text-muted text-uppercase fw-semibold mb-3">{{"COLS"|translate}}</label>
+                <div class="row g-3">
+                    <div class="col-lg-6" *ngFor="let col of cols">
+                        <div class="form-check">
+                            <input [disabled]="col.name == 'email'" class="form-check-input" type="checkbox"
+                                id="{{col.name+'sss'}}" value="{{col.name}}" [checked]="col.visible"
+                                name="{{col.name+'sss'}}" (change)="col.visible = !col.visible">
+                            <label class="form-check-label" for="{{col.name+'sss'}}">{{(col.name|uppercase) |
+                                translate}}</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--end offcanvas-body-->
+        <div class="offcanvas-footer border-top p-3 text-center hstack gap-2">
+            <button class="btn btn-light w-100">{{"CLEARFILTER"|translate}}</button>
+            <button type="submit" class="btn btn-primary w-100" (click)="setCols()">{{"FILTER"|translate}}</button>
+        </div>
+        <!--end offcanvas-footer-->
+    </form>
+</ng-template>

@@ -1,0 +1,362 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="Leads" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card" id="leadsList">
+            <div class="card-header border-0">
+
+                <div class="row g-4 align-items-center">
+                    <div class="col-sm-3">
+                        <div class="search-box">
+                            <input type="text" name="searchTerm" class="form-control" placeholder="Search for..."
+                                [(ngModel)]="contentService.searchTerm">
+                            <i class="ri-search-line search-icon"></i>
+                        </div>
+                    </div>
+                    <div class="col-sm-auto ms-auto">
+                        <div class="hstack gap-2">
+                            <button type="button" class="btn btn-warning add-btn" data-bs-toggle="modal" id="create-btn"
+                                data-bs-target="#showModal" (click)="convertLeadsToBonus()"
+                                *ngIf="leadsSelected || masterSelected"> Convert selected to bonus</button>
+                            <button type="button" class="btn btn-danger add-btn" data-bs-toggle="modal" id="create-btn"
+                                data-bs-target="#showModal" (click)="''" *ngIf="leadsSelected || masterSelected"> Reject
+                                selected</button>
+
+                            <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn"
+                                data-bs-target="#showModal" (click)="openModal()"><i
+                                    class="ri-add-line align-bottom me-1"></i> Add Leads</button>
+                            <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn"
+                                data-bs-target="#showModal" (click)="import()"> Import leads</button>
+                            <button type="button" class="btn btn-secondary add-btn" data-bs-toggle="modal"
+                                id="create-btn" data-bs-target="#showModal" (click)="export()"
+                                *ngIf="masterSelected || leadsSelected"> Export leads</button>
+                            <button type="button" class="btn btn-secondary add-btn" data-bs-toggle="modal"
+                                id="create-btn" data-bs-target="#showModal" (click)="setType('')">Show all</button>
+                            <button type="button" class="btn btn-warning add-btn" data-bs-toggle="modal" id="create-btn"
+                                data-bs-target="#showModal" (click)="setType('Bonus')"> Show bonus only</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div *ngIf="!loading">
+                    <div class="table-responsive  table-card ">
+
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="bg-light text-muted">
+                                    <th scope="col" style="width: 50px;">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="checkAll" value="option"
+                                                [(ngModel)]="masterSelected" (change)="checkUncheckAll(masterSelected)">
+                                        </div>
+                                    </th>
+                                    <th class="sort cursor-pointer" [sortable]="'lastName'" [direction]="'desc'"
+                                        (sort)="onSort($event)" data-sort="name">
+                                        <p class="pe-3 mb-0 text-nowrap">
+                                            {{'NAME' | translate}}
+                                        </p>
+                                    </th>
+                                    <th class="sort cursor-pointer" [sortable]="'phone'" [direction]="'desc'"
+                                        (sort)="onSort($event)" data-sort="phone">
+                                        <p class="pe-3 mb-0 text-nowrap">
+                                            {{'PHONE'|translate}}
+                                        </p>
+                                    </th>
+                                    <th class="sort cursor-pointer" [sortable]="'created_at'" [direction]="'desc'"
+                                        (sort)="onSort($event)" data-sort="date">
+                                        <p class="pe-3 mb-0 text-nowrap">
+                                            {{'PROFILE.CREATEDATE.TEXT' | translate
+                                            }}
+                                        </p>
+                                    </th>
+                                    <th class="sort cursor-pointer" [sortable]="'address'" [direction]="'desc'"
+                                        (sort)="onSort($event)" data-sort="address">
+                                        <p class="pe-3 mb-0 text-nowrap">
+                                            {{'ADDRESS' | translate
+                                            }}
+                                        </p>
+                                    </th>
+                                    <!-- <th class="sort cursor-pointer" [sortable]="'country'" [direction]="'desc'"
+                                        (sort)="onSort($event)" data-sort="date">
+                                        <p class="pe-3 mb-0 text-nowrap">
+                                            {{'COUNTRY' | translate
+                                        }}
+                                        </p>
+                                        </th> -->
+                                    <!-- <th class="sort cursor-pointer" [sortable]="'city'" [direction]="'desc'"
+                                        (sort)="onSort($event)" data-sort="date">
+                                        <p class="pe-3 mb-0 text-nowrap">
+                                            {{'PROFILE.CITY.TEXT' | translate
+                                        }}
+                                        </p>
+                                        </th> -->
+                                    <th class="sort cursor-pointer" [sortable]="'leadSource'" [direction]="'desc'"
+                                        (sort)="onSort($event)" data-sort="leads_source">
+                                        <p class="pe-3 mb-0 text-nowrap">
+                                            {{'LEADSRC'|translate}}
+                                        </p>
+                                    </th>
+                                    <th class="sort cursor-pointer" [sortable]="'tradingExperience'"
+                                        [direction]="'desc'" (sort)="onSort($event)" data-sort="trading_experience">
+
+                                        <p class="pe-3 mb-0 text-nowrap">
+                                            {{'TRADEEXPERIENCE'|translate}}
+                                        </p>
+                                    </th>
+                                    <th class="sort cursor-pointer" [sortable]="'leadStatus'" [direction]="'desc'"
+                                        (sort)="onSort($event)" data-sort="status">
+                                        <p class="pe-3 mb-0 text-nowrap">
+                                            {{'STATUS'|translate}}
+                                        </p>
+                                    </th>
+                                    <th class="col text-center" data-sort="action">
+                                        <p class="pe-3 mb-0 text-nowrap">
+                                            {{'ACTIONS'|translate}}
+                                        </p>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="list form-check-all">
+                                <tr *ngFor="let data of leadsList | async" id="l_{{data.id}}" (click)="ManageLead(data)"
+                                    class="cursor-pointer {{data.leadStatus == 'Bonus'?'bg-soft-warning':''}} {{data.leadStatus == 'Rejected'?'bg-soft-danger':''}}">
+                                    <th scope="row" (click)="$event.stopPropagation()">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="checkAll"
+                                                (change)="checkForSelected()" value="{{data.isSelected}}"
+                                                [(ngModel)]="data.isSelected">
+                                        </div>
+                                    </th>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <!-- <div class="flex-shrink-0">
+                                                <img src="{{data.profileImg}}" alt=""
+                                                    class="avatar-xxs rounded-circle image_src object-cover">
+                                            </div> -->
+                                            <div class="flex-grow-1 ms-2 name">{{data.firstName}} {{data.lastName}}
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <ngb-highlight [result]="data.phone" [term]="contentService.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight [result]="data.created_at | date:'yyyy-MM-dd'"
+                                            [term]="contentService.searchTerm"></ngb-highlight>
+                                    </td>
+
+                                    <td>
+                                        <ngb-highlight [result]="data.address" [term]="contentService.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <!-- <td>
+                                        <ngb-highlight [result]="data.country" [term]="contentService.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight [result]="data.city" [term]="contentService.searchTerm">
+                                        </ngb-highlight>
+                                    </td> -->
+                                    <td>
+                                        <ngb-highlight [result]="data.leadSource" [term]="contentService.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight [result]="tradingExperience(data.tradingExperience) | translate"
+                                            [term]="contentService.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight [result]="data.leadStatus.toString()"
+                                            [term]="contentService.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+
+                                        <ul class="list-inline hstack text-nowrap gap-2 mb-0 "
+                                            (click)="$event.stopPropagation()">
+                                            <li class="list-inline-item edit" ngbTooltip="Email" placement="top">
+                                                <a href="javascript:void(0);" class="text-muted d-inline-block"
+                                                    (click)="send('email',data)">
+                                                    <i class="ri-mail-line fs-16"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item edit" ngbTooltip="Message" placement="top">
+                                                <a href="javascript:void(0);" class="text-muted d-inline-block"
+                                                    (click)="send('phone',data)">
+                                                    <i class="ri-question-answer-line fs-16"></i>
+                                                </a>
+                                            </li>
+                                            <!-- <li class="list-inline-item" ngbTooltip="View" placement="top">
+                                                    <a href="javascript:void(0);" (click)="viewLead(data)"><i
+                                                            class="ri-eye-fill align-bottom text-muted"></i></a>
+                                                </li> -->
+                                            <li class="list-inline-item" ngbTooltip="Edit" placement="top">
+                                                <a class="edit-item-btn" data-bs-toggle="modal"
+                                                    (click)="ManageLead(data,true)"><i
+                                                        class="ri-pencil-fill align-bottom text-muted"></i></a>
+                                            </li>
+                                            <li class="list-inline-item me-0" ngbTooltip="Delete" placement="top">
+                                                <a class="remove-item-btn" data-bs-toggle="modal"
+                                                    (click)="confirm(deleteModel,data.id)">
+                                                    <i class="ri-delete-bin-fill align-bottom text-muted"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item me-0">
+                                                <a class="btn btn-outline-warning btn-sm d-flex align-items-center gap-1"
+                                                    *ngIf="data.leadStatus != 'Bonus' && data.leadStatus != 'Rejected'"
+                                                    (click)="convertToBonus(data.id)">
+                                                    <i class="ri-refresh-fill fs-16"></i> Convert to bonus
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item me-0">
+                                                <a class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1"
+                                                    *ngIf="data.leadStatus != 'Bonus' && data.leadStatus != 'Rejected'" (click)="rejectBonus(data.id)">
+                                                    <i class="ri-close-fill fs-16"></i> Reject bonus
+                                                </a>
+                                            </li>
+                                            <!-- <li class="list-inline-item me-0">
+                                                <a class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1"
+                                                    *ngIf="data.leadStatus == 'Bonus'" (click)="undoBonus(data.id)">
+                                                    <i class="ri-close-fill fs-16"></i> Undo convert to bonus
+                                                </a>
+                                            </li> -->
+
+
+                                            <!-- /btn-group -->
+                                        </ul>
+
+                                        <!-- <div class="hstack text-nowrap gap-2 ms-1">
+                                                <div class="btn-group shadow isolation" container="body" ngbDropdown>
+                                                    <button type="button" class="btn btn-success btn-sm dropdown-toggle"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false" ngbDropdownToggle>
+                                                        Update
+                                                    </button>
+                                                    <div class="dropdown-menu" ngbDropdownMenu>
+
+                                                        <a class="dropdown-item" href="#"
+                                                            (mousedown)="updateSupervisorModal(data)">Update
+                                                            superisor</a>
+                                                        <a class="dropdown-item" href="#"
+                                                            (mousedown)="updateAgentModal(data)">Update agent</a>
+                                                        <a class="dropdown-item" href="#"
+                                                            (mousedown)="updateOwnerModal(data)">Update owner</a>
+
+                                                    </div>
+                                                </div>
+                                                <div class="btn-group shadow isolation" container="body"
+                                                    *ngIf="data.leadStatus != 'live'" ngbDropdown>
+                                                    <button type="button" class="btn btn-success btn-sm dropdown-toggle"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false" ngbDropdownToggle>
+                                                        Convert to
+                                                    </button>
+                                                    <div class="dropdown-menu" ngbDropdownMenu>
+                                                        <a class="dropdown-item" *ngIf="data.leadStatus == 'Potential'"
+                                                            href="#" (mousedown)="convertToDemo(data)">To demo</a>
+                                                        <a class="dropdown-item"
+                                                            *ngIf="data.leadStatus != 'Live' && data.leadStatus != 'Deleted' "
+                                                            href="#" (mousedown)="convertToLive(data)">To live</a>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row justify-content-md-between align-items-md-center mt-3">
+                        <div class="col col-sm-12  col-md-4 d-flex gap-2 align-items-center mt-2">
+                            <div class="dataTables_info mb-0" id="tickets-table_info" role="status" aria-live="polite">
+                                {{"SHOWING"|translate}}
+                                {{contentService.startIndex}} {{'TO'|translate}}
+                                {{contentService.endIndex}} {{"OF"|translate}} {{contentService.totalRecords}}
+                                {{"ENTERIES"|translate}}
+                            </div>
+                            
+                        </div>
+                        <div class="col-sm-12 col-md-4 mt-2" >
+
+                            <div class="d-flex gap-2 align-items-center">
+                                <h6 class="mb-0">page size:</h6>
+                                <select id="pageSize" class="form-select" [(ngModel)]="contentService.pageSize"
+                            style="width: 82px;">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                            </div>
+                        </div>
+                        <!-- Pagination -->
+                        <div class="col col-sm-12 col-md-4  mt-2">
+                            <div class="text-sm-right float-end listjs-pagination">
+
+
+                                <ngb-pagination [collectionSize]="(total | async)!" [(page)]="contentService.page"
+                                    [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+                                    [pageSize]="contentService.pageSize">
+                                </ngb-pagination>
+                            </div>
+                        </div>
+                        <!-- End Pagination -->
+
+
+                    </div>
+                    <div id="elmLoader" *ngIf="loading$ | async">
+                        <div class="spinner-border text-primary avatar-sm" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--end col-->
+</div>
+<!--end row-->
+
+<!-- removeItemModal -->
+<ng-template #deleteModel let-modal>
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"
+                (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mt-2 text-center">
+                <lord-icon _ngcontent-klx-c236="" src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
+                    colors="primary:#f7b84b,secondary:#f06548" style="width: 100px; height: 100px;"></lord-icon>
+                <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                    <h4>Are you Sure ?</h4>
+                    <p class="text-muted mx-4 mb-0">Are you Sure You want to Remove this Lead ?</p>
+                </div>
+            </div>
+            <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                <button class="btn btn-link link-success fw-medium text-decoration-none" data-bs-dismiss="modal"
+                    (click)="modal.close('no')" id="deleteRecord-close"><i class="ri-close-line me-1 align-middle"></i>
+                    Close</button>
+                <button type="button" class="btn w-sm btn-danger " id="delete-product" (click)="modal.close('yes')">Yes,
+                    Delete It!</button>
+            </div>
+        </div>
+    </div><!-- /.modal-content -->
+</ng-template>
+
+<!-- Right Sidebar Filter Section  -->
+<ng-template #filtetcontent let-offcanvas>
+    <div class="offcanvas-header bg-light">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Leads Fliters</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"
+            (click)="offcanvas.dismiss('Cross click')"></button>
+    </div>
+    <!--end offcanvas-header-->
+    <!--  -->
+</ng-template>
+<!--end offcanvas-->

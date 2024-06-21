@@ -1,0 +1,31 @@
+
+    <div class="modal-body">
+        <div class="row g-3">
+            
+
+
+            <div class="col-lg-12">
+                <div>
+                        <div>
+                            <label>{{'Select Agent' | translate }}</label>
+                                    <select class="form-select form-select-lg" [(ngModel)]="newAgent"  [ngClass]="{ 'is-invalid': submitted && agent === newAgent }">
+                                    <option *ngFor="let agent of agents" [value]="agent.id">
+                                        {{agent.firstName}} {{agent.lastName}}
+                                    </option>
+                                </select>
+                                <div *ngIf="submitted && agent === newAgent" class="invalid-feedback">
+                                    <span *ngIf="submitted && agent === newAgent">You can't choose same agent</span>
+                                  </div>
+                           
+                    </div>
+                </div>
+            <!--end col-->
+            <div class="mt-4">
+                <button class="btn btn-success w-100"  (mousedown)="changeAgent()">Update agent</button>
+            </div>
+           
+        </div>
+        <!--end row-->
+    </div>
+
+        

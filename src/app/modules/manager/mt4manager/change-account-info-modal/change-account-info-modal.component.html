@@ -1,0 +1,85 @@
+<div class="modal-header">
+    <h5 *ngIf="!new_account" class="modal-title">Change Info for {{ account.first_name }} {{ account.last_name }}</h5>
+    <h5 *ngIf="new_account" class="modal-title">New Account Info</h5>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form #infoForm="ngForm">
+
+        <div *ngIf="new_account" class="form-group mb-3 row">
+            <div class="col">
+                <label for="agent" class="me-2 text-nowrap">New Login:</label>
+                <input type="number" class="form-control" [(ngModel)]="account.user" name="new_login" id="new_login"
+                    required>
+            </div>
+            <div class="col">
+                <label for="agent" class="me-2 text-nowrap">New Password:</label>
+                <input type="text" class="form-control" [(ngModel)]="account.password" name="new_password"
+                    id="new_password" required>
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="firstName">Full Name:</label>
+            <input type="text" class="form-control" [(ngModel)]="account.name" name="firstName" id="firstName"
+                required>
+        </div>
+
+        <div class="form-group mb-3 row">
+            <div class="col d-flex">
+                <div class="me-4" style="width: 80px;">
+                    <label for="color">Color:</label>
+                    <input type="color" class="form-control" style="height: 2.3rem;" [(ngModel)]="hexColor" name="color"
+                        id="color" required>
+                </div>
+                <div class="" style="flex-grow: 1;">
+                    <label for="leverage">Leverage:</label>
+                    <input type="number" class="form-control" [(ngModel)]="account.leverage" name="leverage"
+                        id="leverage" required>
+                </div>
+            </div>
+            <div class="col">
+                <label for="group">Group:</label>
+                <select class="form-control" [(ngModel)]="account.group" name="group" id="group" required>
+                    <option *ngFor="let group of groups" [value]="group">{{ group }}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group mb-3 row">
+            <div class="col">
+                <label for="phone">Phone:</label>
+                <input type="text" class="form-control" [(ngModel)]="account.phone" name="phone" id="phone">
+            </div>
+            <div class="col">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" [(ngModel)]="account.email" name="email" id="email">
+            </div>
+        </div>
+
+        <div class="form-group mb-3 row">
+            <div class="col">
+                <label for="country">Country:</label>
+                <select class="form-control" [(ngModel)]="account.country" name="country" id="country" required>
+                    <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="agent">Agent:</label>
+                <input type="number" class="form-control" [(ngModel)]="account.agent" name="agent" id="agent">
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="comment">Comment:</label>
+            <textarea class="form-control" [(ngModel)]="account.comment" name="comment" id="comment"></textarea>
+        </div>
+
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+    <button type="button" class="btn btn-primary" [disabled]="!infoForm.valid" (click)="saveChanges()">Save
+        changes</button>
+</div>

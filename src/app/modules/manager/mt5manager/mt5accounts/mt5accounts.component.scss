@@ -1,0 +1,15 @@
+.sorted {
+    background-color: #f8f9fa;
+}
+
+.asc::after {
+    content: "⬆"; // arrow up
+}
+
+.desc::after {
+    content: "⬇"; // arrow down
+}
+
+th.sortable {
+    cursor: pointer;
+}

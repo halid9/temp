@@ -1,0 +1,41 @@
+
+<app-breadcrumbs title="CRM Dashboard" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card crm-widget">
+            <div class="card-body px-12 py-12">
+                <div class="row row-cols-xxl-5 row-cols-md-3 row-cols-1 g-0">
+                    <div *ngFor="let stat of statData">
+                        <app-crm-stat [title]="stat.title" [value]="stat.value" [icon]="stat.icon"
+                            [profit]="stat.profit"></app-crm-stat>
+                    </div>
+                </div><!-- end row -->
+            </div><!-- end card body -->
+        </div><!-- end card -->
+    </div><!-- end col -->
+</div><!-- end row -->
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <lead-form [lead]="lead" [isDialog]="false"></lead-form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6 ">
+            <div class="card ">
+                <div class="card-body">
+                    <p>
+                        today's leads list
+                    </p>
+                </div>
+        </div>
+            <div class="card ">
+                <div class="card-body">
+                    oldest 10s leads list
+                </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,129 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="DASHBOARD" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+<div class="mb-2 d-flex gap-2 flex-wrap">
+    <div class="flex-shrink-0">
+        <div class="verified d-flex gap-1 alert alert-success mb-0 p-1" role="alert" *ngIf="verificationState.verified">
+            
+            <i class="ri-check-fill fs-18"
+              ></i> 
+            <h6 class="mb-0 d-flex align-items-center text-success  user-select-none">
+                {{'Verified'|translate}}
+            </h6>
+        </div>
+        <div class="not-verified d-flex gap-1 cursor-pointer alert alert-danger mb-0 p-1" role="alert"   *ngIf="!verificationState.verified" (click)="showDetails()">
+            
+            <i class="ri-close-fill fs-18 text-danger"></i>
+            <h6 class="mb-0 d-flex align-items-center text-danger  user-select-none " ngbTooltip="Click to see more details">
+               {{'Unverified'|translate}}
+            </h6>
+
+        </div>
+    </div>
+    <div class="d-flex justify-content-end gap-2 flex-grow-1 flex-wrap">
+        <div class="btn btn-primary" routerLink="../platforms/applications-download">
+            {{'CLIENTDASHBOARD.DOWNLOADPLATFORMS.TEXT'| translate}}
+        </div>
+        <!-- <div class="btn btn-primary" routerLink="../platforms/enter-webtrader">
+            {{'CLIENTDASHBOARD.WEBTRADER.TEXT'| translate}}
+        </div> -->
+        <div class="btn btn-success" (mousedown)="openDepositForm()">
+            {{'CLIENTDASHBOARD.DEPOSIT.TEXT'| translate}}
+        </div>
+    </div>
+    <!-- test -->
+</div>
+
+
+<div class="row" *ngIf="favAcc">
+    <div class="col-12 mb-3">
+        <fav-acc-card [account]="favAcc" (favAccChanged)="setNewFavAcc($event)"></fav-acc-card>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-3 col-lg-6 col-md-6" *ngFor="let data of tileBoxs3">
+        <div class="card card-animate" [ngClass]=" { 'bg-primary': data.bgColor}">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="fw-medium text-{{data.labelClass}} mb-0 ">{{data.label | translate}}</h4>
+                        <p class="mt-4 ff-secondary fw-semibold" [ngClass]=" { 'text-white': data.counterClass}"
+                            style="direction: ltr;"><span *ngFor="let user of data.subCounter">
+                                <span>{{(user.prefix | translate) + " "}}</span>
+                                <span *ngIf="user.counter" [CountTo]="user.counter" class="counter-value" [from]="0"
+                                    [duration]="user.decimals">
+                                </span>
+                                <span *ngIf="!user.counter" class="counter-value">0</span>
+                                {{user.suffix + ' '}}</span>
+                        </p>
+                    </div>
+                    <div>
+                        <div class="avatar-sm flex-shrink-0">
+                            <span class="avatar-title bg-soft-{{data.iconClass}} {{data.badgeClass}} rounded-circle fs-2 shadow">
+                                <i  class="{{data.badge}}" >
+                                </i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end card body -->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+</div> <!-- end row-->
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card text-center">
+            <div class="card-body py-5 px-4">
+                <img src="assets/images/mt.png" alt="" height="55" class="mb-3 pb-2">
+                <h5> {{'CLIENTDASHBOARD.LIVEACCOUNT.TEXT'| translate}}
+                </h5>
+                <p class="text-muted pb-1">
+                    {{'CLIENTDASHBOARD.LIVEDESC.TEXT'| translate}}
+                </p>
+                <a href="#" class="btn btn-warning" (mousedown)=" createAccount('live')">
+
+                    {{'CLIENTDASHBOARD.CREATE.TEXT'| translate}}
+
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card text-center">
+            <div class="card-body py-5 px-4">
+                <img src="assets/images/mt.png" alt="" height="55" class="mb-3 pb-2">
+                <h5>{{'CLIENTDASHBOARD.DEMOACCOUNT.TEXT'| translate}}</h5>
+                <p class="text-muted pb-1">{{'CLIENTDASHBOARD.DEMODESC.TEXT'|translate}}</p>
+                <a href="#" class="btn btn-success" (mousedown)=" createAccount('demo')">
+                    {{'CLIENTDASHBOARD.CREATE.TEXT'| translate}}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <!-- <tx-history [singleComponent]="false" [intries]="10" [pageSize]="5" [title]="'Last 10 transactions'"></tx-history> -->
+    </div>
+</div>
+
+<div class="row mb-3 cursor-pointer" (click)="completeInfo()"  *ngIf="!verificationState.verified && ((!verificationState.state.requestLive && !verificationState.state.openLive) || !verificationState.state.completeProfile)">
+    <img src="assets/images/clients/complete-info-{{lang | lowercase}}.png" alt="" >
+    </div>
+
+    <div class="row mb-3 cursor-pointer" (click)="goToAccountsRequests()" *ngIf="(!verificationState.state.verifyDocs  || !verificationState.state.openLive) && verificationState.state.requestLive">
+        <img src="assets/images/clients/under-review-{{lang}}.jpeg" alt="">
+        </div>
+
+<div class="row mb-3 cursor-pointer" *ngIf="!verificationState.state.requestDeposit && verificationState.state.openLive" (mousedown)="openDepositForm()">
+    <img src="assets/images/clients/add-fund-{{lang}}.jpeg" alt="">
+
+</div>
+<div class="alert alert-success"
+    *ngIf="verificationState.state.requestDeposit && !verificationState.state.deposit && verificationState.state.openLive">
+    <h3 class="text-success">
+        {{'CLIENTDASHBOARD.ALMOSTTHERE.TEXT'| translate}}
+    </h3>
+</div>

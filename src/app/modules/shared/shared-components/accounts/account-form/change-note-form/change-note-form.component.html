@@ -1,0 +1,33 @@
+
+<form (ngSubmit)="changeNote()" class="tablelist-form" autocomplete="off">
+    <div class="modal-body">
+        <div class="row g-3">
+            
+
+
+            <div class="col-lg-12">
+                <div>
+                    <label for="note" class="form-label">Note</label>
+                    <input type="text" id="note" multiple class="form-control" onfocus="this.removeAttribute('readonly');" readonly
+                        placeholder="Enter note" required [(ngModel)]="note" [ngModelOptions]="{ standalone: true }"
+                       />
+                    <!-- <div *ngIf="submitted && accountForm.controls['masterPassword'].errors" class="invalid-feedback"
+                        align="left">
+                        <div *ngIf="accountForm.controls['masterPassword'].errors['required']">Master password is required
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <!--end col-->
+         
+           
+        </div>
+        <!--end row-->
+    </div>
+
+        <div class="modal-footer mt-4 ">
+            <div class="hstack gap-2 justify-content-end ">
+                <button type="submit" class="btn btn-success" id="add-btn">Change note</button>
+            </div>
+    </div>
+</form>

@@ -1,0 +1,41 @@
+<div class="container ">
+    <h3 class="text-success" *ngIf="loading">
+        {{"Prepairing deposit methods please wait"|translate}}
+        <i class="mdi mdi-loading mdi-spin fs-24 align-middle me-2" style="line-height: 0.7;"></i>
+    </h3>
+    <h1 class="my-3">{{'Deposit methods'|translate}}</h1>
+    <div class="row" *ngIf="!loading">
+        <div class="col-12 col-lg-6 col-xl-4" *ngFor="let m of methods">
+            <div class="card position-relative">
+                <div class="position-absolute top-50 start-50 bg-warning bg-opacity-50 text-light translate-middle border border-2 border-warning rounded-4 p-3" *ngIf="!m.active"> {{'Disabled'|translate}}</div>
+                <div class="card-header bg-light">
+                    <div class="d-flex align-items-center gap-2">
+                        <img [src]="m.icon" alt="" style="max-width: 30px;">
+                        <h3 class="mb-0 flex-grow-1">{{m.name|translate}}</h3>
+                        <button type="button" class="btn btn-outline-danger btn-icon waves-effect waves-light" (click)="openEditTransferMethod(m)"><i
+                                class=" ri-edit-2-fill"></i></button>
+
+                    </div>
+                </div>
+                <div class="card-body bg-light">
+                    <p class="mb-1">
+                        <span class="text-info">{{"Proccesing time"|translate}}:</span> {{m.proccesingTime}}
+                    </p>
+                    <p class="mb-1">
+                        <span class="text-info">{{"Fees"|translate}}:</span> {{m.fee}}
+                    </p>
+                    <p class="mb-1">
+                        <span class="text-info">{{"Limits"|translate}}:</span> {{m.limits}}
+                    </p>
+                </div>
+                <div class="card-footer bg-light text-center ">
+                   <button (click)="changeStatus(m)" class="btn" [ngClass]="{'btn-success':!m.active,'btn-warning':m.active}">
+                    {{m.active?("Set as disabled"|translate):"Set as enabled"|translate}}
+                   </button>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

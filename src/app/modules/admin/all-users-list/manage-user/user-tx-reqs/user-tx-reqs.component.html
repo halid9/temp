@@ -1,0 +1,351 @@
+
+
+
+<div class="card" id="contactList">
+    <div class="card-header">
+        <div class="row align-items-center g-3">
+            <div class="col-sm-auto  ">
+                <div class="d-flex flex-wrap gap-2">
+                    <button type="button" class="btn btn-info btn-sm" data-bs-toggle="offcanvas" href="javascript:void(0);"
+                        (click)="openEnd(filtetcontent)"><i class="ri-filter-3-line align-bottom me-1"></i>
+                        {{"FILTERS"|translate}}</button>
+                    <a href="javascript:void(0);" (click)="setType('')" data-bs-toggle="modal"
+                        class="btn btn-info btn-sm">{{"ALL"|translate}}</a>
+                    <a href="javascript:void(0);" (click)="setType('transfer btween accounts')" data-bs-toggle="modal"
+                        class="btn btn-warning btn-sm">{{"TRANSFER"|translate}}</a>
+                    <a href="javascript:void(0);" (click)="setType('deposit')" data-bs-toggle="modal"
+                        class="btn btn-success btn-sm">{{"DEPOSIT"|translate}}</a>
+                    <a href="javascript:void(0);" (click)="setType('withdraw')" data-bs-toggle="modal"
+                        class="btn btn-danger btn-sm">{{"WITHDRAW"|translate}}</a>
+                </div>
+            </div><!--end col-->
+            <div class="col-md-auto ms-auto">
+                <div class="d-flex gap-2">
+                    <div class="search-box">
+                        <input type="text" name="searchTerm" class="form-control"
+                            placeholder="{{'SFT'|translate}}" [(ngModel)]="contentService.searchTerm">
+                        <i class="ri-search-line search-icon"></i>
+                    </div>
+                    <!-- <button class="btn btn-success"><i class="ri-equalizer-line align-bottom me-1"></i> Filters</button> -->
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end card-header-->
+    <div class="card-body">
+
+        <div class="row">
+            <div *ngFor="let account of uniqueAccounts" class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ accountDescription(account) }}</h5>
+                        <p class="card-text">{{'BALANCE'|translate}}: {{ account.balance }} {{ account.currency }}</p>
+                        <!-- Add more account details here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+<div class="card-body" *ngIf="length == 0" >
+    <h5>No transactions!</h5>
+</div>
+    </div>
+    <div class="card-body" *ngIf="length > 0">
+        <div class="table-responsive table-card">
+            <table class="table align-middle table-nowrap table-hover " id="customerTable">
+                <thead class="table-light text-muted">
+                    <tr>
+                        <th class="col" data-sort="name" scope="col" style="width: 60px;" *ngIf="colsToView.icon"></th>
+                        <th *ngIf="pending || colsToView.email"
+                            class="sort cursor-pointer {{sortCol == 'user.email'? sortClass:''}}"
+                            [sortable]="'user.email'" (sort)="onSort($event)" data-sort="user.email" scope="col">
+                            <p class="pe-3 mb-0">
+                                {{"USER"|translate}}
+                            </p>
+                            
+                        </th>
+                        <th *ngIf="colsToView.date" class="sort cursor-pointer {{sortCol == 'date'? sortClass:''}}"
+                            [sortable]="'date'" (sort)="onSort($event)" data-sort="date" scope="col">
+                            <p class="pe-3 mb-0">
+                                {{"DATE"|translate}}
+                            </p>
+                            </th>
+                        <th *ngIf="colsToView.currency"
+                            class="sort cursor-pointer {{sortCol == 'currency'? sortClass:''}}" [sortable]="'currency'"
+                            (sort)="onSort($event)" data-sort="currency_name" scope="col">
+                            <p class="pe-3 mb-0">
+                                {{"CURRENCY"|translate}}
+                            </p>
+                            </th>
+                        <th *ngIf="colsToView.from" class="sort cursor-pointer {{sortCol == 'from'? sortClass:''}}"
+                            [sortable]="'from'" (sort)="onSort($event)" data-sort="form_name" scope="col">
+                            <p class="pe-3 mb-0">
+                                {{"FROM"|translate}}
+                            </p>
+                            </th>
+                        <th *ngIf="colsToView.to" class="sort cursor-pointer  {{sortCol == 'to'? sortClass:''}}"
+                            [sortable]="'to'" (sort)="onSort($event)" data-sort="to_name" scope="col">
+                            <p class="pe-3 mb-0">
+                                {{"TO"|translate}}
+                            </p>
+                        </th>
+                        <th *ngIf="colsToView.method" class="sort cursor-pointer {{sortCol == 'method'? sortClass:''}}"
+                            [sortable]="'method'" (sort)="onSort($event)" data-sort="method" scope="col">
+                            <p class="pe-3 mb-0">
+                                {{"METHOD"|translate}}
+                            </p>
+                            </th>
+                        <th *ngIf="colsToView.details"
+                            class="sort cursor-pointer {{sortCol == 'details'? sortClass:''}}" [sortable]="'details'"
+                            (sort)="onSort($event)" data-sort="details" scope="col">
+                            <p class="pe-3 mb-0">
+                                {{"DETAILS"|translate}}
+                            </p>
+                            </th>
+                        <th *ngIf="colsToView.ref" class="sort cursor-pointer {{sortCol == 'ref'? sortClass:''}}"
+                            [sortable]="'ref'" (sort)="onSort($event)" data-sort="transaction_id" scope="col">
+                            <p class="pe-3 mb-0">
+                                {{"REF"|translate}}
+                            </p>
+                        </th>
+                        <th *ngIf="colsToView.type" class="sort cursor-pointer {{sortCol == 'type'? sortClass:''}}"
+                            [sortable]="'type'" (sort)="onSort($event)" data-sort="type" scope="col">
+                            
+                            <p class="pe-3 mb-0">
+                                {{"TYPE"|translate}}
+                            </p>
+                        </th>
+                        <th *ngIf="colsToView.amount" class="sort cursor-pointer {{sortCol == 'amount'? sortClass:''}}"
+                            [sortable]="'amount'" (sort)="onSort($event)" data-sort="amount" scope="col">
+                            <p class="pe-3 mb-0">
+                                {{"AMOUNT"|translate}}
+                            </p>
+                           
+                            </th>
+                        <th *ngIf="colsToView.status" class="sort cursor-pointer {{sortCol == 'status'? sortClass:''}}"
+                            [sortable]="'status'" (sort)="onSort($event)" data-sort="status" scope="col">
+                            <p class="pe-3 mb-0">
+                                {{"STATUS"|translate}}
+                            </p>
+                            
+                            </th>
+                        <th *ngIf="colsToView.receipt" scope="col">{{"RECIEPT"|translate}}</th>
+                        <th scope="col">
+                            <p class="pe-3 mb-0">
+                                {{"ACTION"|translate}}
+                            </p>
+                           </th>
+
+                    </tr><!--end tr-->
+                </thead>
+                <tbody class="list form-check-all" *ngIf="!(loading$ |async)">
+                    <tr *ngFor="let data of TransactionList$ | async">
+                        <td *ngIf="colsToView.icon">
+                            <div class="avatar-xs">
+                                <div
+                                    class="avatar-title bg-soft-{{data.bg_color}} text-{{data.bg_color}} rounded-circle fs-16">
+                                    <i class="{{data.icon}}"></i>
+                                </div>
+                            </div>
+                        </td>
+                        <td *ngIf="pending || colsToView.email" class="user">
+                            <div class="d-flex align-items-center">
+                                {{data.user?.firstName}} {{data.user?.lastName}} ({{data.user?.email}})
+                            </div>
+                        </td>
+                        <td class="date" *ngIf="colsToView.date">
+                            <ngb-highlight [result]="data.date | date:'yyyy-MM-dd'"
+                                [term]="contentService.searchTerm"></ngb-highlight>
+
+                            <!-- <small class="text-muted">{{data.time}}</small> -->
+                        </td>
+                        <td class="currency_name" *ngIf="colsToView.currency">
+                            <div class="d-flex align-items-center">
+                                <img src="{{data.image}}" alt="" class="avatar-xxs me-2 rounded-circle shadow">
+                                {{data.currency}}
+                            </div>
+                        </td>
+                        <td *ngIf="colsToView.from"><a href="javascript:void(0);"
+                                (mousedown)="data.from &&  accountCard(data.fromAccount)">
+                                <ngb-highlight [result]="data.fromAccount ? data.from : ('Deposit'|translate)"
+                                    [term]="contentService.searchTerm"></ngb-highlight>
+                            </a>
+                        </td>
+                        <td *ngIf="colsToView.to"><a href="javascript:void(0);"
+                                (mousedown)="data.to && accountCard(data.toAccount)">
+                                <ngb-highlight [result]="data.toAccount ? data.to : ('Withdraw'|translate)"
+                                    [term]="contentService.searchTerm"></ngb-highlight>
+                            </a></td>
+                        <td *ngIf="colsToView.method"><ngb-highlight [result]="data.method"
+                                [term]="contentService.searchTerm"></ngb-highlight>
+                        </td>
+                        <td *ngIf="colsToView.details"><ngb-highlight
+                                [result]="data.details" [term]="contentService.searchTerm"></ngb-highlight>
+                                <!-- {{paymentMethodDescription(data)}}
+                                <a *ngIf="data.paymentInfo?.goto" class="btn btn-sm btn-primary" href="{{ data.paymentInfo?.goto }}" target="_blank">Pay</a> -->
+                        </td>
+                        <td *ngIf="colsToView.ref"><ngb-highlight [result]="data.ref"
+                                [term]="contentService.searchTerm"></ngb-highlight></td>
+                        <td *ngIf="colsToView.type"><ngb-highlight [result]="data.type"
+                                [term]="contentService.searchTerm"></ngb-highlight></td>
+                        <td *ngIf="colsToView.amount">
+                            <h6 class="text-{{data.bg_color}} mb-1 amount">{{data.amount}}</h6>
+                            <p class="text-muted mb-0">{{data.amount1}}</p>
+                        </td>
+                        <td *ngIf="colsToView.status" class="status">
+                            <span class="badge badge-soft-{{data.status_color}} fs-11"><i
+                                    class="ri-checkbox-circle-line align-bottom"></i> {{(data.status |
+                                uppercase)|translate}}</span>
+                        </td>
+                        <td *ngIf="colsToView.receipt">
+
+
+                            <a *ngIf=" !data?.receipt && data.status === 'Pending' && data.type == 'withdraw'"
+                                class="dropdown-item" href="javascript:void(0);"
+                                (mousedown)="uploadDekont(data.id)">{{'CLIENTTXS.UPLOADRECIPT.TEXT' |
+                                translate }}</a>
+
+                            <a *ngIf="data?.receipt" class="dropdown-item" href="javascript:void(0);"
+                                (mousedown)="viewDekont(data?.receipt?.id)">{{'CLIENTTXS.VIEWRECIPT.TEXT'
+                                | translate }}</a>
+
+                        </td>
+                        <td>
+                            <div class="flex-shrink-0" *ngIf="data.status !== 'Canceled'">
+                                <div class="dropdown" ngbDropdown container="body">
+                                    <a href="javascript:void(0);" class="arrow-none" role="button"
+                                        id="dropdownMenuLink2" data-bs-toggle="dropdown" aria-expanded="false"
+                                        ngbDropdownToggle>
+                                        <i class="ri-more-2-fill fs-14"></i>
+                                    </a>
+
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink2"
+                                        ngbDropdownMenu>
+                                        <li
+                                            *ngIf="data.user?.id==currentUserId && !data?.receipt && data.status === 'Pending' && data.type == 'withdraw'">
+                                            <a class="dropdown-item" href="javascript:void(0);"
+                                                (mousedown)="uploadDekont(data.id)">{{'CLIENTTXS.UPLOADRECIPT.TEXT' |
+                                                translate }}</a>
+                                        </li>
+                                        <li *ngIf="data?.user?.id!=currentUserId && !data?.receipt && data.status === 'Pending' && data.type == 'deposit'"
+                                            class="text-center">
+                                            <span class="text-danger">{{'NORECIPT'|translate}}</span>
+                                        </li>
+                                        <li *ngIf="data?.receipt">
+                                            <a class="dropdown-item" href="javascript:void(0);"
+                                                (mousedown)="viewDekont(data?.receipt?.id)">{{'CLIENTTXS.VIEWRECIPT.TEXT'
+                                                | translate }}</a>
+                                        </li>
+                                        <li *ngIf="!data?.receipt && data.status == 'Approved'">
+                                            <h5 class="dropdown-item user-select-none text-danger mb-0">
+                                                {{'CLIENTTXS.APPROVEDWITHOUTRECIPT.TEXT' | translate }}
+                                            </h5>
+                                        </li>
+                                        <li *ngIf="role == userType.Customer && data.status == 'Pending'"><a
+                                                class="dropdown-item" href="javascript:void(0);"
+                                                (mousedown)="do('cancel',data.id)">{{"CANCEL"|translate}}</a>
+                                            <!-- </li><li><a class="dropdown-item" href="#" (mousedown)="changeFirstName()">Change first name</a> -->
+                                            <!-- </li><li><a class="dropdown-item" href="#" (mousedown)="changeLastName()">Change last name</a> -->
+                                        </li>
+                                        <!-- <li><a class="dropdown-item" href="#" (mousedown)="changeNote()">Change note</a></li> -->
+                                        <li *ngIf="role == userType.Customer && data.status == 'Rejected'"><a
+                                                class="dropdown-item" href="javascript:void(0);"
+                                                (mousedown)="do('retry',data.id)">{{'RETRY'|translate}}</a>
+                                        </li>
+                                        <li *ngIf="(role == userType.Agent || role == userType.Admin) 
+                                             && ((data.type=='deposit' && allowApproveDeposit) || (data.type=='withdraw' && allowApproveWithdraw) || (data.type=='transfer btween accounts' && allowApproveTransferBetweenCustomerAccounts))
+                                             && data.status == 'Pending'">
+                                            <a href="javascript:void(0);" class="dropdown-item"
+                                                (mousedown)="do('reject',data.id)">{{'REJECT'|translate}}</a>
+                                        </li>
+                                        <li
+                                            *ngIf="(role == userType.Agent || role == userType.Admin) && data.status == 'Pending'
+                                            && ((data.type=='deposit' && allowApproveDepositToCustomerFromServerCredit) || (data.type=='withdraw' && allowApproveWithdrawFromCustomerToServerCredit) || (data.type=='transfer btween accounts' && allowApproveTransferBetweenCustomerAccounts))">
+                                            <a class="dropdown-item" href="javascript:void(0);"
+                                                (mousedown)="do('approve',data.id)">{{"APPROVE"|translate}}</a>
+                                        </li>
+                                        <li
+                                            *ngIf="(role == userType.Agent || role == userType.Admin) && data.status == 'Pending'
+                                            && ((data.type=='deposit' && allowApproveDepositToCustomerFromMasterAccount) || (data.type=='withdraw' && allowApproveWithdrawFromCustomerToMasterAccount))">
+                                            <a class="dropdown-item" href="javascript:void(0);"
+                                                (mousedown)="doMasterAccount('approve',data.id)">{{"APPROVEUSINGMASTERACCOUNT"|translate}}</a>
+                                        </li>
+                                        <li
+                                            *ngIf="(role == userType.Agent || role == userType.Admin) && data.status == 'Pending'
+                                            && ((data.type=='deposit' && allowApproveDepositToCustomerFromWallet) || (data.type=='withdraw' && allowApproveWithdrawFromCustomerToWallet))">
+                                            <a class="dropdown-item" href="javascript:void(0);"
+                                                (mousedown)="doWallet('approve',data.id)">{{"APPROVEUSINGWALLET"|translate}}</a>
+                                        </li>
+                                        <!-- <li><a class="dropdown-item" href="#" (mousedown)="delete()">Delete</a></li> -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table><!--end table-->
+        </div>
+        <div class="row justify-content-md-between align-items-md-center mt-4">
+            <div class="col col-sm-6">
+                <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                    {{"SHOWING"|translate}}
+                    {{contentService.startIndex}} {{'TO'|translate}}
+                    {{contentService.endIndex}} {{"OF"|translate}} {{contentService.totalRecords}}
+                    {{"ENTERIES"|translate}}
+                </div>
+            </div>
+            <!-- Pagination -->
+            <div class="col col-sm-6">
+                <div class="text-sm-right float-end listjs-pagination">
+                    <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="contentService.page"
+                    [maxSize]="5"
+                    [rotate]="true"
+                    [ellipses]="false"
+                    [boundaryLinks]="true"
+                        [pageSize]="contentService.pageSize">
+                    </ngb-pagination>
+                </div>
+            </div>
+            <!-- End Pagination -->
+        </div>
+        <div id="elmLoader" [ngClass]="{'d-none':!(loading$ | async)}">
+            <div class="spinner-border text-primary avatar-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div><!--end card-body-->
+</div><!--end card-->
+
+
+<ng-template #filtetcontent let-offcanvas>
+    <div class="offcanvas-header bg-light">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{"TXSFILTER"|translate}}</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"
+            (click)="offcanvas.dismiss('Cross click')"></button>
+    </div>
+    <!--end offcanvas-header-->
+    <form action="" class="d-flex flex-column justify-content-end h-100">
+        <div class="offcanvas-body">
+            <div>
+                <label for="leads-tags"
+                    class="form-label text-muted text-uppercase fw-semibold mb-3">{{"COLS"|translate}}</label>
+                <div class="row g-3">
+                    <div class="col-lg-6" *ngFor="let col of cols">
+                        <div class="form-check">
+                            <input [disabled]="col.name == 'email' && !pending" class="form-check-input" type="checkbox"
+                                id="{{col.name+'sss'}}" value="{{col.name}}" [checked]="col.visibale"
+                                name="{{col.name+'sss'}}" (change)="col.visibale = !col.visibale">
+                            <label class="form-check-label" for="{{col.name+'sss'}}">{{(col.name|uppercase) |
+                                translate}}</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--end offcanvas-body-->
+        <div class="offcanvas-footer border-top p-3 text-center hstack gap-2">
+            <button class="btn btn-light w-100">{{"CLEARFILTER"|translate}}</button>
+            <button type="submit" class="btn btn-primary w-100" (click)="setCols()">{{"FILTER"|translate}}</button>
+        </div>
+        <!--end offcanvas-footer-->
+    </form>
+</ng-template>

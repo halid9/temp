@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" >{{'Upload dekont'}}</h4>
+    <button type="button" class="btn-close" aria-label="Close"(mousedown)="close()" ></button>
+</div>
+    <div class="modal-body">
+        <div class="row g-3">
+            
+
+
+            <div class="mb-3" >
+                <label for="EndleaveDate" class="form-label">{{'Choose file to upload'}}</label>
+                <div class="input-group ">
+                    <input type="file" class="form-control" aria-label="input" 
+                        aria-describedby="inputGroup" (change)="addFile($event)">
+                    </div>
+                
+            </div>
+         
+           
+        </div>
+        <!--end row-->
+    </div>
+
+       

@@ -1,0 +1,195 @@
+<div class="modal-header bg-light ">
+    <h4 class="modal-title mb-3" id="modal-basic-title">{{"CREATEUSER"|translate}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (mousedown)="close()"></button>
+</div>
+<div class="modal-body">
+    
+                <form [formGroup]="createUserFrom" (ngSubmit)="onSubmit()">
+
+                    <!-- <div class="mb-3">
+                        <label for="username" class="form-label">Username <span
+                                class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="username"
+                            placeholder="Enter username" required formControlName="username"
+                            [ngClass]="{ 'is-invalid': (submitted && f['username'].errors) ||f['username'].errors?.['invalidInput'] ||f['username'].errors?.['length'] || f['username'].errors?.['symbols'] }">
+                        <div *ngIf="(submitted&& f['username'].errors?.['requierd'])||f['username'].errors?.['invalidInput'] ||f['username'].errors?.['length'] ||f['username'].errors?.['symbols']" class="invalid-feedback">
+                            <div *ngIf="f['username'].errors['invalidInput']">Username must not have<strong> Consecutive letters and sequences</strong></div>
+                            <div *ngIf="f['username'].errors['length']">Username must not be longer than 15 letters</div>
+                            <div *ngIf="f['username'].errors['symbols']">Username must not contain <strong>symbols</strong> or <strong>spaces</strong></div>
+                        </div>
+
+                    </div> -->
+                    <div class="mb-3">
+                        <label for="useremail" class="form-label">{{"EMAIL"|translate}} <span
+                                class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="useremail"
+                            placeholder="{{'ENTEREMAIL'|translate}}" required formControlName="email"
+                            [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+                        <div class="invalid-feedback">
+                            {{"EMAILREQ"|translate}}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">{{"FNAME"|translate}} <span
+                                class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="firstName"
+                            placeholder="{{'ENTERFNAME'|translate}}" required formControlName="firstName"
+                            [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors ||f['firstName'].errors?.['invalidInput'] ||f['firstName'].errors?.['length'] ||f['firstName'].errors?.['symbols']||f['firstName'].errors?.['numbers']}">
+                            <div *ngIf="(submitted&& f['firstName'].errors?.['requierd'])||f['firstName'].errors?.['invalidInput'] ||f['firstName'].errors?.['length']||f['firstName'].errors?.['symbols']||f['firstName'].errors?.['numbers'] " class="invalid-feedback">
+                                <div *ngIf="f['firstName'].errors['invalidInput']">First name must not have<strong> Consecutive letters and sequences</strong></div>
+                                <div *ngIf="f['firstName'].errors['length']">First name must not be longer than 15 letters</div>
+                            <div *ngIf="f['firstName'].errors['symbols']">First name must not contain <strong>symbols</strong></div>
+                            <div *ngIf="f['firstName'].errors['numbers']">First name must not contain <strong>numbers</strong></div>
+
+
+                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">{{"LNAME"|translate}} <span
+                                class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="lastName"
+                            placeholder="{{'ENTERLNAME'|translate}}" required formControlName="lastName"
+                            [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors ||f['lastName'].errors?.['invalidInput'] ||f['lastName'].errors?.['length']|| f['lastName'].errors?.['symbols']|| f['lastName'].errors?.['numbers'] }">
+                            <div *ngIf="(submitted&& f['lastName'].errors?.['requierd'])||f['lastName'].errors?.['invalidInput'] ||f['lastName'].errors?.['length'] || f['lastName'].errors?.['symbols']|| f['lastName'].errors?.['numbers']" class="invalid-feedback">
+                                <div *ngIf="f['lastName'].errors['invalidInput']">Last name must not have<strong> Consecutive letters and sequences</strong></div>
+                                <div *ngIf="f['lastName'].errors['length']">Last name must not be longer than 15 letters</div>
+                            <div *ngIf="f['lastName'].errors['symbols']">Last name must not contain <strong>symbols</strong></div>
+                            <div *ngIf="f['lastName'].errors['numbers']">Last name must not contain <strong>numbers</strong></div>
+
+                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="type" class="form-label">{{"TYPE"|translate}} <span
+                            class="text-danger">*</span></label>
+                        <select class="form-select form-select" formControlName="type"
+                                    [ngClass]="{ 'is-invalid': f['type'].errors}">
+                                    <option *ngFor="let type of userTypes" 
+                                        [value]="type.value">
+
+                                            {{(type.name | uppercase)|translate}}
+                                            
+
+                                    </option>
+                                </select>
+                                <div *ngIf=" f['type'].errors " class="invalid-feedback"
+                                align="left">
+                                
+                                <div *ngIf="submitted && f['type'].errors['required']">{{"TYPEREQ"|translate}}
+                                </div>
+                            </div>
+                    </div>
+                    <div class="mb-1">
+                        <label for="phone" class="form-label">{{"PHONENUMBER"|translate}}<span
+                            class="text-danger">*</span></label>
+                        <div class="row ">                                      
+                                 <!-- <input type="text" class="form-control" id="phone"
+                                 placeholder="Enter phone number" required formControlName="phone"
+                                 [ngClass]="{ 'is-invalid': submitted && f['phone'].errors || f['phone']?.errors?.['pattern']  }"
+                                 pattern="^[1-9][0-9]*$"> -->
+                                <ngx-intl-tel-input [cssClass]="'form-control w-100 '"
+                                    [preferredCountries]="preferredCountries"
+                                    [enableAutoCountrySelect]="true" [enablePlaceholder]="true"
+                                    [searchCountryFlag]="true" [searchCountryField]="[
+                                                                                        SearchCountryField.Iso2,
+                                                                                         SearchCountryField.Name
+                                                                                     ]" 
+                                    [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Turkey" [maxLength]="15"
+                                    [phoneValidation]="true" [separateDialCode]="separateDialCode"
+                                    [numberFormat]="PhoneNumberFormat.National" name="phone"
+                                    [ngClass]="{ 'is-invalid':  f['phone'].errors }"
+                                    formControlName="phone">
+                                </ngx-intl-tel-input>
+                                <div *ngIf=" f['phone'].errors " class="invalid-feedback"
+                                    align="left">
+                                    <div *ngIf="f['phone'].errors?.['validatePhoneNumber']">
+                                        {{'PHONEINVALID'|translate}}
+                                      </div>
+                                    <div *ngIf="submitted && f['phone'].errors['required']">Phone required!
+                                    </div>
+                                </div>
+                               
+                            <!-- <div class="col-8">
+                                <input type="text" class="form-control" id="phone"
+                                    placeholder="Enter phone number" required formControlName="phone"
+                                    [ngClass]="{ 'is-invalid': submitted && f['phone'].errors || f['phone']?.errors?.['pattern']  }"
+                                    pattern="^[1-9][0-9]*$">
+                                <div class="invalid-feedback"
+                                    *ngIf="submitted && f['phone']?.errors?.['required']">
+                                    Please enter phone number
+                                </div>
+                                <div class="invalid-feedback" *ngIf=" f['phone'].errors?.['pattern']">
+                                    phone number must start from 1 to 9 and contain only numbers!
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label for="userpassword" class="form-label">{{"PASS"|translate}} <span
+                            class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="position-relative auth-pass-inputgroup col">
+                                <input [type]="!visible?'password':'text'" id="userpassword"
+                                    class="form-control" readonly  
+                                    placeholder="{{'ENTERPASS'|translate}}" required
+                                    formControlName="password"
+                                    [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+                                
+                                <button [ngClass]="{'me-3':submitted && f['password'].errors,'end-0':dir==='ltr','start-0':dir==='rtl'}"
+                                    class="btn shadow-none btn-link position-absolute  top-0 text-decoration-none text-muted"
+                                    (mousedown)="toggelShow()" type="button"><i class="mdi align-middle"
+                                        [ngClass]="{'mdi-eye-off-outline': !visible, 'mdi-eye-outline': visible
+                                        }"></i></button>
+                            </div>
+                            
+                            <button class="btn btn-outline-success shadow-none" type="button"
+                                (mousedown)="generatePassword()">{{'GPASS'|translate}}</button>
+                        </div>
+                        <input type="text"
+                                    class="form-control d-none" readonly  
+                                    placeholder="Enter password"
+                                    [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+                        <div class="invalid-feedback">
+                            {{"PASSREQ"|translate}}
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label for="usercpassword" class="form-label">{{"CPASS"|translate}} <span
+                            class="text-danger">*</span></label>
+                    <input [type]="!visible?'password':'text'" class="form-control" id="usercpassword"  readonly
+                        placeholder="{{'ENTERCPASS'|translate}}" required formControlName="cpassword"
+                        [ngClass]="{ 'is-invalid': submitted && f['cpassword'].errors }">
+                    <div class="invalid-feedback">
+                        {{"CPASSREQ"|translate}}
+                    </div>
+                    </div>
+                    <div id="password-contain" class="p-3 bg-light mb-2 rounded">
+                        <h5 class="fs-13  text-primary">{{'PASSMUSTCONTAIN'|translate}}</h5>
+                        <p id="pass-length" class="invalid fs-12 mb-2" [ngClass]="{'before-rtl':dir==='rtl'}">
+                             {{"MIN8"|translate}}
+                        </p>
+                        <p id="pass-lower" class="invalid fs-12 mb-2" [ngClass]="{'before-rtl':dir==='rtl'}">{{"LOWER"|translate}}
+                        </p>
+                        <p id="pass-upper" class="invalid fs-12 mb-2" [ngClass]="{'before-rtl':dir==='rtl'}">{{"UPPER"|translate}}</p>
+                        <p id="pass-number" class="invalid fs-12 mb-2" [ngClass]="{'before-rtl':dir==='rtl'}">{{"ONENUMBER"|translate}}</p>
+                        <p id="pass-match" class="invalid fs-12 mb-0" [ngClass]="{'before-rtl':dir==='rtl'}">{{"MUSTMATCH"|translate}}</p>
+                    </div>
+
+                    <div class="mt-4">
+                        <button class="btn btn-success w-100" type="submit">{{'CREATEUSER'|translate}}</button>
+                    </div>
+
+                    <!-- <div class="mt-4 text-center">
+                      <div class="signin-other-title">
+                          <h5 class="fs-13 mb-4 title text-muted">Create account with</h5>
+                      </div>
+
+                      <div class="d-flex gap-2 justify-content-center">
+                          <button type="button" class="btn btn-primary btn-icon waves-effect waves-light"><i class="ri-facebook-fill fs-16"></i></button>
+                          <button type="button" class="btn btn-danger btn-icon waves-effect waves-light"><i class="ri-google-fill fs-16"></i></button>
+                          <button type="button" class="btn btn-dark btn-icon waves-effect waves-light"><i class="ri-github-fill fs-16"></i></button>
+                          <button type="button" class="btn btn-info btn-icon waves-effect waves-light"><i class="ri-twitter-fill fs-16"></i></button>
+                      </div>
+                  </div> -->
+                </form>
+
+</div>

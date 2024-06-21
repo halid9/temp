@@ -1,0 +1,271 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="Tickets" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card" id="ticketsList">
+            <div class="card-header border-0">
+
+                <div class="row g-4 align-items-center">
+                    <div class="col-sm-3">
+                        <div class="search-box">
+                            <input type="text" name="searchTerm" class="form-control"
+                                placeholder="{{'Search for...'|translate}}" [(ngModel)]="service.searchTerm">
+                            <i class="ri-search-line search-icon"></i>
+                        </div>
+                    </div>
+                    <div class="col-sm-auto ms-auto">
+                        <div class="hstack gap-2">
+                            <!-- <button class="btn btn-soft-danger" id="remove-actions" style="display: none"
+                                (click)="deleteMultiple(deleteModel)"><i class="ri-delete-bin-2-line"></i></button> -->
+                            <!-- <button type="button" class="btn btn-info" data-bs-toggle="offcanvas"
+                                href="javascript:void(0);" (click)="openEnd(filtetcontent)"><i
+                                    class="ri-filter-3-line align-bottom me-1"></i> Fliters</button> -->
+                            <button *ngIf="isAdmin()" type="button" class="btn btn-success add-btn"
+                                data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"
+                                (click)="openModal(content)"><i class="ri-add-line align-bottom me-1"></i>
+                                {{'ADDTICKET'|translate}}</button>
+
+                            <button *ngIf="!isAdmin()" type="button" class="btn btn-success add-btn"
+                                (click)="openClientNewTicketModal()"><i class="ri-add-line align-bottom me-1"></i>
+                                {{'ADDTICKET'|translate}} </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div>
+                    <div class="table-responsive table-card">
+
+                        <table class="table">
+                            <thead>
+                                <tr class="bg-light text-muted">
+
+                                    <th class="sort" data-sort="customerEmail">
+                                        <p class="pe-3 mb-0">
+                                            {{"EMAIL"|translate}}
+                                        </p>
+                                    </th>
+                                    <th class="sort" data-sort="topic">
+                                        <p class="pe-3 mb-0">
+                                            {{"TOPIC"|translate}}
+
+                                        </p>
+                                    </th>
+                                    <th class="sort" data-sort="agentName">
+                                        <p class="pe-3 mb-0">
+                                            {{"AGENTNAME"|translate}}
+
+                                        </p>
+                                    </th>
+                                    <th class="sort" data-sort="channelId">
+                                        <p class="pe-3 mb-0">
+                                            {{"CHANNELID"|translate}}
+
+
+                                        </p>
+                                    </th>
+                                    <th class="sort" data-sort="status">
+                                        <p class="pe-3 mb-0">
+                                            {{"STATUS"|translate}}
+
+                                        </p>
+                                    </th>
+                                    <th class="sort" data-sort="created_at">
+                                        <p class="pe-3 mb-0">
+                                            {{"CREATEDAT"|translate}}
+
+                                        </p>
+                                    </th>
+                                    <th class="col">
+                                        {{"ACTIONS"|translate}}
+
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let ticket of tickets" id="l_{{ticket._id}}">
+
+
+                                    <td>
+                                        <ngb-highlight [result]="ticket.customerEmail" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+
+                                    <td>
+                                        <ngb-highlight [result]="ticket.topic" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+
+
+                                    <td>
+                                        <ngb-highlight [result]="ticket.agentName" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight [result]="ticket.channelId" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight [result]="ticket.status" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight [result]="ticket.created_at | date" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ul class="list-inline hstack gap-2 mb-0">
+                                            <li class="list-inline-item" ngbTooltip="View" placement="top">
+                                                <a href="javascript:void(0);"><i
+                                                        (click)="openViewItemModal(viewItemModal,ticket.id)"
+                                                        class="ri-eye-fill align-bottom text-muted"></i></a>
+                                            </li>
+                                            <li class="list-inline-item" ngbTooltip="Edit status" placement="top">
+                                                <a class="edit-item-btn" data-bs-toggle="modal"
+                                                    (click)="openStatusUpdateModal(statusUpdateModal,ticket.id)"><i
+                                                        class="ri-pencil-fill align-bottom text-muted"></i></a>
+                                            </li>
+                                            <li class="list-inline-item me-0" ngbTooltip="Delete" placement="top">
+                                                <a class="remove-item-btn" data-bs-toggle="modal"
+                                                    (click)="confirm(deleteModel,ticket.id)">
+                                                    <i class="ri-delete-bin-fill align-bottom text-muted"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row justify-content-md-between align-items-md-center mt-3">
+                        <div class="col col-sm-6">
+                            <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                                {{"SHOWING"|translate}}
+                                {{service.startIndex}} {{'TO'|translate}}
+                                {{service.endIndex}} {{"OF"|translate}} {{service.totalRecords}}
+                                {{"ENTERIES"|translate}}
+                            </div>
+                        </div>
+                        <!-- Pagination -->
+                        <div class="col col-sm-6">
+                            <div class="text-sm-right float-end listjs-pagination">
+                                <ngb-pagination [collectionSize]="(total | async)!" [(page)]="service.page"
+                                    [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+                                    [pageSize]="service.pageSize">
+                                </ngb-pagination>
+                            </div>
+                        </div>
+                        <!-- End Pagination -->
+                    </div>
+                    <div id="elmLoader">
+                        <div class="spinner-border text-primary avatar-sm" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--end col-->
+</div>
+<!--end row-->
+
+<!-- removeItemModal -->
+<ng-template #deleteModel let-modal>
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"
+                (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mt-2 text-center">
+                <lord-icon _ngcontent-klx-c236="" src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
+                    colors="primary:#f7b84b,secondary:#f06548" style="width: 100px; height: 100px;"></lord-icon>
+                <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                    <h4>Are you Sure ?</h4>
+                    <p class="text-muted mx-4 mb-0">Are you Sure You want to Remove this Ticket ?</p>
+                </div>
+            </div>
+            <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                <button class="btn btn-link link-success fw-medium text-decoration-none" data-bs-dismiss="modal"
+                    (click)="modal.close('Close click')" id="deleteRecord-close"><i
+                        class="ri-close-line me-1 align-middle"></i> Close</button>
+                <button type="button" class="btn w-sm btn-danger " id="delete-product" (click)="deleteData(deleteId)"
+                    (click)="modal.close('Close click')">Yes, Delete It!</button>
+            </div>
+        </div>
+    </div><!-- /.modal-content -->
+</ng-template>
+
+<!-- viewItemModal -->
+<ng-template #viewItemModal let-modal>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Ticket Details</h5>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <h6>Customer Email: {{ selectedTicket.customerEmail }}</h6>
+            <h6>Topic: {{ selectedTicket.topic }}</h6>
+            <h6>Agent ID: {{ selectedTicket.agentId }}</h6>
+            <h6>Agent Name: {{ selectedTicket.agentName }}</h6>
+            <h6>Channel ID: {{ selectedTicket.channelId }}</h6>
+            <h6>Status: {{ selectedTicket.status }}</h6>
+            <h6>Created at: {{ selectedTicket.created_at | date:'medium' }}</h6>
+
+            <div class="chat-container" #chatContainer>
+                <div *ngFor="let message of parseConversationHistory(selectedTicket.conversationHistory)">
+                    <div class="message"
+                        [ngClass]="{ 'agent': message.username === selectedTicket.agentName , 'customer': message.username !== selectedTicket.agentName  }">
+                        <div class="message-info">
+                            <div class="username">{{ message.username }}</div>
+                            <div class="timestamp">{{ formatTimestamp(message.ts) }}</div>
+                        </div>
+                        <div class="message-content">{{ message.message }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="d-flex space-between w-100">
+                <div class="d-flex w-100">
+                    <input style="margin-inline-end: 7px;" class="w-100 form-control" type="text"
+                        placeholder="Enter your reply..." [(ngModel)]="reply" (keyup.enter)="submitReply(reply)">
+                    <button type="button" class="btn btn-primary" (click)="submitReply(reply)">Submit</button>
+                </div>
+                <!-- <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Close click')">Close</button> -->
+
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+<!-- Status Update Modal -->
+<ng-template #statusUpdateModal let-modal>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Update Ticket Status</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="statusSelect">Status</label>
+                <select id="statusSelect" class="form-control" [(ngModel)]="selectedTicketStatus">
+                    <option *ngFor="let status of ticketStatuses" [value]="status">{{ status }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                (click)="modal.dismiss('Cancel')">Cancel</button>
+            <button type="button" class="btn btn-primary"
+                (click)="updateTicketStatus(); modal.dismiss('Update')">Update</button>
+        </div>
+    </div>
+</ng-template>

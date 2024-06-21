@@ -1,0 +1,39 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" >
+        {{'CLIENTACCOUNTS.CHACCNAME.TEXT' | translate }}
+        </h4>
+    <button type="button" class="btn-close" aria-label="Close"(mousedown)="close()" ></button>
+</div>
+    <div class="modal-body">
+        <div class="row g-3">
+            
+
+
+            <div class="p-2 mt-4">
+                <form [formGroup]="changeNameForm" (ngSubmit)="onSubmit()">
+
+                    <div class="mb-3">
+                      <label class="form-label" for="name">{{'CLIENTACCOUNTS.ACCNAME.TEXT' | translate }}</label>
+                      <input type="text" class="form-control" id="name" formControlName="name" [(ngModel)]="accountName"
+                      [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"
+                      placeholder="Enter name">
+                      <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                          <div *ngIf="f['name'].errors['required']">{{'CLIENTACCOUNTS.ACCNAMEREQ.TEXT' | translate }}</div>
+                          <!-- <div *ngIf="f['email'].errors['email']">Email must be a valid email address -->
+                          <!-- </div> -->
+                      </div>
+                    </div>
+
+                   
+                    <div class="mt-4">
+                        <button class="btn btn-success w-100" type="submit">{{'CLIENTACCOUNTS.CHACCNAME.TEXT' | translate }}</button>
+                    </div>
+                </form>
+            </div>
+         
+           
+        </div>
+        <!--end row-->
+    </div>
+
+       

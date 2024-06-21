@@ -1,0 +1,105 @@
+<div class="auth-page-wrapper pt-5">
+    <!-- auth page bg -->
+    <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
+        <div class="bg-overlay"></div>
+
+        <div class="shape">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 0 1440 120">
+                <path d="M 0,36 C 144,53.6 432,123.2 720,124 C 1008,124.8 1296,56.8 1440,40L1440 140L0 140z"></path>
+            </svg>
+        </div>
+    </div>
+
+    <!-- auth page content -->
+    <div class="auth-page-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center mt-sm-5 mb-4 text-white-50">
+                        <div>
+                            <a routerLink="/" class="d-inline-block auth-logo">
+                                <img src="assets/images/logo-colored.png" alt="" height="80">
+                            </a>
+                        </div>
+                        <!-- <p class="mt-3 fs-15 fw-medium">Alamiya Markets Client Zone</p> -->
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="card mt-4 cursor-pointer" >
+
+                        <div class="card-body p-4">
+                            <div class="mb-4">
+                                <div class="avatar-xl mx-auto">
+                                    <div class="avatar-title bg-transparent text-primary display-2 rounded-circle shadow">
+                                        <i class=" ri-macbook-line"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-muted text-center mb-4 mx-lg-3">
+                                <h4 class="text-warning">{{'unknown device detected!'}}</h4>
+
+                                <h5 class="">{{'select verification method'}}</h5>
+                            </div>
+                                <div class="list-group">
+                                    <a href="javascript:void(0);" class="list-group-item border-none list-group-item-action" routerLink="basic">
+                                        <div class="d-flex mb-2 align-items-center">
+                                            <div class="avatar-sm mx-auto">
+                                                <div class="avatar-title bg-light text-primary display-6 rounded-circle shadow">
+                                                    <i class="ri-mail-line"></i>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-3">
+                                                <h5 class="list-title fs-15 mb-1">Verify via email</h5>
+                                                <p class="list-text mb-0 fs-12">send code to {{state?.email}}</p>
+                                            </div>
+                                        </div>
+                                      </a>
+                                    <a href="javascript:void(0);" class="list-group-item list-group-item-action" routerLink="phone">
+                                        <div class="d-flex mb-2 align-items-center">
+                                            <div class="avatar-sm mx-auto">
+                                                <div class="avatar-title bg-light text-primary display-6 rounded-circle shadow">
+                                                    <i class="ri-phone-line"></i>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-3">
+                                                <h5 class="list-title fs-15 mb-1">Verify via phone</h5>
+                                                <p class="list-text mb-0 fs-12">send code to {{state?.phone}}</p>
+                                            </div>
+                                        </div>
+                                      </a>
+                                
+                            </div>
+                        </div>
+                        <!-- end card body -->
+                    </div>
+                    <!-- end card -->
+        
+                    
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end auth page content -->
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center">
+                        <p class="mb-0 text-muted">&copy; {{year}} All rights reserved for Alamiya markets  </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- end Footer -->
+</div>
+<!-- end auth-page-wrapper -->

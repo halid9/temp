@@ -1,0 +1,130 @@
+<div class="modal-header bg-light p-3">
+    <h5 class="modal-title">
+        {{method.name}}
+
+    </h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"
+        (click)="closeDialog()"></button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="row">
+                <div class="col-12 form-group mb-3" *ngIf="newMethod">
+                    <label>{{'SELECTNETWORK' | translate }}</label>
+                    <crypto-network-select-option [networks]="currencies"
+                        (networkChanged)="networkChanged($event)"></crypto-network-select-option>
+                    <div *ngIf="saving && !method.currency" class="text-danger p-1">
+                        {{'NTWORKREQ' | translate }}
+                    </div>
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="name" class="form-label">{{"NAME"|translate}} <span class="text-danger"></span></label>
+                    <input type="text" class="form-control" id="name" placeholder="{{'ENTERNAME'|translate}}"
+                        [(ngModel)]="method.name">
+
+                </div>
+
+
+                <div class="col-12 mb-3">
+                    <label for="transferMethod" class="form-label">{{"TRANSFERMETHOD"|translate}} <span
+                            class="text-danger"></span></label>
+                    <input type="text" class="form-control" id="transferMethod" [disabled]="true"
+                        placeholder="{{'ENTERTRANSFERMETHOD'|translate}}" [(ngModel)]="method.transferMethod">
+
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="fees" class="form-label">{{"Fees"|translate}} <span class="text-danger"></span></label>
+                    <input type="text" class="form-control" id="fees" placeholder="{{'ENTERFEE'|translate}}"
+                        [(ngModel)]="method.fee">
+
+                </div>
+
+                <div class="col-12 mb-3">
+                    <label for="limits" class="form-label">{{"Limits"|translate}} <span
+                            class="text-danger"></span></label>
+                    <input type="text" class="form-control" id="limits" placeholder="{{'ENTERLIMITS'|translate}}"
+                        [(ngModel)]="method.limits">
+
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="pTime" class="form-label">{{"Proccesing time"|translate}} <span
+                            class="text-danger"></span></label>
+                    <input type="text" class="form-control" id="pTime" placeholder="{{'ENTERPTIME'|translate}}"
+                        [(ngModel)]="method.proccesingTime">
+
+                </div>
+
+
+                <div class=" col-12 mb-3">
+                    <label for="warnings" class="form-label">{{"Warnings"|translate}} </label>
+                    <div class="input-group">
+                        <div class="position-relative auth-pass-inputgroup col">
+                            <input type="text" id="warnings" class="form-control"
+                                placeholder="{{'ENTERWARNING'|translate}}" [(ngModel)]="newWarning" />
+                        </div>
+
+                        <button class="btn btn-outline-success shadow-none" type="button"
+                            (mousedown)="addWarning()">{{'ADDWARNING'|translate}}</button>
+                    </div>
+                </div>
+                <div class=" col-12 mb-3">
+                    <div class="row">
+                        <p class="text-danger" *ngIf="!method.warnings?.length"> +
+                            {{"NOWARNINGSADDED"|translate}}</p>
+                        <div class="col-12" *ngIf="method.warnings && method.warnings?.length">
+                            <ul>
+                                <li *ngFor="let w of method.warnings" class="d-flex gap-2 align-items-center mb-1">
+                                    <span class="d-flex  align-items-center"><button
+                                            class="btn btn-outline-danger btn-sm" (click)="removeWarning(w)">-</button>
+                                    </span><span>{{w|translate}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-12 mb-3 ">
+                    <div class="form-check form-switch">
+
+                        <label class="form-check-label" for="flexSwitchCheckDefault"
+                            [ngClass]="{'text-success':method.active}">{{(method.active?"ENABLED":"DISABLED")|translate}}</label>
+                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
+                            [(ngModel)]="method.active">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <div class="d-flex align-items-center gap-2">
+                        <img [src]="method.icon" alt="" style="max-width: 30px;">
+                        <h3 class="mb-0">{{method.name|translate}} </h3>
+                        <span class="fs-12">{{method.currency?.code ?? ""}}</span>
+                    </div>
+                </div>
+                <div class="card-body bg-light">
+                    <p class="mb-1">
+                        <span class="text-info">{{"Proccesing time"|translate}}:</span> {{method.proccesingTime}}
+                    </p>
+                    <p class="mb-1">
+                        <span class="text-info">{{"Fees"|translate}}:</span> {{method.fee}}
+                    </p>
+                    <p class="mb-1">
+                        <span class="text-info">{{"Limits"|translate}}:</span> {{method.limits}}
+                    </p>
+                    <p class="text-danger" *ngIf="method.warnings?.length">{{"Warnings"|translate}}:</p>
+                    <ul class="mb-1" *ngIf="method.warnings?.length">
+                        <li class="text-warning" *ngFor="let w of method.warnings">{{w}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" (click)="save()">{{"SAVE"|translate}}</button>
+</div>

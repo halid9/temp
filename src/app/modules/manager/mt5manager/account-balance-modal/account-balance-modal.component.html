@@ -1,0 +1,86 @@
+<div class="modal-header">
+    <h5 class="modal-title">Balance Operations for {{ account.first_name }} {{ account.last_name }}</h5>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+
+    <!-- Operation Type -->
+    <div class="form-group mb-3 row">
+        <div class="col">
+            <label for="operationType">Operation:</label>
+            <select id="operationType" class="form-control">
+                <option>Balance</option>
+                <option>Credit</option>
+                <option>Charge</option>
+                <option>Correction</option>
+                <option>Bonus</option>
+                <option>Commission</option>
+            </select>
+        </div>
+        <div class="col">
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" class="form-control" [(ngModel)]="amount">
+        </div>
+    </div>
+
+    <!-- Comment -->
+    <div class="form-group mb-3">
+        <label for="comment">Comment:</label>
+        <input type="text" id="comment" class="form-control" [(ngModel)]="comment">
+    </div>
+
+    <!-- Checkbox -->
+    <div class="form-group mb-3">
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="noCheck" [(ngModel)]="noCheck">
+            <label class="form-check-label" for="noCheck">Conduct balance operation without checking free margin and
+                current balance</label>
+        </div>
+    </div>
+
+    <!-- Amount and Buttons -->
+    <div class="form-group text-center mb-3">
+        <button class="btn btn-success me-3" (click)="deposit()">Deposit</button>
+        <button class="btn btn-danger" (click)="withdraw()">Withdrawal</button>
+    </div>
+
+    <!-- Period -->
+    <div class="form-group mb-3 d-flex align-items-center">
+        <input type="date" id="fromDate" class="form-control w-auto" [(ngModel)]="fromDate">
+        <input type="date" id="toDate" class="form-control w-auto ms-1" [(ngModel)]="toDate">
+        <button class="btn btn-light ms-1 px-1" (click)="getHistory()">History</button>
+    </div>
+
+    <!-- Responsive Table -->
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Deal ID</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Volume</th>
+                    <th>Symbol</th>
+                    <th>Comment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let trade of accountHistoryList">
+                    <td class="text-nowrap">{{ trade.closeTime || trade.time }}</td>
+                    <td>{{ trade.dealId }}</td>
+                    <td>{{ trade.type }}</td>
+                    <td [ngClass]="{'text-success': trade.profit > 0, 'text-danger': trade.profit < 0}">
+                        {{ trade.profit | currency:account.currency }}
+                    </td>
+                    <td>{{ trade.volume }}</td>
+                    <td>{{ trade.symbol }}</td>
+                    <td>{{ trade.comment }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

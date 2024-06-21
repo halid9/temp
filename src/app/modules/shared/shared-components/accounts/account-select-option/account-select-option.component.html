@@ -1,0 +1,33 @@
+<select (change)="onAccountChanged($event)" class="form-select form-select-lg">
+    <option *ngIf="accounts.length==0" value="0" hidden disabled selected>{{"No eligible accounts" | translate}}</option>
+    <option *ngIf="accounts.length" value="0" hidden disabled selected>{{"Please select account" | translate}}</option>
+    <ng-container *ngFor="let p of [2,0,1]">
+        <ng-container *ngIf="hasAccountsForPlatform(p)">
+            <optgroup label="{{['MT4','MT5','Wallet'][p]}}">
+                <ng-container *ngFor="let account of accounts">
+                    <ng-container *ngIf="account.platform == p">
+                        <option [value]="account.id" [selected]="account.id==selectedAccountId"
+                            [ngClass]="{'text-warning':account.accountType == AccountType.Live, 'text-success':account.accountType == AccountType.Demo}">
+                            <span *ngIf="account.platform == Platform.Wallet" class="text-warning" style="direction: ltr;">
+                                {{account.currency}} Wallet - {{"CLIENTTXS.BALANCE.TEXT" | translate}}:
+                                {{account.balance}}
+                                {{account.currency}}</span>
+                            <span *ngIf="account.platform != Platform.Wallet" class="text-success">
+                                {{ account.login? account.login:"#NO LOGIN FOUND!" |
+                                translate}}
+                                {{account.accountName? '- '+account.accountName:"" |
+                                translate }}
+                                - {{"CLIENTTXS.BALANCE.TEXT" | translate}}:
+                                {{account.balance}}
+                                {{ " " + (account.platform == Platform.MT4? 'MT4': 'MT5') }}
+                                {{ " " + (account.accountType == AccountType.Demo?
+                                ('CLIENTTXS.DEMO.TEXT' |
+                                translate):
+                                ('CLIENTTXS.LIVE.TEXT' | translate)) }}</span>
+                        </option>
+                    </ng-container>
+                </ng-container>
+            </optgroup>
+        </ng-container>
+    </ng-container>
+</select>

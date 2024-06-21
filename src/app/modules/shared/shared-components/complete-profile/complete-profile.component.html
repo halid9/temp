@@ -1,0 +1,1058 @@
+<!-- auth-page wrapper -->
+<!-- <div class="auth-page-wrapper auth-bg-cover py-5 d-flex justify-content-center align-items-center min-vh-100"> -->
+<!-- auth-page content -->
+<!-- <div class="auth-page-content overflow-hidden pt-lg-5"> -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 p-0  ribbon-box right">
+            <div class="ribbon-three ribbon-three-success " [class.ribbon-three-warning]="step === 1" *ngIf="step <4">
+                <span>{{step==1? ('LIVE'|translate):('PERINFO'|translate)}}</span>
+            </div>
+            <div class="card overflow-hidden mb-0">
+                <div class="row g-0">
+                    <div class="col-lg-6">
+                        <div class="p-lg-5 p-4 auth-one-bg h-100">
+                            <div class="bg-overlay"></div>
+                            <div class="position-relative h-100 d-flex flex-column">
+                                <div class="mb-4 text-center">
+                                    <img src="assets/images/logo-light.png" alt="" height="100">
+                                </div>
+                                <div class="mt-3">
+                                    <!-- <div class="mb-3">
+                                            </div> -->
+
+                                    <ngb-carousel #carouselInfo [showNavigationArrows]="false" [interval]="0"
+                                        [showNavigationIndicators]="false">
+                                        <ng-template ngbSlide>
+                                            <div class="carousel-inner text-center text-white pb-3">
+                                                <div class="carousel-item active">
+                                                    <i class=" ri-user-add-fill display-1 text-success"></i>
+                                                    <!-- <img src="assets/images/logo-light.png" alt="" height="50"> -->
+
+                                                    <p class="fs-15 fst-italic">"{{"GRATE"|translate}}"
+                                                    </p>
+                                                    <div id="password-contain" class="p-3 bg-light mb-2 rounded ">
+                                                        <h5 class="fs-13 row ms-3 text-primary  fst-italic">---
+                                                            {{'PASSREQUERMENTS'|translate}} ---</h5>
+                                                        <div class="d-flex flex-wrap">
+
+                                                            <p id="pass-length" class="invalid fs-12 mb-2 me-3"
+                                                                [ngClass]="{'before-rtl':dir==='rtl'}">
+                                                                {{"MIN8"|translate}}
+                                                            </p>
+                                                            <p id="pass-lower" class="invalid fs-12 mb-2 me-3"
+                                                                [ngClass]="{'before-rtl':dir==='rtl'}">
+                                                                {{"LOWER"|translate}}
+                                                            </p>
+                                                            <p id="pass-upper" class="invalid fs-12 mb-2 me-3"
+                                                                [ngClass]="{'before-rtl':dir==='rtl'}">
+                                                                {{"UPPER"|translate}}
+                                                            </p>
+                                                            <p id="pass-number" class="invalid fs-12 mb-2 me-3"
+                                                                [ngClass]="{'before-rtl':dir==='rtl'}">
+                                                                {{"ONENUMBER"|translate}}
+                                                            </p>
+                                                            <p id="pass-match" class="invalid fs-12 mb-0 me-3"
+                                                                [ngClass]="{'before-rtl':dir==='rtl'}">
+                                                                {{"MUSTMATCH"|translate}}
+                                                            </p>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template ngbSlide>
+                                            <div class="carousel-inner text-center text-white pb-5">
+                                                <div class="carousel-item active">
+                                                    <i class="ri-file-paper-2-fill display-1 text-success"></i>
+
+                                                    <p class="fs-15 fst-italic">" {{"ADDINFO"|translate}} "</p>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template ngbSlide>
+                                            <div class="carousel-inner text-center text-white pb-5">
+                                                <div class="carousel-item active">
+                                                    <i class="  ri-folder-shared-fill display-1 text-success"></i>
+
+                                                    <p class="fs-15 fst-italic">"{{"UPLOADINFO"|translate}}"</p>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template ngbSlide>
+                                            <div class="carousel-inner text-center text-white pb-5">
+                                                <div class="carousel-item active">
+                                                    <p class="fs-15 fst-italic">" {{"THATSALL"|translate}} "</p>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </ngb-carousel>
+                                    <!-- end carousel -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col -->
+
+                    <div class="col-lg-6">
+
+                        <ngb-carousel #carouselForm [showNavigationArrows]="false" [interval]="0"
+                            [showNavigationIndicators]="false">
+                            <ng-template ngbSlide>
+                                <div class="carousel-item active ">
+                                    <div class="p-lg-5 p-4">
+
+                                        <div>
+                                            <h5 class="text-primary fst-italic">
+                                                <strong>{{"CREATEACCTOSTART"|translate}}</strong>
+                                            </h5>
+                                        </div>
+                                        <div class="mt-4">
+                                            <form (ngSubmit)="saveAccount()" [formGroup]="accountForm"
+                                                class="tablelist-form" autocomplete="off" *ngIf="!creating">
+                                                <!-- <input type="hidden" name="id" formControlName="ids" /> -->
+                                                <div class="row g-3">
+                                                    <div class="col-lg-12">
+                                                        <div>
+                                                            <label for="accountName"
+                                                                class="form-label  ">{{'CLIENTACCOUNTS.ACCNAME.TEXT'|translate}}</label>
+                                                            <input type="text" id="accountName" class="form-control account-name"
+                                                                maxlength="25"
+                                                                placeholder="{{'ENTERACCNAME'|translate}}" required
+                                                                formControlName="accountName"
+                                                                [ngClass]="{ 'is-invalid': (submitted && accountForm.controls['accountName'].errors) || accountForm.controls['accountName'].errors?.['length'] || accountForm.controls['accountName'].errors?.['invalidInput']}" />
+                                                            <div *ngIf="(submitted && accountForm.controls['accountName'].errors || accountForm.controls['accountName'].errors?.['length'] || accountForm.controls['accountName'].errors?.['invalidInput'])"
+                                                                class="invalid-feedback" align="left">
+                                                                <div
+                                                                    *ngIf="accountForm.controls['accountName'].errors['required']">
+                                                                    {{'CLIENTACCOUNTS.ACCNAMEREQ.TEXT'|translate}}
+                                                                </div>
+                                                                <div
+                                                                    *ngIf="accountForm.controls['accountName'].errors?.['length']">
+                                                                    {{'CLIENTACCOUNTS.ACCNAME15.TEXT'|translate}}
+                                                                </div>
+                                                                <div
+                                                                    *ngIf="accountForm.controls['accountName'].errors?.['invalidInput']">
+                                                                    {{'CLIENTACCOUNTS.ACCNAMEMUST1.TEXT'|translate}}
+                                                                    <strong>{{'CLIENTACCOUNTS.ACCNAMEMUST2.TEXT'|translate}}
+                                                                    </strong>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <!--end col-->
+                                                    <div class="col-lg-6">
+                                                        <div>
+                                                            <label>{{'CLIENTACCOUNTS.SELECTPLAT.TEXT' | translate
+                                                                }}</label>
+                                                            <select class="form-select form-select"
+                                                                formControlName="accountPlatform">
+                                                                <option *ngFor="let platform of platforms"
+                                                                    [value]="platform.value">
+                                                                    {{platform.name | translate }}
+                                                                </option>
+                                                            </select>
+                                                            <div *ngIf="submitted && accountForm.controls['accountPlatform'].errors"
+                                                                class="invalid-feedback" align="left">
+                                                                <div
+                                                                    *ngIf="accountForm.controls['accountPlatform'].errors['required']">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+
+                                                    <!--end col-->
+
+                                                    <!--end col-->
+                                                    <div class="col-lg-6">
+                                                        <div>
+                                                            <label>{{'CLIENTACCOUNTS.SELECTLEVERAGE.TEXT' | translate
+                                                                }}</label>
+                                                            <select class="form-select form-select"
+                                                                formControlName="leverage">
+                                                                <option *ngFor="let leverage of leverages"
+                                                                    [value]="leverage.value">
+                                                                    {{leverage.name }}
+                                                                </option>
+                                                            </select>
+                                                            <div *ngIf="submitted && accountForm.controls['leverage'].errors"
+                                                                class="invalid-feedback" align="left">
+                                                                <div
+                                                                    *ngIf="accountForm.controls['leverage'].errors['required']">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+
+
+                                                    <div class="col-lg-12">
+                                                        <div>
+                                                            <label for="master-password"
+                                                                class="form-label">{{'CLIENTACCOUNTS.MPASS.TEXT' |
+                                                                translate }}</label>
+                                                            <div class="input-group">
+                                                                <div class="position-relative auth-pass-inputgroup col">
+                                                                    <input [type]="master?'password':'text'"
+                                                                        id="master-password" class="form-control"
+                                                                        readonly
+                                                                        placeholder="{{'ENTERMASTERPASS'|translate}}"
+                                                                        required formControlName="masterPassword"
+                                                                        [ngClass]="{ 'is-invalid': submitted && accountForm.controls['masterPassword'].errors }" />
+                                                                    <button
+                                                                        [ngClass]="{'me-3':submitted && accountForm.controls['masterPassword'].errors}"
+                                                                        class="btn shadow-none btn-link position-absolute end-0 top-0 text-decoration-none text-muted"
+                                                                        (mousedown)="toggelMaster()" type="button"><i
+                                                                            class="mdi align-middle" [ngClass]="{'mdi-eye-off-outline': master, 'mdi-eye-outline': !master
+                                                                            }"></i></button>
+                                                                </div>
+                                                                <button class="btn btn-outline-success shadow-none"
+                                                                    type="button"
+                                                                    (mousedown)="generateMasterPassword()">{{'CLIENTACCOUNTS.GPASS.TEXT'
+                                                                    | translate }}</button>
+                                                            </div>
+                                                            <input [type]="master?'password':'text'"
+                                                                class="form-control " style="display: none;" readonly
+                                                                placeholder="Enter master password" required
+                                                                [ngClass]="{ 'is-invalid': submitted && accountForm.controls['masterPassword'].errors }" />
+
+                                                            <div *ngIf="submitted && accountForm.controls['masterPassword'].errors"
+                                                                class="invalid-feedback" align="left">
+                                                                <div
+                                                                    *ngIf="accountForm.controls['masterPassword'].errors['required']">
+                                                                    {{'CLIENTACCOUNTS.MPASSREQ.TEXT' | translate }}
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div>
+                                                            <label for="c-master-password"
+                                                                class="form-label">{{'CLIENTACCOUNTS.CMPASS.TEXT' |
+                                                                translate }}</label>
+                                                            <div class="input-group">
+                                                                <div class="position-relative auth-pass-inputgroup col">
+                                                                    <input [type]="cMaster?'password':'text'"
+                                                                        id="c-master-password" class="form-control"
+                                                                        readonly
+                                                                        placeholder="{{'ENTERCMPASS'|translate}}"
+                                                                        required formControlName="cMasterPassword"
+                                                                        [ngClass]="{ 'is-invalid': submitted && accountForm.controls['cMasterPassword'].errors }" />
+                                                                    <button
+                                                                        [ngClass]="{'me-3':submitted && accountForm.controls['cMasterPassword'].errors}"
+                                                                        class="btn shadow-none btn-link position-absolute end-0 top-0 text-decoration-none text-muted"
+                                                                        (mousedown)="cMaster = !cMaster"
+                                                                        type="button"><i class="mdi align-middle"
+                                                                            [ngClass]="{'mdi-eye-off-outline': cMaster, 'mdi-eye-outline': !cMaster
+                                                                            }"></i></button>
+                                                                </div>
+                                                            </div>
+                                                            <input [type]="master?'password':'text'"
+                                                                class="form-control " style="display: none;" readonly
+                                                                placeholder="Enter master password" required
+                                                                [ngClass]="{ 'is-invalid': submitted && accountForm.controls['cMasterPassword'].errors }" />
+
+                                                            <div *ngIf="submitted && accountForm.controls['cMasterPassword'].errors"
+                                                                class="invalid-feedback" align="left">
+                                                                <div
+                                                                    *ngIf="accountForm.controls['cMasterPassword'].errors['required']">
+                                                                    {{'CLIENTACCOUNTS.MPASSREQ.TEXT' | translate }}
+                                                                </div>
+
+                                                            </div>
+                                                            <div *ngIf="accountForm.controls['cMasterPassword']?.errors?.['lengthError']"
+                                                                class="invalid-feedback" align="left">
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="form-check mb-2">
+                                                            <label class="form-check-label" for="formCheck1">
+                                                                {{"SETIPASS"|translate}}
+                                                            </label>
+                                                            <input class="form-check-input" type="checkbox"
+                                                                id="formCheck1" [checked]="!hideInvestor"
+                                                                (change)="hideInvestor = !hideInvestor">
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+                                                    <div class="col-lg-12" *ngIf="!hideInvestor">
+                                                        <div>
+                                                            <label for="investor-password"
+                                                                class="form-label">{{'CLIENTACCOUNTS.IPASS.TEXT' |
+                                                                translate }}</label>
+                                                            <div class="input-group ">
+                                                                <!-- <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
+                                                                <div class="position-relative auth-pass-inputgroup col">
+
+                                                                    <input [type]="investor?'password' : 'text'"
+                                                                        id="investor-password" class="form-control"
+                                                                        onfocus="this.removeAttribute('readonly');"
+                                                                        readonly
+                                                                        placeholder="{{'ENTERIPASS'|translate}}"
+                                                                        formControlName="investorPassword"
+                                                                        [ngClass]="{ 'is-invalid': submitted && investorInvalid }" />
+                                                                    <button
+                                                                        [ngClass]="{'me-3':submitted && investorInvalid}"
+                                                                        class="btn shadow-none btn-link position-absolute end-0 top-0 text-decoration-none text-muted"
+                                                                        (mousedown)="toggelInvestor()" type="button"><i
+                                                                            class="mdi align-middle" [ngClass]="{'mdi-eye-off-outline': investor, 'mdi-eye-outline': !investor
+                                                                                }"></i></button>
+                                                                </div>
+                                                                <button class="btn btn-outline-success shadow-none"
+                                                                    type="button"
+                                                                    (mousedown)="generateInvertorPassword()">{{"GPASS"|translate}}</button>
+                                                            </div>
+                                                            <input style="display: none;" class="form-control"
+                                                                [ngClass]="{ 'is-invalid': submitted && investorInvalid }" />
+                                                            <!--                   
+                                                                    <div *ngIf="submitted && investorInvalid" class="invalid-feedback"
+                                                                        align="left">
+                                                                        <div *ngIf="investorInvalid">Investor password is
+                                                                            required
+                                                                        </div>
+                                                                        
+                                                                    </div> -->
+                                                            <div *ngIf="submitted && investorInvalid"
+                                                                class="invalid-feedback" align="left">
+                                                                lenght must be bigger than 8 and smaller than
+                                                                20!
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+
+                                                </div>
+                                                <!--end row-->
+
+                                                <div class="modal-footer mt-4 ">
+                                                    <div class="col">
+
+                                                        <div class="row">
+                                                            <div class="col">
+
+                                                                <button class="btn btn-warning"
+                                                                    (mousedown)="completeLater()">
+                                                                    {{'COMPLETELATER'|translate}}</button>
+                                                            </div>
+                                                            <div class="col">
+
+                                                                <div class="hstack gap-2 justify-content-end ">
+
+                                                                    <button type="button" class="btn btn-light"
+                                                                        data-bs-dismiss="modal"
+                                                                        (click)="accountForm.reset();submitted = false">{{"RESET"|translate}}</button>
+                                                                    <button type="submit" class="btn btn-success"
+                                                                        id="add-btn">{{'NEXT'|translate}}</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <ng-template ngbSlide>
+
+                                <div class="carousel-item active text-center">
+                                    <div class="p-lg-5 p-4" *ngIf="submitted ">
+                                        <p class="fs-24 fst-italic">" {{"SAVING"|translate}}..."</p>
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+
+                                    </div>
+                                    <div class="p-lg-5 p-4" *ngIf="!submitted && err">
+                                        <h1 class="text-danger">{{"FAILED"|translate}}!</h1>
+                                        <p class="fs-15 fst-italic text-danger">"{{msg|translate}}"</p>
+
+                                        <button type="button" class="btn btn-info mx-3" data-bs-dismiss="modal"
+                                            (click)="prev()">{{'BACK'|translate}}</button>
+                                        <button class="btn btn-primary" (click)="completeLater()">
+                                            {{"COMPLETELATER"|translate}}</button>
+                                    </div>
+                                    <div class="p-lg-5 p-4" *ngIf="!submitted && !err">
+
+                                        <p class="fs-15 fst-italic">" {{"THATSALL"|translate}} "</p>
+
+                                        <button type="button" class="btn btn-info mx-3" data-bs-dismiss="modal"
+                                            (click)="prev()">{{'BACK'|translate}}</button>
+                                        <button class="btn btn-primary" (click)="navToDashboard()">
+                                            {{"STARTNOW"|translate}}</button>
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <ng-template ngbSlide>
+
+                                <div class="carousel-item active ">
+                                    <div class="p-lg-5 p-4">
+
+                                        <p class="fs-15 fst-italic text-center">" {{"UPLOADDOCS"|translate}} "
+                                        </p>
+                                        <div class="col-lg-12 ">
+                                            <div class="alert alert-warning">{{"DOCSWARNING"|translate}}
+
+                                            </div>
+                                        </div>
+                                        <!-- <input type="hidden" name="id" formControlName="ids" /> -->
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="mb-3">
+                                                    <label>{{'SELECTIDTYPE' | translate }}</label>
+                                                    <select class="form-select form-select" [(ngModel)]="docTitle">
+                                                        <option [value]="'id'">
+                                                            {{'Id card'|translate}}
+                                                        </option>
+                                                        <option [value]="'license'">
+                                                            {{'license card'|translate}}
+                                                        </option>
+                                                        <option [value]="'passport'">
+                                                            {{'passport'|translate}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label for="idFront" class="form-label">{{(docTitle|
+                                                        uppercase) | translate}}
+                                                        {{"FRONT"|translate}}</label>
+                                                    <input type="file" class="form-control"
+                                                        (change)="addFile($event,'idFront')" id="idFront"
+                                                        placeholder="docTitle"
+                                                        accept=".jpg ,.png ,.svg ,.pdf ,.jpeg ,.bmp" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label for="idBack" class="form-label">{{(docTitle |
+                                                        uppercase) | translate}}
+                                                        {{"BACKID"|translate}}</label>
+                                                    <input type="file" class="form-control"
+                                                        (change)="addFile($event,'idBack')" id="idBack"
+                                                        placeholder="docTitle"
+                                                        accept=".jpg ,.png ,.svg ,.pdf ,.jpeg ,.bmp" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label for="addressDoc"
+                                                        class="form-label">{{"BILLORADD"|translate}}</label>
+                                                    <input type="file" class="form-control"
+                                                        (change)="addFile($event,'addressDoc')" id="addressDoc"
+                                                        placeholder="idType.value"
+                                                        accept=".jpg ,.png ,.svg ,.pdf ,.jpeg ,.bmp" />
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="cityInput"
+                                                        class="form-label">{{"PERPHOTO"|translate}}</label>
+                                                    <input type="file" class="form-control"
+                                                        (change)="addFile($event,'personalPhoto')" id="cityInput"
+                                                        placeholder="idType.value"
+                                                        accept=".jpg ,.png ,.svg ,.pdf ,.jpeg ,.bmp" />
+                                                </div>
+                                            </div> -->
+
+
+
+                                        </div><!--end row-->
+                                        <!--end row-->
+
+                                        <div class="modal-footer mt-4 ">
+                                            <div class="col">
+
+                                                <div class="row">
+                                                    <div class="col">
+
+                                                        <button class="btn btn-warning" (mousedown)="completeLater()">
+                                                            {{"COMPLETELATER"|translate}}</button>
+                                                    </div>
+                                                    <div class="col">
+
+                                                        <div class="hstack gap-2 justify-content-end ">
+                                                            <button type="button" class="btn btn-info"
+                                                                data-bs-dismiss="modal"
+                                                                (click)="prev()">{{'BACK'|translate}}</button>
+                                                            <button type="button" class="btn btn-light"
+                                                                data-bs-dismiss="modal"
+                                                                (click)="profileForm.reset();submitted = false">{{'RESET'|translate}}</button>
+                                                            <button type="button" class="btn btn-success"
+                                                                (click)="saveDocs()">{{"SAVE"|translate}}</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <ng-template ngbSlide>
+
+                                <div class="carousel-item active">
+                                    <div class="p-lg-5 p-4">
+
+                                        <div>
+                                            <h5 class="text-success fst-italic">
+                                                <strong>{{"FILLINFO"|translate}}</strong>
+                                            </h5>
+                                        </div>
+                                        <div class="mt-4">
+                                            <form (ngSubmit)="saveProfile()" [formGroup]="profileForm"
+                                                class="tablelist-form" autocomplete="off" *ngIf="!creating">
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <div>
+                                                            <label>{{'PROFILE.SELECTCOUNTRY.TEXT'|translate}}</label>
+                                                            <select class="form-select form-select"
+                                                                formControlName="country"
+                                                                [ngClass]="{ 'is-invalid': (submitted && profileForm.controls['country'].errors) }">
+                                                                <option *ngFor="let country of countries"
+                                                                    [value]="country.isoCode"
+                                                                    style="background-image: url('assets/images/flags/{{country.isoCode | lowercase}}.svg'); background-size: 30px 30px; background-position: 0 0 ; background-repeat: no-repeat;">
+                                                                    <img src="" alt=""> {{country.name}}
+                                                                </option>
+                                                            </select>
+
+                                                            <div *ngIf="submitted && profileForm.controls['country'].errors "
+                                                                class="invalid-feedback" align="left">
+                                                                <div
+                                                                    *ngIf="profileForm.controls['country'].errors['required']">
+                                                                    {{"COUNTRYREQ"|translate}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="mb-3">
+                                                            <label for="cityInput"
+                                                                class="form-label">{{'PROFILE.CITY.TEXT'|translate}}</label>
+                                                            <!-- <input type="text" class="form-control" id="cityInput"
+                                                                placeholder="{{'ENTERCITY'|translate}}" formControlName="city"
+                                                                [ngClass]="{ 'is-invalid': (submitted && profileForm.controls['city'].errors) }" /> -->
+
+                                                            <select class="form-select form-select"
+                                                                formControlName="city"
+                                                                [ngClass]="{ 'is-invalid': (submitted && profileForm.controls['city'].errors) }">
+                                                                <option *ngFor="let city of cities" [value]="city.name">
+                                                                    {{city.name}}
+                                                                </option>
+                                                            </select>
+
+                                                            <div *ngIf="submitted && profileForm.controls['city'].errors "
+                                                                class="invalid-feedback" align="left">
+                                                                <div
+                                                                    *ngIf="profileForm.controls['city'].errors['required']">
+                                                                    {{"CITYREQ"|translate}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-4">
+                                                        <div class="mb-3">
+                                                            <label for="zipcodeInput"
+                                                                class="form-label">{{'PROFILE.ZIPCODE.TEXT'|translate}}</label>
+                                                            <input type="number" class="form-control" minlength="5"
+                                                                maxlength="6" id="zipcodeInput"
+                                                                placeholder="{{'ENTERZIPCODE'|translate}}"
+                                                                formControlName="zipCode"
+                                                                [ngClass]="{ 'is-invalid': (submitted && profileForm.controls['zipCode'].errors) }" />
+
+                                                            <div *ngIf="submitted && profileForm.controls['zipCode'].errors "
+                                                                class="invalid-feedback" align="left">
+                                                                <div
+                                                                    *ngIf="profileForm.controls['zipCode'].errors['required']">
+                                                                    {{"ZIPCODEREQ"|translate}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div><!--end col-->
+                                                    <div class="col-lg-12">
+                                                        <div class="mb-3">
+                                                            <label for="zipcodeInput"
+                                                                class="form-label">{{'PROFILE.STADDRESS.TEXT'|translate}}</label>
+                                                            <textarea type="text" class="form-control"
+                                                                id="streetAddress"
+                                                                placeholder="{{'ENTERSTADD'|translate}}"
+                                                                [ngClass]="{ 'is-invalid': (submitted && profileForm.controls['streetAdress'].errors) }"
+                                                                formControlName="streetAdress"></textarea>
+
+
+
+
+                                                            <div *ngIf="submitted && profileForm.controls['streetAdress'].errors "
+                                                                class="invalid-feedback" align="left">
+                                                                <div
+                                                                    *ngIf="profileForm.controls['streetAdress'].errors['required']">
+                                                                    {{"STREETADDREQ"|translate}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div><!--end col-->
+
+                                                </div><!--end row-->
+                                                <!--end row-->
+
+                                                <div class="modal-footer mt-4 ">
+                                                    <div class="col">
+
+                                                        <div class="row">
+                                                            <div class="col">
+
+                                                                <button class="btn btn-warning"
+                                                                    (mousedown)="completeLater()">
+                                                                    {{"COMPLETELATER"|translate}}</button>
+                                                            </div>
+                                                            <div class="col">
+
+                                                                <div class="hstack gap-2 justify-content-end ">
+                                                                    <button type="button" class="btn btn-info"
+                                                                        data-bs-dismiss="modal"
+                                                                        (click)="prev()">{{'BACK'|translate}}</button>
+                                                                    <button type="button" class="btn btn-light"
+                                                                        data-bs-dismiss="modal"
+                                                                        (click)="profileForm.reset();submitted = false">{{"RESET"|translate}}</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-success">{{'NEXT'|translate}}</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </ng-template>
+                            <ng-template ngbSlide>
+                                <div class="carousel-item active">
+                                    <div class="p-lg-5 p-4">
+                                        <div>
+                                            <h5 class="text-success fst-italic">
+                                                <strong>{{"CONSENT"|translate}}</strong>
+                                            </h5>
+                                        </div>
+                                        <div class="mt-4">
+                                            <form (ngSubmit)="saveConsent()" class="tablelist-form" autocomplete="off"
+                                                *ngIf="!creating">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div>
+                                                            <label>{{'PROFILE.EMPLOYMENT.TEXT'|translate}}</label>
+                                                            <select class="form-select form-select"
+                                                                [(ngModel)]="consentForm.employment" name="employment"
+                                                                [ngClass]="{ 'is-invalid': (submitted && !consentForm.employment) }">
+                                                                <option
+                                                                    *ngFor="let option of ['EMPLOYED', 'SELF-EMPLOYED', 'UNEMPLOYED', 'RETIRED']"
+                                                                    [value]="option">
+                                                                    {{ option | translate }}
+                                                                </option>
+                                                            </select>
+
+                                                            <div *ngIf="submitted && !consentForm.employment "
+                                                                class="invalid-feedback d-block text-center">
+
+                                                                {{"EMPLOYMENTREQ"|translate}}
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label for="income-source"
+                                                                class="form-label">{{'PROFILE.INCOME-SOURCE.TEXT'|translate}}</label>
+
+                                                            <div
+                                                                *ngFor="let option of ['SALARY', 'INVESTMENT', 'SAVINGS', 'REAL-ESTATE','PENSION','OTHER']">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox"
+                                                                        (change)="onIncomeSourcesChange($event, option)"
+                                                                        [value]="option">
+                                                                    {{ option | translate }}
+                                                                </label>
+                                                            </div>
+
+                                                            <div *ngIf="consentForm.incomeSources.includes('OTHER')">
+                                                                <div class="mb-3">
+                                                                    <label for="otherIncomeSourceInput"
+                                                                        class="form-label">{{'PROFILE.OTHER-INCOME-SOURCE.TEXT'|translate}}</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="otherIncomeSourceInput"
+                                                                        name="otherIncomeSource"
+                                                                        [(ngModel)]="consentForm.otherIncomeSource">
+                                                                </div>
+                                                            </div>
+
+                                                            <div *ngIf="submitted && consentForm.incomeSources.length == 0"
+                                                                class="invalid-feedback d-block text-center">
+                                                                {{"INCOMESOURCEREQ"|translate}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div><!--end row-->
+                                                <!--end row-->
+
+                                                <div class="modal-footer mt-4 ">
+                                                    <div class="col">
+
+                                                        <div class="row">
+                                                            <div class="col">
+
+                                                                <button class="btn btn-warning"
+                                                                    (mousedown)="completeLater()">
+                                                                    {{"COMPLETELATER"|translate}}</button>
+                                                            </div>
+                                                            <div class="col">
+
+                                                                <div class="hstack gap-2 justify-content-end ">
+                                                                    <button type="button" class="btn btn-info"
+                                                                        data-bs-dismiss="modal"
+                                                                        (click)="prev()">{{'BACK'|translate}}</button>
+                                                                    <button type="button" class="btn btn-light"
+                                                                        data-bs-dismiss="modal"
+                                                                        (click)="consentForm.reset();submitted = false">{{"RESET"|translate}}</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-success">{{'NEXT'|translate}}</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </ng-template>
+                            <ng-template ngbSlide>
+
+                                <div class="carousel-item active">
+                                    <div class="p-lg-5 p-4">
+
+                                        <div>
+                                            <h5 class="text-success fst-italic">
+                                                <strong>{{"INVESTMENT-EXPERIENCE"|translate}}</strong>
+                                            </h5>
+                                        </div>
+                                        <div class="mt-4">
+                                            <form (ngSubmit)="saveExperience()" class="tablelist-form"
+                                                autocomplete="off" *ngIf="!creating">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div>
+                                                            <label>{{'FINANCIAL-RISK?'|translate}}</label>
+                                                            <div class="text-center">
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="financial_risk" id="financialRiskNo"
+                                                                        [(ngModel)]="experienceForm.financial_risk"
+                                                                        value="no"
+                                                                        [ngClass]="{ 'is-invalid': (submitted && experienceForm.financial_risk != 'yes') }">
+                                                                    <label class="form-check-label"
+                                                                        for="financialRiskNo">
+                                                                        {{ 'NO' | translate }}
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="financial_risk" id="financialRiskYes"
+                                                                        [(ngModel)]="experienceForm.financial_risk"
+                                                                        value="yes" (change)="submitted = false"
+                                                                        [ngClass]="{ 'is-invalid': (submitted && experienceForm.financial_risk != 'yes') }">
+                                                                    <label class="form-check-label"
+                                                                        for="financialRiskYes">
+                                                                        {{ 'YES' | translate }}
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div *ngIf="submitted && experienceForm.financial_risk != 'yes' "
+                                                                class="invalid-feedback d-block text-center">
+                                                                {{ "FINANCIALRISKREQ" | translate }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 mt-3"
+                                                        *ngIf="experienceForm.financial_risk == 'yes'">
+                                                        <div>
+                                                            <label>{{'FINANCIAL-EXPERIENCE?'|translate}}</label>
+                                                            <div class="text-center">
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="financial_experience"
+                                                                        id="financialExperienceNo"
+                                                                        [(ngModel)]="experienceForm.financial_experience"
+                                                                        value="no"
+                                                                        [ngClass]="{ 'is-invalid': (submitted && experienceForm.financial_experience != 'yes') }">
+                                                                    <label class="form-check-label"
+                                                                        for="financialExperienceNo">
+                                                                        {{ 'NO' | translate }}
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="financial_experience"
+                                                                        id="financialExperienceYes"
+                                                                        [(ngModel)]="experienceForm.financial_experience"
+                                                                        value="yes" (change)="submitted = false"
+                                                                        [ngClass]="{ 'is-invalid': (submitted && experienceForm.financial_experience != 'yes') }">
+
+                                                                    <label class="form-check-label"
+                                                                        for="financialExperienceYes">
+                                                                        {{ 'YES' | translate }}
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div *ngIf="submitted && experienceForm.financial_experience != 'yes' "
+                                                            class="invalid-feedback d-block text-center">
+                                                            {{ "FINANCIALEXPREQ" | translate }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 mt-3"
+                                                        *ngIf="experienceForm.financial_experience == 'yes'">
+                                                        <label for="experience-type"
+                                                            class="form-label">{{'PROFILE.EXPERIENCE-TYPE.TEXT'|translate}}</label>
+                                                        <div>
+                                                            <div class="form-check form-check-inline"
+                                                                *ngFor="let option of ['FOREX', 'OPTIONS', 'FUTURES', 'SHARES','OTHER-INVESTMENTS']">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="ex{{option}}"
+                                                                    (change)="onExperienceTypeChange($event, option)"
+                                                                    [value]="option">
+                                                                <label class="form-check-label" for="ex{{option}}">
+                                                                    {{ option | translate }}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div
+                                                            *ngIf="experienceForm.experience_type.includes('OTHER-INVESTMENTS')">
+                                                            <div class="mb-3">
+                                                                <label for="otherIncomeSourceInput"
+                                                                    class="form-label">{{'PROFILE.OTHER-INCOME-SOURCE.TEXT'|translate}}</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="otherIncomeSourceInput" name="otherIncomeSource"
+                                                                    [(ngModel)]="experienceForm.otherExperienceType">
+                                                            </div>
+                                                        </div>
+
+                                                        <div *ngIf="submitted && experienceForm.experience_type.length == 0"
+                                                            class="invalid-feedback d-block text-center">
+                                                            {{"EXPERIENCETYPEREQ"|translate}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 mt-3"
+                                                        *ngIf="experienceForm.financial_experience == 'yes'">
+                                                        <label>{{'EXPERIENCE-YEARS'|translate}}</label>
+                                                        <div class="text-center">
+
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="experience_years" id="LESS-THAN-ONE"
+                                                                    [(ngModel)]="experienceForm.experience_years"
+                                                                    value="LESS-THAN-ONE"
+                                                                    [ngClass]="{ 'is-invalid': (submitted && experienceForm.experience_years == '') }">
+                                                                <label class="form-check-label" for="LESS-THAN-ONE">
+                                                                    {{ 'LESS-THAN-ONE' | translate }}
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="experience_years" id="ONE-AND-FIVE"
+                                                                    [(ngModel)]="experienceForm.experience_years"
+                                                                    value="ONE-AND-FIVE"
+                                                                    [ngClass]="{ 'is-invalid': (submitted && experienceForm.experience_years == '') }">
+
+                                                                <label class="form-check-label" for="ONE-AND-FIVE">
+                                                                    {{ 'ONE-AND-FIVE' | translate }}
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="experience_years" id="FIVE-AND-MORE"
+                                                                    [(ngModel)]="experienceForm.experience_years"
+                                                                    value="FIVE-AND-MORE"
+                                                                    [ngClass]="{ 'is-invalid': (submitted && experienceForm.experience_years == '') }">
+
+                                                                <label class="form-check-label" for="FIVE-AND-MORE">
+                                                                    {{ 'FIVE-AND-MORE' | translate }}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div *ngIf="submitted && experienceForm.experience_years == ''"
+                                                            class="invalid-feedback d-block text-center">
+                                                            {{"EXPERIENCEYEARREQ"|translate}}
+                                                        </div>
+                                                    </div>
+                                                </div><!--end row-->
+                                                <!--end row-->
+
+                                                <div class="modal-footer mt-4 ">
+                                                    <div class="col">
+
+                                                        <div class="row">
+                                                            <div class="col">
+
+                                                                <button class="btn btn-warning"
+                                                                    (mousedown)="completeLater()">
+                                                                    {{"COMPLETELATER"|translate}}</button>
+                                                            </div>
+                                                            <div class="col">
+
+                                                                <div class="hstack gap-2 justify-content-end ">
+                                                                    <button type="button" class="btn btn-info"
+                                                                        data-bs-dismiss="modal"
+                                                                        (click)="prev()">{{'BACK'|translate}}</button>
+                                                                    <button type="button" class="btn btn-light"
+                                                                        data-bs-dismiss="modal"
+                                                                        (click)="consentForm.reset();submitted = false">{{"RESET"|translate}}</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-success">{{'NEXT'|translate}}</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </ng-template>
+
+                            <ng-template ngbSlide>
+
+                                <div class="carousel-item active">
+                                    <div class="p-lg-5 p-4">
+
+                                        <div>
+                                            <h5 class="text-success fst-italic">
+                                                <strong>{{"AGREEMENT-DETAILS"|translate}}</strong>
+                                            </h5>
+                                        </div>
+                                        <div class="mt-4">
+                                            <form (ngSubmit)="next()" class="tablelist-form" autocomplete="off"
+                                                *ngIf="!creating">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <span>{{'I-AGREE'|translate}} </span>
+                                                        <a href="http://alamiyamarkets.com/legal/am-client-agreement.pdf"
+                                                            target="_blank"
+                                                            class="link">{{'CLIENT-AGREEMENT'|translate}}
+                                                        </a>&nbsp;|&nbsp;
+                                                        <a href="https://alamiyamarkets.com/legal/privacy-policy.pdf"
+                                                            target="_blank"
+                                                            class="link">{{'PRIVACY-AGREEMENT'|translate}}
+                                                        </a>&nbsp;|&nbsp;
+                                                        <a href="https://alamiyamarkets.com/legal/risk-disclosure.pdf"
+                                                            target="_blank" class="link">{{'RISK-AGREEMENT'|translate}}
+                                                        </a>&nbsp;|&nbsp;
+                                                        <a href="https://alamiyamarkets.com/legal/regulations-for-non-trading-operations.pdf"
+                                                            target="_blank"
+                                                            class="link">{{'REGULATIONS-AGREEMENT'|translate}}
+                                                        </a>&nbsp;|&nbsp;
+                                                        <a href="https://alamiyamarkets.com/legal/terms-of-business-for-mt-4-accounts.pdf"
+                                                            target="_blank"
+                                                            class="link">{{'METATRADER-AGREEMENT'|translate}} </a>
+                                                        {{'I-AGREE-POST'|translate}}
+                                                    </div>
+
+                                                </div><!--end row-->
+                                                <!--end row-->
+
+                                                <div class="modal-footer mt-4 ">
+                                                    <div class="col">
+
+                                                        <div class="row">
+                                                            <div class="col-5">
+
+                                                                <button class="btn btn-warning"
+                                                                    (mousedown)="completeLater()">
+                                                                    {{"COMPLETELATER"|translate}}</button>
+                                                            </div>
+                                                            <div class="col-7">
+
+                                                                <div class="hstack gap-2 justify-content-end ">
+                                                                    <button type="button" class="btn btn-info"
+                                                                        data-bs-dismiss="modal"
+                                                                        (click)="prev()">{{'BACK'|translate}}</button>
+
+                                                                    <button type="submit"
+                                                                        class="btn btn-success">{{'I-AGREE-CONFIRM'|translate}}</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </ng-template>
+
+                        </ngb-carousel>
+
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end card -->
+        </div>
+        <!-- end col -->
+
+    </div>
+    <!-- end row -->
+</div>
+<!-- end container -->
+<!-- </div> -->
+<!-- end auth page content -->
+
+<!-- footer -->
+<!-- <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center">
+                        <p class="mb-0">&copy; {{year}} Alamiya CRM. Crafted with <i
+                                class="mdi mdi-heart text-danger"></i>
+                            by Master Tec</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer> -->
+<!-- end Footer -->
+<!-- </div> -->
+<!-- end auth-page-wrapper -->

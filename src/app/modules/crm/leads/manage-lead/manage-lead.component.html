@@ -1,0 +1,220 @@
+<div class="modal-header bg-light pb-3">
+    <h4 class="modal-title mb-0" id="modal-basic-title">{{"MANAGELEAD"|translate}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (mousedown)="close()"></button>
+</div>
+<div class="modal-body p-2">
+
+
+
+    <!-- Nav tabs -->
+    <div class="row">
+        <div class="col-sm-12 col-md-8">
+
+            <lead-card [lead]="lead" *ngIf="!editMode"></lead-card>
+            <lead-form [lead]="lead" *ngIf="editMode" [isDialog]="false" [edit]="true"></lead-form>
+
+        </div>
+        
+       
+        <div class="col-sm-12 col-md-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h4 class="mb-0 text-center">
+
+                        {{"Actions"}}
+                    </h4>
+                </div>
+                <div class="card-body">
+
+
+                    <div class="d-flex flex-column gap-1">
+                        <button class="btn btn-outline-secondary" (click)="editMode = !editMode">
+                            Edit lead
+                        </button>
+                        <!-- <button class="btn btn-outline-success">
+                            convert to demo
+                        </button> -->
+                        <button class="btn btn-outline-success" (click)="convertToUser(lead)">
+                            convert to user
+                        </button>
+                        <button class="btn btn-outline-primary" (click)="convertToBonus(lead.id)">
+                            convert to bonus
+                        </button>
+                        <button class="btn btn-outline-danger" (click)="rejectBonus(lead.id)">
+                            reject bonus
+                        </button>
+                        <button class="btn btn-outline-dark">
+                            update agent
+                        </button>
+                        <button class="btn btn-outline-info">
+                            update supervisor
+                        </button>
+                        <button class="btn btn-outline-danger">
+                            update owner
+                        </button>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-12 text-center" *ngIf="isLoadingFile">
+            <h3 class="text-center text-success">{{'Loading ID Document'|translate}}</h3>
+            <div class="spinner-border text-success" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div class="col-sm-12 row" *ngIf="docType">
+            <div class="col-12">
+                <div _ngcontent-ats-c46="" class="d-flex col-12 justify-content-center align-items-center gap-2 p-2">
+                    <button _ngcontent-ats-c46="" mat-button="" type="button" (mousedown)="rotateImage(-90)" *ngIf="docType == 'image'"
+                        class="mat-focus-indicator mat-button mat-button-base _mat-animation-noopable btn1 btn btn-outline-info"><span
+                            class="mat-button-wrapper"><svg fill="#000000" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M20.4852814,14 L12,22.4852814 L3.51471863,14 L12,5.51471863 L20.4852814,14 Z M6.34314575,14 L12,19.6568542 L17.6568542,14 L12,8.34314575 L6.34314575,14 Z M4.15672797,4.28593933 C6.18580699,2.22227176 8.98673097,1 12,1 C15.9721115,1 19.5752376,3.12390371 21.5277839,6.49927404 L19.7965722,7.50072596 C18.1979627,4.73720691 15.2508538,3 12,3 C9.38603956,3 6.96846584,4.12319378 5.29042786,6 L8,6 L8,8 L2.40310647,8 L2.00227469,2.0674107 L3.99772531,1.9325893 L4.15672797,4.28593933 Z"/>
+                              </svg></span><span matripple="" class="mat-ripple mat-button-ripple"></span><span
+                            class="mat-button-focus-overlay"></span></button>
+                    <button _ngcontent-ats-c46="" mat-button="" type="button" (mousedown)="zoomOut()"
+                        class="mat-focus-indicator mat-button mat-button-base _mat-animation-noopable btn1 btn btn-outline-info"><span
+                            class="mat-button-wrapper">
+                            <svg _ngcontent-ats-c46="" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <circle _ngcontent-ats-c46="" cx="11" cy="11" r="8"></circle>
+                                <line _ngcontent-ats-c46="" x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                <line _ngcontent-ats-c46="" x1="8" y1="11" x2="14" y2="11"></line>
+                            </svg>
+                        </span>
+                        <span matripple="" class="mat-ripple mat-button-ripple"></span>
+                        <span class="mat-button-focus-overlay"></span>
+                    </button>
+                    <div class="d-flex justify-content-center align-items-center gap-2">
+                        <label class="mat-form-field-label mb-0" id="mat-form-field-label-3" for="mat-input-1"
+                            aria-owns="mat-input-1">{{"ZOOM"|translate}}</label>
+                        <input _ngcontent-ats-c46="" matinput="" [(ngModel)]="zoom" type="number" 
+                            pattern="-?[0-9]*(\.[0-9]+)?"
+                            class="mat-input-element mat-form-field-autofill-control ng-tns-c27-2 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored d-none"
+                            id="mat-input-1" data-placeholder="Zoom" aria-invalid="false" aria-required="false">
+                    </div>
+    
+                    <button _ngcontent-ats-c46="" mat-button="" type="button" (mousedown)="zoomIn()"
+                        class="mat-focus-indicator mat-button mat-button-base _mat-animation-noopable btn1 btn btn-outline-info"><span
+                            class="mat-button-wrapper"><svg _ngcontent-ats-c46="" xmlns="http://www.w3.org/2000/svg"
+                                width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle _ngcontent-ats-c46="" cx="11" cy="11" r="8"></circle>
+                                <line _ngcontent-ats-c46="" x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                <line _ngcontent-ats-c46="" x1="11" y1="8" x2="11" y2="14"></line>
+                                <line _ngcontent-ats-c46="" x1="8" y1="11" x2="14" y2="11"></line>
+                            </svg></span><span matripple="" class="mat-ripple mat-button-ripple"></span><span
+                            class="mat-button-focus-overlay"></span></button>
+    
+                            <button _ngcontent-ats-c46="" mat-button="" type="button" (mousedown)="rotateImage(90)" *ngIf="docType == 'image'"
+                        class="mat-focus-indicator mat-button mat-button-base _mat-animation-noopable btn1 btn btn-outline-info"><span
+                            class="mat-button-wrapper"><svg fill="#000000" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M3.04477723,14 L11.5300586,5.51471863 L20.01534,14 L11.5300586,22.4852814 L3.04477723,14 Z M17.1869129,14 L11.5300586,8.34314575 L5.87320435,14 L11.5300586,19.6568542 L17.1869129,14 Z M19.3733306,4.28593933 L19.5323333,1.9325893 L21.5277839,2.0674107 L21.1269521,8 L15.5300586,8 L15.5300586,6 L18.2396307,6 C16.5615928,4.12319378 14.144019,3 11.5300586,3 C8.27920479,3 5.33209587,4.73720691 3.73348642,7.50072596 L2.00227469,6.49927404 C3.954821,3.12390371 7.5579471,1 11.5300586,1 C14.5433276,1 17.3442516,2.22227176 19.3733306,4.28593933 Z"/>
+                              </svg></span><span matripple="" class="mat-ripple mat-button-ripple"></span><span
+                            class="mat-button-focus-overlay"></span></button>
+                </div>
+            </div>
+<div class="col-12">
+
+    <pdf-viewer [src]="docSrc" [render-text]="true" [zoom]="zoom" [original-size]="false" style=" height: 40vh;"
+    *ngIf="docType === 'pdf'"></pdf-viewer>
+    <div class="img-container col-12" *ngIf="docType === 'image'">
+        <img [src]="docSrc | safeUrl" id="pic" alt="" class="col-12" [style.transform]="'rotate(' + rotationAngle + 'deg)'">
+    </div>
+</div>
+        </div>
+        
+    </div>
+
+    <!-- <ul ngbNav #ModifierCustom="ngbNav" [activeId]="1" class="nav nav-pills nav-customs-light nav-primary mb-3">
+        <li [ngbNavItem]="1">
+            <a ngbNavLink class="nav-link">
+                Edit User
+            </a>
+            <ng-template ngbNavContent>
+                <edit-user [user]="user" [isTab]="true"></edit-user>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="2">
+            <a ngbNavLink class="nav-link">
+                Documents
+            </a>
+            <ng-template ngbNavContent>
+                <div class="text-center mt-3" *ngIf="loadingDocs">
+                    <a href="javascript:void(0);" class="text-success "><i
+                            class="mdi mdi-loading mdi-spin fs-20 align-middle me-2"></i>
+                        Loading </a>
+                </div>
+                <div class="card">
+
+                    <div class="card-body" *ngIf="!loadingDocs">
+                        <user-docs [docs]="docs"></user-docs>
+                    </div>
+                </div>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="3">
+            <a ngbNavLink class="nav-link">
+                Transactions History
+            </a>
+            <ng-template ngbNavContent>
+                <user-tx-reqs [user]="user"></user-tx-reqs>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="4">
+            <a ngbNavLink class="nav-link">
+                User Gateways
+            </a>
+            <ng-template ngbNavContent>
+                <allowed-gateways></allowed-gateways>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="5">
+            <a ngbNavLink class="nav-link">
+                Accounts
+            </a>
+            <ng-template ngbNavContent>
+                <account-list [userId]="user.id" [userType]="user.type" [user]="user.firstName + ' ' + user.lastName" [fullHeight]="true"
+                    [isTabe]="true"></account-list>
+            </ng-template>
+
+        </li>
+        <li [ngbNavItem]="6">
+            <a ngbNavLink class="nav-link">
+                Accounts Requests
+            </a>
+            <ng-template ngbNavContent>
+                <user-acc-reqs [user]="user"></user-acc-reqs>
+            </ng-template>
+        </li>
+
+        <li [ngbNavItem]="7">
+            <a ngbNavLink class="nav-link">
+                Logged in Devices
+            </a>
+            <ng-template ngbNavContent>
+                <div class="card">
+                    <div class="card-body">
+                        <logged-devices [forUser]="true" [user]="user" [loggedInDevices]="loggedInDevices" [forUser]="true"></logged-devices>
+                    </div>
+                </div>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="8">
+            <a ngbNavLink class="nav-link">
+                Quick actions
+            </a>
+            <ng-template ngbNavContent>
+
+            </ng-template>
+        </li>
+    </ul>
+    <div class="tab-content text-muted">
+        <div [ngbNavOutlet]="ModifierCustom"></div>
+    </div> -->
+
+</div>

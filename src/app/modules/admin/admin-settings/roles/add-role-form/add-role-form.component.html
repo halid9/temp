@@ -1,0 +1,68 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" >Add role</h4>
+    <button type="button" class="btn-close" aria-label="Close"(mousedown)="close()" ></button>
+</div>
+    <div class="modal-body">
+        <div class="row g-3">
+            <div class="p-2 mt-4">
+                <form [formGroup]="changeNameForm" class="form" (ngSubmit)="onSubmit()">
+
+                    <div class="mb-3">
+                      <label class="form-label" for="name">Role name</label>
+                      <input type="text" class="form-control" id="name" formControlName="name"
+                      [ngClass]="{ 'is-invalid': (submitted && f['name'].errors) || f['name'].errors?.['invalidInput'] || f['name'].errors?.['length']}"
+                      placeholder="Enter role name">
+                      <div *ngIf="(submitted && f['name'].errors) || f['name'].errors?.['invalidInput'] ||f['name'].errors?.['length'] " class="invalid-feedback">
+                          <div *ngIf="f['name'].errors['requierd']">Role name is requierd!</div>
+                          <div *ngIf="f['name'].errors['invalidInput']">Role must not have<strong> Consecutive letters and sequences</strong></div>
+                          <div *ngIf="f['name'].errors['length']">Role name must not be longer than 15 letters</div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+
+                        <div class="col-6">
+                            <div class="card mb-0 h-100">
+                                <div class="card-header bg-light">
+                                    <h4 class="title">Valid permissions</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-check mb-3" *ngFor="let p of permissions" >
+                                        <input class="form-check-input" type="checkbox" id="{{p.name}}" (change)="changeValue($event,p.id)">
+                                        
+                                        <label class="form-check-label" for="{{p.name}}">
+                                            {{p.name}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+            
+                          
+                        </div>
+                        <div class="col-6">
+                            <div class="card mb-0 h-100">
+                                <div class="card-header  bg-light">
+                                    <h4 class="title">Chosen permission</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex flex-wrap gap-3">
+                                        <span class="badge badge-soft-primary fs-16" *ngFor="let p of selectedPermissions">
+                                            {{p.name}}</span>
+                                    </div>
+                                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="mt-4">
+                        <button class="btn btn-success w-100" type="submit">Add</button>
+                    </div>
+                </form>
+            </div>
+         
+           
+        </div>
+        <!--end row-->
+    </div>
+
+       

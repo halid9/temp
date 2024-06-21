@@ -1,0 +1,103 @@
+<div *ngIf="account" class="row">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ accountDescription(account) }}</h5>
+                <p class="card-text">Balance: {{ account.balance }} {{ account.currency }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="form-group mb-3 d-flex align-items-center">
+            <input type="date" id="fromDate" class="form-control w-auto" [(ngModel)]="fromDate">
+            <input type="date" id="toDate" class="form-control w-auto ms-1" [(ngModel)]="toDate">
+            <button class="btn btn-light ms-1 px-1" (click)="getHistory()">History</button>
+        </div>
+    </div>
+</div>
+
+<!-- Period -->
+
+
+<div class="row" *ngIf="error != ''">
+    <div class="col">
+        <div class="alert alert-warning text-center">
+            {{ error }}
+        </div>
+    </div>
+</div>
+
+
+<!-- Table -->
+<table *ngIf="error == '' && account && account.platform == Platform.MT5" class="table table-hover">
+    <!-- MT5 Account History Table -->
+    <thead class="table-dark">
+        <tr>
+            <th>Time</th>
+            <th>Deal ID</th>
+            <th>Position ID</th>
+            <th>Open Time</th>
+            <th>Open Price</th>
+            <th>Close Time</th>
+            <th>Close Price</th>
+            <th>Profit/Loss</th>
+            <th>Volume</th>
+            <th>Symbol</th>
+            <th>Type</th>
+            <th>Comment</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let trade of MT5AccountHistoryList">
+            <td>{{ trade.time }}</td>
+            <td>{{ trade.dealId }}</td>
+            <td>{{ trade.positionId }}</td>
+            <td>{{ trade.openTime }}</td>
+            <td>{{ trade.openPrice | number:'1.2-2' }}</td>
+            <td>{{ trade.closeTime }}</td>
+            <td>{{ trade.closePrice | number:'1.2-2' }}</td>
+            <td [ngClass]="{'text-success': trade.profit > 0, 'text-danger': trade.profit < 0}">
+                {{ trade.profit | currency:account.currency }}
+            </td>
+            <td>{{ trade.volume }}</td>
+            <td>{{ trade.symbol }}</td>
+            <td>{{ trade.type }}</td>
+            <td>{{ trade.comment }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<table *ngIf="error == '' && account && account.platform == Platform.MT4" class="table table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Time</th>
+            <th>Order</th>
+            <th>Type</th>
+            <th>Symbol</th>
+            <th>Volume</th>
+            <th>Open Time</th>
+            <th>Open Price</th>
+            <th>Close Time</th>
+            <th>Close Price</th>
+            <th>Profit/Loss</th>
+            <th>Comment</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let deal of MT4AccountHistoryList">
+            <td>{{ deal.time }}</td>
+            <td>{{ deal.order }}</td>
+            <td>{{ deal.type }}</td>
+            <td>{{ deal.symbol }}</td>
+            <td>{{ deal.volume }}</td>
+            <td>{{ deal.open_time }}</td>
+            <td>{{ deal.open_price | number:'1.2-2' }}</td>
+            <td>{{ deal.close_time }}</td>
+            <td>{{ deal.close_price | number:'1.2-2' }}</td>
+            <td [ngClass]="{'text-success': deal.profit > 0, 'text-danger': deal.profit < 0}">
+                {{ deal.profit | currency:account.currency }}
+            </td>
+            <td>{{ deal.comment }}</td>
+        </tr>
+    </tbody>
+</table>

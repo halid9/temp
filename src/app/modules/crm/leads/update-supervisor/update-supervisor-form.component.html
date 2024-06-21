@@ -1,0 +1,31 @@
+
+    <div class="modal-body">
+        <div class="row g-3">
+            
+
+
+            <div class="col-lg-12">
+                <div>
+                        <div>
+                            <label>{{'Select supervisor' | translate }}</label>
+                                    <select class="form-select form-select-lg" [(ngModel)]="newSupervisor"  [ngClass]="{ 'is-invalid': submitted && supervisor === newSupervisor }">
+                                    <option *ngFor="let supervisor of supervisors" [value]="supervisor.id">
+                                        {{supervisor.firstName}} {{supervisor.lastName}}
+                                    </option>
+                                </select>
+                                <div *ngIf="submitted && supervisor === newSupervisor" class="invalid-feedback">
+                                    <span *ngIf="submitted && supervisor === newSupervisor">You can't choose same supervisor</span>
+                                  </div>
+                           
+                    </div>
+                </div>
+            <!--end col-->
+            <div class="mt-4">
+                <button class="btn btn-success w-100"  (mousedown)="changeSupervisor()">Update supervisor</button>
+            </div>
+           
+        </div>
+        <!--end row-->
+    </div>
+
+        

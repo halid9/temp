@@ -1,0 +1,71 @@
+<div class="modal-header bg-light p-3" *ngIf="isDialog">
+    <h5 class="modal-title" id="exampleModalLabel">Add Ticket</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+        id="close-modal" (click)="closeDialog()"></button>
+</div>
+
+<form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
+    <div class="modal-body">
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="mb-3">
+            <label for="customerEmail" class="form-label">{{'Customer Email' | translate }}</label>
+            <div class="input-group ">
+                <input oninput="checkFormValidity()" type="text" class="form-control form-control-lg" aria-label="input" value="" formControlName="customerEmail" required  
+                [ngClass]="{ 'is-invalid':  f['customerEmail'].errors }"
+                aria-describedby="inputGroup">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="topic" class="form-label">{{'Topic' | translate }}</label>
+            <div class="input-group ">
+                <input type="text" class="form-control form-control-lg" aria-label="input" value="" formControlName="topic" required
+                [ngClass]="{ 'is-invalid':  f['topic'].errors }"
+                aria-describedby="inputGroup">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">{{'Description' | translate }}</label>
+            <div class="input-group ">
+                <input type="text" class="form-control form-control-lg" aria-label="input" value="" formControlName="description"
+                aria-describedby="inputGroup">
+            </div>
+        </div>
+
+
+        <div class="mb-3">
+            
+            <label for="agentId" class="form-label">{{'Agent Id' | translate }}</label>
+            <div class="input-group ">
+                <input type="text" class="form-control form-control-lg" aria-label="input" value="" formControlName="agentId"
+                aria-describedby="inputGroup">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            
+            <label for="agentName" class="form-label">{{'Agent Name' | translate }}</label>
+            <div class="input-group ">
+                <input type="text" class="form-control form-control-lg" aria-label="input" value="" formControlName="agentName"
+                aria-describedby="inputGroup">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            
+            <label for="channelId" class="form-label">{{'Channel Id' | translate }}</label>
+            <div class="input-group ">
+                <input type="text" class="form-control form-control-lg" aria-label="input" value="" formControlName="channelId"
+                aria-describedby="inputGroup">
+            </div>
+        </div>
+</div>
+</div>
+    <div class="text-end">
+        <button type="submit" class="btn btn-success" [disabled]="!ticketForm.valid">{{'proceed' | translate }}</button>
+    </div>
+    </div>
+</form>

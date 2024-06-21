@@ -1,0 +1,87 @@
+<!-- <div class="modal-header">
+    <h3>
+        Lead info
+    </h3>
+</div>
+<div class="modal-body"> -->
+    <div class="card ribbon-box right mb-0 h-100">
+        <!-- <div class="card-header text-muted">
+            <h2 class="mb-0">
+                {{'Info'}}
+
+            </h2>
+        </div> -->
+        <div class="card-body text-muted">
+            <div class="ribbon-three ribbon-three-warning"
+            [ngClass]=""
+            
+            ><span>{{lead.leadStatus}}</span></div>
+            <div class="row">
+                <div class="col-md-12 col-lg-6 mb-3">
+                    <h6>{{'FNAME'|translate}}:  <span class="fs-12 fw-bold">{{lead.firstName}}</span></h6>
+                </div>
+                <div class="col-md-12 col-lg-6 mb-3">
+                    <h6>{{'LNAME'|translate}}: <span class="fs-12 fw-bold">{{lead.lastName}}</span></h6>
+                </div>
+                <div class="col-md-12 col-lg-6 mb-3">
+                    <h6>{{'PHONE'|translate}}: <span class="fs-12 fw-bold">{{lead.phone}}</span></h6>
+                </div>
+                <div class="col-md-12 col-lg-6 mb-3">
+                    <h6>{{'EMAIL'|translate}}: <span class="fs-12 fw-bold">{{lead.email}}</span></h6>
+                </div>
+                <div class="col-md-12 col-lg-6 mb-3">
+                    <h6>{{'ADDRESS'|translate}}: <span class="fs-12 fw-bold">{{lead.address}}</span></h6>
+                </div>
+                <!-- <div class="col-md-12 col-lg-6 mb-3">
+                    <h6>{{'COUNTRY'|translate}}: <span class="fs-12 fw-bold">{{lead.country}}</span></h6>
+                </div>
+                <div class="col-md-12 col-lg-6 mb-3">
+                    <h6>{{'CITY'|translate}}: <span class="fs-12 fw-bold">{{lead.city}}</span></h6>
+                </div> -->
+                <div class="col-md-12 col-lg-6 mb-3">
+                    <h6>{{'NATUNALITY'|translate}}: <span class="fs-12 fw-bold">{{lead.natunality}}</span></h6>
+                </div>
+                <div class="col-md-12 col-lg-6 mb-3">
+                    <h6>{{'TRADINGEXP'|translate}}: <span class="fs-12 fw-bold">  {{tradingExperience(lead.tradingExperience) | translate}}</span></h6>
+                </div>
+                <div class="col-md-12 col-lg-6 mb-3">
+                    <h6>{{'ANOTHERCOMACC'|translate}}: <span class="fs-12 fw-bold">{{lead.anotherCompanyAccount?'yes':
+                            'no'}}</span></h6>
+                </div>
+                <div class="col-md-12 col-lg-6 mb-3" *ngIf="lead.anotherCompanyAccount">
+                    <h6>{{'ANOTHERCOMDET'|translate}}: <span class="fs-12 fw-bold">{{lead.anotherCompanyDetails}}</span></h6>
+                </div>
+                <div class="col-md-12 col-lg-6 mb-3">
+                    <h6>{{'CUSINTERESTSCALE'|translate}}: <span class="fs-12 fw-bold">{{lead.customerInterestScale}}</span></h6>
+                </div>
+                <div class="col-md-12 col-lg-6 mb-3">
+                    <h6>{{'BLACKLIST'|translate}}: <span class="fs-12 fw-bold">{{lead.blackList?'yes': 'no'}}</span></h6>
+                </div>
+                <div class="col-md-12 col-lg-6 mb-3" *ngIf="lead.blackList">
+                    <h6>{{'REASON'|translate}}: <span class="fs-12 fw-bold">{{lead.reason}}</span></h6>
+                </div>
+                <div class="col-md-12 col-lg-6 mb-3">
+                    <h6>{{'HASACCUS'|translate}}: <span class="fs-12 fw-bold">{{lead.hasAccountByUs?'yes':'no'}}</span></h6>
+                </div>
+                <div class="col-md-12 col-lg-6 mb-3" *ngIf="lead.hasAccountByUs">
+                    <h6>{{'ACCTYPE'|translate}}: <span class="fs-12 fw-bold">{{lead.accountType}}</span></h6>
+                </div>
+                <div class="col-md-12 col-lg-6 mb-3" *ngIf="lead.hasAccountByUs">
+                    <h6>{{'PLATFORM'|translate}}: <span class="fs-12 fw-bold">{{lead.tradingPlatforms}}</span></h6>
+                </div>
+                <div class="col-md-12 col-lg-6 mb-3">
+                    <h6>{{'NOTES'|translate}}: <span class="fs-12 fw-bold">{{lead.notes}}</span></h6>
+                </div>
+                <div class="col-md-12 col-lg-6 mb-3">
+                    <h6>{{'CREATEDAT'|translate}}: <span class="fs-12 fw-bold">{{lead.created_at |date:"yyyy-MM-dd"}}</span>
+                    </h6>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="card-footer">
+            <button class="btn btn-success" (click)="close()">
+                {{"CLOSE"|translate}}
+            </button>
+        </div> -->
+    </div>
+<!-- </div> -->

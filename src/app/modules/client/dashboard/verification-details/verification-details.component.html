@@ -1,0 +1,177 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{'MISSINGSTEPS'|translate}}</h4>
+    <button type="button" class="btn-close" [ngClass]="{'m-0':dir==='rtl'}" aria-label="Close"
+        (mousedown)="close()"></button>
+</div>
+<div class="modal-body p-4">
+
+        <div class="row">
+            <div class="col-12 card p-2">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="verified d-flex gap-2" *ngIf="verificationState.state.completeProfile" >
+                        <div class="avatar-xs">
+                            <div
+                            class="avatar-title bg-soft-success text-success rounded-circle fs-16">
+                            <i class="ri-check-fill fs-24"
+                            ></i> 
+                        </div>
+                    </div>
+                    <h5 class="mb-0 d-flex align-items-center text-success  user-select-none">
+                        {{"You completed your information"|translate}}
+                    </h5>
+                </div>
+            <div class="not-verified d-flex gap-2" *ngIf="!verificationState.state.completeProfile">
+                <div class="avatar-xs">
+                    <div class="avatar-title bg-soft-danger text-danger  rounded-circle fs-16">
+                        
+                        <i class="ri-close-fill fs-24"></i>
+                    </div>
+                </div>
+                <h5 class="mb-0 d-flex align-items-center text-danger  user-select-none ">
+                    {{"You didn't complete your information"|translate}}
+                </h5>
+            </div>
+            <button class="btn btn-success" *ngIf="!verificationState.state.completeProfile" (click)="goToSettings()">
+                {{"Complete now"|translate}}
+            </button>
+        </div>
+    </div>
+    <div class="col-12 card p-2">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="verified d-flex gap-2" *ngIf="verificationState.state.verifyDocs && docsState == 'approved'" >
+                <div class="avatar-xs">
+                    <div
+                    class="avatar-title bg-soft-success text-success rounded-circle fs-16">
+                    <i class="ri-check-fill fs-24"
+                    ></i> 
+                </div>
+            </div>
+            <h5 class="mb-0 d-flex align-items-center text-success  user-select-none">
+                {{"Your documents is verified"|translate}}
+            </h5>
+        </div>
+        <div class="under-review d-flex gap-2" *ngIf="!verificationState.state.verifyDocs && docsState == 'pending'">
+            <div class="avatar-xs">
+                <div
+                class="avatar-title bg-soft-warning text-warning rounded-circle fs-16">
+                <i class="ri-information-fill fs-24"
+                ></i> 
+            </div>
+        </div>
+        <h5 class="mb-0 d-flex align-items-center text-warning  user-select-none">
+            {{"Your docs is under review"|translate}}
+        </h5>
+    </div>
+    <div class="not-verified d-flex gap-2"*ngIf="!verificationState.state.verifyDocs && docsState == 'rejected' ">
+        <div class="avatar-xs">
+            <div class="avatar-title bg-soft-danger text-danger  rounded-circle fs-16">
+                
+                <i class="ri-close-fill fs-24"></i>
+            </div>
+        </div>
+        <h5 class="mb-0 d-flex align-items-center text-danger  user-select-none ">
+            {{"docs has been rejected"|translate}}
+        </h5>
+    </div>
+    <div class="not-verified d-flex gap-2"*ngIf="!verificationState.state.verifyDocs &&  docsState == 'empty'">
+        <div class="avatar-xs">
+            <div class="avatar-title bg-soft-danger text-danger  rounded-circle fs-16">
+                
+                <i class="ri-close-fill fs-24"></i>
+            </div>
+        </div>
+        <h5 class="mb-0 d-flex align-items-center text-danger  user-select-none ">
+            {{"You didn't upload your docs"|translate}}
+        </h5>
+    </div>
+    <button class="btn btn-success" *ngIf="!verificationState.state.verifyDocs && (docsState == 'rejected'|| docsState == 'empty') " (click)="goToDocs()">
+        {{"Upload now"|translate}}
+    </button>
+</div>
+</div>
+<div class="col-12 card p-2">
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="verified d-flex gap-2" *ngIf="verificationState.state.requestLive && verificationState.state.openLive" >
+            <div class="avatar-xs">
+                <div
+                class="avatar-title bg-soft-success text-success rounded-circle fs-16">
+                <i class="ri-check-fill fs-24"
+                ></i> 
+            </div>
+        </div>
+        <h5 class="mb-0 d-flex align-items-center text-success  user-select-none">
+            {{"You have live account"|translate}}
+        </h5>
+    </div>
+    <div class="under-review d-flex gap-2" *ngIf="verificationState.state.requestLive && !verificationState.state.openLive">
+        <div class="avatar-xs">
+            <div
+            class="avatar-title bg-soft-warning text-warning rounded-circle fs-16">
+                            <i class="ri-information-fill fs-24"
+                              ></i> 
+                        </div>
+                    </div>
+                    <h5 class="mb-0 d-flex align-items-center text-warning  user-select-none" >
+                        {{"Your request to live account is under review"|translate}}
+                    </h5>
+                </div>
+                <div class="not-verified d-flex gap-2" *ngIf="!verificationState.state.requestLive">
+                    <div class="avatar-xs">
+                        <div class="avatar-title bg-soft-danger text-danger  rounded-circle fs-16">
+
+                            <i class="ri-close-fill fs-24"></i>
+                        </div>
+                    </div>
+                    <h5 class="mb-0 d-flex align-items-center text-danger  user-select-none ">
+                        {{"You don't have live account"|translate}}
+                    </h5>
+                </div>
+                <button class="btn btn-success" *ngIf="!verificationState.state.requestLive" (click)="openCompleteProfile()">
+                    {{"Request now"|translate}}
+                </button>
+            </div>
+        </div>
+        <div class="col-12 card p-2">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="verified d-flex gap-2" *ngIf="verificationState.state.deposit && verificationState.state.requestDeposit" >
+                    <div class="avatar-xs">
+                        <div
+                            class="avatar-title bg-soft-success text-success rounded-circle fs-16">
+                            <i class="ri-check-fill fs-24"
+                              ></i> 
+                        </div>
+                    </div>
+                    <h5 class="mb-0 d-flex align-items-center text-success  user-select-none">
+                        {{"You have deposit your fund"|translate}}
+                    </h5>
+                </div>
+                <div class="under-review d-flex gap-2" *ngIf="verificationState.state.requestDeposit && !verificationState.state.deposit">
+                    <div class="avatar-xs">
+                        <div
+                            class="avatar-title bg-soft-warning text-warning rounded-circle fs-16">
+                            <i class="ri-information-fill fs-24"
+                              ></i> 
+                        </div>
+                    </div>
+                    <h5 class="mb-0 d-flex align-items-center text-warning  user-select-none">
+                        {{"Your deposit request is under review"|translate}}
+                    </h5>
+                </div>
+                <div class="not-verified d-flex gap-2" *ngIf=" !verificationState.state.requestDeposit">
+                    <div class="avatar-xs">
+                        <div class="avatar-title bg-soft-danger text-danger  rounded-circle fs-16">
+
+                            <i class="ri-close-fill fs-24"></i>
+                        </div>
+                    </div>
+                    <h5 class="mb-0 d-flex align-items-center text-danger  user-select-none ">
+                        {{"You didn't deposit your fund yet!"|translate}}
+                    </h5>
+                </div>
+                <button class="btn btn-success" *ngIf=" !verificationState.state.requestDeposit" (click)="openDepositForm()">
+                    {{"Deposit now"|translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

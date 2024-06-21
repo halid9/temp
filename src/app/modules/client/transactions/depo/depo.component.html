@@ -1,0 +1,379 @@
+<div class="container " *ngIf="step == 1">
+    <h1 class="my-3">{{'Deposit methods'|translate}}</h1>
+    <h3 class="text-success" *ngIf="loading">
+        {{"Prepairing deposit methods please wait"|translate}}
+        <i class="mdi mdi-loading mdi-spin fs-24 align-middle me-2" style="line-height: 0.7;"></i>
+    </h3>
+
+    <h3 *ngIf="!loading" class="text-success">{{"Select your prefered deposit method"|translate}}</h3>
+    <div class="row" *ngIf="!loading">
+        <div class="col-12 col-lg-6 col-xl-4">
+            <div class="card cursor-pointer" (click)="setMethodCrypto();nextStep()">
+                <div class="card-header bg-light">
+                    <div class="d-flex align-items-center gap-2">
+                        <img [src]="'https://nowpayments.io/images/coins/usdttrc20.svg'" alt=""
+                            style="max-width: 30px;">
+                        <h3 class="mb-0">{{"Tether USD (Tron)"|translate}} </h3>
+                        <span class="fs-12">{{"(USDTTRC20)"}}</span>
+                    </div>
+                </div>
+                <div class="card-body bg-light">
+                    <p class="mb-1">
+                        <span class="text-info">{{"Proccesing time"|translate}}:</span> {{"12352"}}
+                    </p>
+                    <p class="mb-1">
+                        <span class="text-info">{{"Fees"|translate}}:</span> {{"12352"}}
+                    </p>
+                    <p class="mb-1">
+                        <span class="text-info">{{"Limits"|translate}}:</span> {{"depends on blockchain"}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-4" *ngFor="let m of methods">
+            <div class="card cursor-pointer" (click)="setMethod(m);nextStep()">
+                <div class="card-header bg-light">
+                    <div class="d-flex align-items-center gap-2">
+                        <img [src]="m.icon" alt="" style="max-width: 30px;">
+                        <h3 class="mb-0">{{m.name|translate}}</h3>
+                    </div>
+                </div>
+                <div class="card-body bg-light">
+                    <p class="mb-1">
+                        <span class="text-info">{{"Proccesing time"|translate}}:</span> {{m.proccesingTime}}
+                    </p>
+                    <p class="mb-1">
+                        <span class="text-info">{{"Fees"|translate}}:</span> {{m.fee}}
+                    </p>
+                    <p class="mb-1">
+                        <span class="text-info">{{"Limits"|translate}}:</span> {{m.limits}}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="container " *ngIf="step == 2">
+    <div class="d-flex justify-content-between mb-3">
+
+        <div class="d-flex align-items-center gap-2 my-3">
+            <button class="btn btn-warning me-3 d-flex justify-content-center  align-items-center gap-1" (click)="back()"><i class="ri-arrow-go-back-fill fs-14"></i> {{"Back"|translate}}</button>
+            <img [src]="selectedMethod.icon" alt="" style="max-width: 30px;">
+            <h1 class="mb-0">{{selectedMethod.name|translate}}</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- local transfer - mony transfer - wallet transfer - visa/master card transfer  -->
+        <div class="col-12 col-md-6 mb-1">
+
+
+            <div class="row" *ngIf="deposit.transferMethod === transferMethods.MONEY_TRANSFER">
+                <h3 class="mb-0">{{"Notification info"|translate}}</h3>
+
+                <div class="col-12 col-sm-6 mb-3">
+                    <label for="no" class="form-label">{{'NTIFICATIONNO' | translate }}</label>
+                    <div class="input-group ">
+                        <input type="number" class="form-control" aria-label="input" name="no"
+                            [(ngModel)]="deposit.moneyTransferInfo.no" aria-describedby="inputGroup"
+                            [ngClass]="{ 'is-invalid':submitted && !deposit.moneyTransferInfo?.no }">
+                    </div>
+                    <div *ngIf="submitted && !deposit.moneyTransferInfo?.no" class="text-danger p-1">
+                        {{'NOREQ' | translate }}
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 mb-3">
+
+                    <label for="passCode" class="form-label ">{{'PASSCODE' | translate }}</label>
+                    <div class="input-group ">
+                        <input type="number" class="form-control" aria-label="input" name="passCode"
+                            [(ngModel)]="deposit.moneyTransferInfo.passCode" aria-describedby="inputGroup"
+                            [ngClass]="{ 'is-invalid':submitted && !deposit.moneyTransferInfo?.passCode }">
+                        <div *ngIf="submitted && !deposit.moneyTransferInfo?.passCode"
+                            class="text-danger p-1 invalid-feedback">
+                            {{'PASSCODEREQ' | translate }}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12">
+
+                    <h4 class="alert alert-warning ">
+                        {{"Notification number and pass code will be provided to you from transfer center"|translate}}
+                    </h4>
+                </div>
+            </div>
+            <div class="form-group mb-3" *ngIf="deposit.transferMethod == transferMethods.WALLET">
+                <label>{{"Select wallet"|translate}}</label>
+                <app-account-select-option [accounts]="wallets" name="selectedWallet"
+                    [selectedAccountId]="selectedWallet.id"
+                    (accountChanged)="walletChanged($event)"></app-account-select-option>
+                <div *ngIf="submitted&&!deposit.toAccount" class="text-danger p-1">
+                    {{'Wallet required' | translate }}
+                </div>
+            </div>
+            <div class="mb-3"
+                *ngIf="deposit.transferMethod == transferMethods.MASTER_CARD || deposit.transferMethod == transferMethods.VISA_CARD">
+                <credit-card></credit-card>
+            </div>
+
+            <div class="mb-3"
+                *ngIf="deposit.transferMethod == transferMethods.BANK_TRANSFER || deposit.transferMethod == transferMethods.NETELLER || deposit.transferMethod == transferMethods.SKRILL ||deposit.transferMethod == transferMethods.WISE ">
+                <h2 class="text-warning">
+                    {{"NOT AVAILABLE IN YOUR COUNTRY NOW!"|translate}}
+                </h2>
+
+            </div>
+            <div class="form-group mb-3" *ngIf="deposit.transferMethod == transferMethods.CRYPTO">
+                <label>{{'SELECTNETWORK' | translate }}</label>
+                <crypto-network-select-option [networks]="currencies" [selectedNetworkId]="deposit?.transferNetwork"
+                    (networkChanged)="networkChanged($event)"></crypto-network-select-option>
+                <div *ngIf="submitted&&!deposit.transferNetwork" class="text-danger p-1">
+                    {{'NTWORKREQ' | translate }}
+                </div>
+            </div>
+            <div class="form-group mb-3">
+                <label for="">{{"Select Account"|translate}}</label>
+                <app-account-select-option [accounts]="accountsToShow"
+                    (accountChanged)="accountChanged( $event)"></app-account-select-option>
+                <div *ngIf="submitted&&!deposit.toAccount" class="text-danger p-1">
+                    {{'CLIENTTXS.ACCREQ.TEXT' | translate }}
+                </div>
+            </div>
+            <div class="form-group mb-3" *ngIf="deposit.transferMethod != transferMethods.CRYPTO">
+                <label for="">{{"Select amount"|translate}}</label>
+                <div class="input-group ">
+                    <span class="input-group-text" id="inputGroup"
+                        *ngIf="deposit.toAccount">{{deposit.toAccount?.currency | translate
+                        }}</span>
+                    <input type="number" class="form-control" aria-label="input" name="depositAmount"
+                        [(ngModel)]="deposit.depositAmount" aria-describedby="inputGroup"
+                        (input)="validAmount = deposit.depositAmount && +deposit.depositAmount>0"
+                        [ngClass]="{ 'is-invalid': !validAmount }">
+                </div>
+
+                <div *ngIf="!validAmount" class="text-danger p-1">
+                    {{'CLIENTTXS.AMOUNTREQ.TEXT' | translate }}
+                </div>
+                <div *ngIf="+validAmount <= 0" class="text-danger p-1">
+                    {{'CLIENTTXS.AMOUNTREQBIG.TEXT' | translate }}
+                </div>
+                <div *ngIf="deposit.transferMethod===transferMethods.WALLET && +deposit.depositAmount > walletBalance"
+                    class="text-danger p-1">
+                    {{'CLIENTTXS.AMOUNTLIMIT.TEXT' | translate }}
+                </div>
+            </div>
+            <div class="mb-3 amount-bock"
+                *ngIf="deposit.transferMethod == transferMethods.CRYPTO && deposit.transferMethod && deposit.toAccount && deposit.transferNetwork">
+                <div class="row">
+                    <h4 class="modal-title" id="modal-basic-title">
+                        <img src="assets/images/svg/crypto-icons/{{deposit.toAccount.currency| lowercase}}.svg"
+                            *ngIf="deposit.toAccount?.platform==platform?.Wallet"
+                            class="bg-light rounded-circle p-1 avatar-sm img-fluid shadowarket Stat" alt="">
+                        <img src="assets/images/mt4-logo.png" *ngIf="deposit.toAccount?.platform==platform.MT4"
+                            class=" rounded p-1 avatar-sm img-fluid shadowarket Stat" alt="">
+                        <img src="assets/images/mt5-logo.png" *ngIf="deposit.toAccount?.platform==platform.MT5"
+                            class=" rounded p-1 avatar-sm img-fluid shadowarket Stat" alt="">
+                        {{'Deposit'| translate}} {{selectedCurrency?.name}} {{'To'| translate}} {{'Account'| translate}}
+                        {{deposit.toAccount?.platform==platform.Wallet ? (deposit.toAccount.currency
+                        + ' Wallet') :deposit.toAccount?.accountName}}
+                    </h4>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col text-center" *ngIf="payLoading">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                    <!-- USDT amount -- third step
+                    <div class="col-md-12 mb-5" *ngIf="!payLoading">
+                        <p>{{"How much would you like to deposit? Please Enter amount in USD"|translate}}</p>
+                        <div class="input-group">
+                            <input type="number" class="form-control" placeholder="Enter amount in USD"
+                                (input)="estimatePrice()" [(ngModel)]="deposit.depositAmount" style="max-width: 250px;"
+                                name="depositAmount" pattern="\d+">
+                            <button class="btn btn-primary" (click)="submitAmount()">{{"SUBMIT"|translate}}</button>
+                        </div>
+                        <div class="alert alert-info d-inline-block mt-1" *ngIf="!minDeposit">
+                            <p class="mb-0">
+                                {{"Calculating minimum deposit amount"|translate}} <i
+                                    class="mdi mdi-loading mdi-spin fs-20 align-middle me-2"></i>
+                            </p>
+
+                        </div>
+                        <div class="alert alert-info d-inline-block mt-1" *ngIf="minDeposit">
+                            <p class="mb-0" *ngIf="payEstimateAmount">{{this.deposit.depositAmount}} USD ≈
+                                {{payEstimateAmount}}
+                                {{selectedCurrency.name}}, <span class="text-danger fw-bolder">{{"Note: Exchange and transfer fees will be added to this approximate value"|translate}}.</span>
+                            </p>
+                            {{"Minimum deposit amount:"|translate}}
+                            {{minDeposit}} {{ selectedCurrency.name }}
+                        </div>
+                    </div> -->
+
+                    <!-- USDT QR -- third step -->
+                    <div class="col-md-12 text-center mb-5" *ngIf="payAddress != '' && !paymentProcceced">
+                        <qrcode [qrdata]="payAddress" [width]="128" [errorCorrectionLevel]="'M'"></qrcode>
+                        <code id="walletAddress" (click)="copyToClipboard()"
+                            class="user-select-all cursor-pointer">{{ payAddress }}</code>
+                         <h3>{{"Please send your "|translate}} {{selectedCurrency?.name}} {{"deposit to the above address"|translate}}</h3>
+                        <div *ngIf="countdown && selectedCurrency.code.toLowerCase() !== 'usdttrc20'">
+                            <p class="alert alert-danger fs-3 d-inline-block">{{"Expiration time"|translate}}: {{
+                                countdown |translate }}
+                            </p>
+                        </div>
+                        <div class="alert alert-info d-inline-block mt-1" *ngIf="minDeposit">
+                            <p class="mb-0 text-danger fw-bolder" *ngIf="selectedCurrency.code.toLowerCase() !== 'usdttrc20'">{{"Note: Exchange and transfer fees will be applied"|translate}}.</p>
+                            {{"Minimum deposit amount:"|translate}}
+                            {{minDeposit}} {{ selectedCurrency?.name }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h5 class="alert alert-info" *ngIf="deposit.transferMethod == transferMethods.WALLET && deposit.toAccount">
+
+                {{"Avilable amount to deposit"|translate}}: <strong>{{walletBalance}}</strong>
+            </h5>
+            <h4 class="alert alert-warning" *ngIf="deposit.transferMethod == transferMethods.LOCAL_TRANSFER">
+
+                {{"By procceding to next step deposit request will be sent to your agent and he will contact you to complete your Deposit procces"|translate}}
+            </h4>
+            <hr />
+            <div class="d-flex justify-content-end" *ngIf="deposit.transferMethod != transferMethods.CRYPTO">
+                <button class="btn btn-success" (click)="submit()">{{"SUBMIT"|translate}}</button>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <h3 class="mb-3 ms-1">{{"Terms"|translate}}</h3>
+            <p class="mb-3 ms-1">
+                <span class="text-info">{{"Proccesing time"|translate}}:</span> {{selectedMethod.proccesingTime}}
+            </p>
+            <p class="mb-3 ms-1">
+                <span class="text-info">{{"Fees"|translate}}:</span> {{selectedMethod.fee}}
+            </p>
+            <p class="mb-3 ms-1">
+                <span class="text-info">{{"Limits"|translate}}:</span> {{selectedMethod.limits}}
+            </p>
+            <p class="text-danger" *ngIf="selectedMethod.warnings?.length">{{"Warnings"|translate}}:</p>
+            <ul class="mb-1" *ngIf="selectedMethod.warnings?.length">
+                <li class="text-warning" *ngFor="let w of selectedMethod.warnings">{{w}}</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<div class="container " *ngIf="step == 3">
+    <div class="col text-center" *ngIf="loadingTx">
+        <h1 class="text-success text-center" >{{"Proccesing your deposit please wait!"|translate}}</h1>
+        <div class="spinner-border text-primary" *ngIf="loadingTx" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div *ngIf="!loadingTx">
+        <div class="text-center"
+            *ngIf="deposit.transferMethod==transferMethods.USDT_TRANSFER">
+            <div class="mb-4">
+                <lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop"
+                    colors="primary:#0ab39c,secondary:#405189"
+                    style="width:120px;height:120px"></lord-icon>
+            </div>
+            <h5 class="text-success fs-24">
+                {{'CLIENTTXS.WAITINGFORCRYPTO.TEXT' | translate }}
+            </h5>
+            <p class="text-muted fs-20">
+                {{'CLIENTTXS.PAYWALLETADDRESS.TEXT' | translate }} <br />
+            </p>
+            <div class="mb-4">
+                <code id="walletAddress" (click)="copyToClipboard()"
+                    class="user-select-all cursor-pointer">{{ deposit.transferWallet }}</code>
+            </div>
+
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-4">
+
+                    <button type="button" class="btn btn-success w-100" data-nexttab="pills-success-tab"
+                         (mousedown)="back()">
+
+                        {{'CLIENTTXS.NEWDEPOSIT.TEXT' | translate }}
+                    </button>
+                </div>
+                <div class="col-4">
+
+                    <button type="button" class="btn btn-primary w-100" (mousedown)="goToTxHistory()">
+                        {{'CLIENTTXS.GOTOTXS.TEXT' | translate }}</button>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </div>
+        <div class="text-center"
+            *ngIf="!txError && deposit.transferMethod!=transferMethods.USDT_TRANSFER">
+            <div class="mb-4">
+                <lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop"
+                    colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px">
+                </lord-icon>
+            </div>
+            <h5 class="text-success fs-24">
+                {{'CLIENTTXS.DEPOSITDONE.TEXT' | translate }}
+            </h5>
+            <p class="text-muted fs-20" *ngIf="approved">
+                {{'CLIENTTXS.DEPOSITDONESUCCESS.TEXT' | translate }}
+            </p>
+            <p class="text-warning fs-20" *ngIf="!approved">
+                {{'CLIENTTXS.APPROVALDURATIONMSG.TEXT' | translate }}
+            </p>
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-4">
+
+                    <button type="button" class="btn btn-success w-100" data-nexttab="pills-success-tab"
+                        (mousedown)="back()">
+
+                        {{'CLIENTTXS.NEWDEPOSIT.TEXT' | translate }}
+                    </button>
+                </div>
+                <div class="col-4">
+
+                    <button type="button" class="btn btn-primary w-100" (mousedown)="goToTxHistory()">
+                        {{'CLIENTTXS.GOTOTXS.TEXT' | translate }}</button>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </div>
+        <div class="text-center" *ngIf="txError">
+
+            <div class="mb-4">
+                <lord-icon src="https://cdn.lordicon.com/hrqwmuhr.json" trigger="loop"
+                    colors="primary:#121331,secondary:#e83a30" style="width:250px;height:250px">
+                </lord-icon>
+            </div>
+            <h5 class="text-danger fs-24">
+                {{'CLIENTTXS.DEPOSITFAILD.TEXT' | translate }}
+            </h5>
+            <p class="text-danger fs-20">{{txErrorNote}}</p>
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-4">
+
+                    <button type="button" class="btn btn-success w-100" data-nexttab="pills-success-tab"
+                        (mousedown)="back()">
+                        {{'CLIENTTXS.NEWDEPOSIT.TEXT' | translate }}
+                    </button>
+                </div>
+                <div class="col-4">
+
+                    <button type="button" class="btn btn-primary w-100" (mousedown)="goToTxHistory()">
+                        {{'CLIENTTXS.GOTOTXS.TEXT' | translate }}
+                    </button>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </div>
+    </div>
+</div>

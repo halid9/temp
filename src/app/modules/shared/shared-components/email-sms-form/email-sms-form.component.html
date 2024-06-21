@@ -1,0 +1,35 @@
+<div class="modal-body">
+<div class="row" *ngIf="sending">
+<h3 class="text-center text-success">Sending</h3>
+<div class="col-12 text-center" >
+    <div class="spinner-border text-success" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+</div>
+
+    <div class="row" *ngIf="!sending">
+        <div class="col-lg-12" *ngIf="type == 'email'">
+            <div class="mb-3">
+                <label for="subject" class="form-label">
+                    {{'SUBJECT' | translate }}
+                    </label>
+                <input type="text" class="form-control"  
+                    id="subject" placeholder="{{'ENTERSUBJECT'|translate}}" [(ngModel)]="subject">
+            </div>
+        </div><!--end col-->
+        <div class="col-lg-12">
+            <div class="mb-3">
+                <label for="msg" class="form-label">
+                    {{'MSG' | translate }}
+                    </label>
+                <textarea type="text" class="form-control" id="msg" name="msg"
+                    placeholder="{{'ENTERMSG'|translate}}" 
+                    [(ngModel)]="message" rows="20"></textarea>
+            </div>
+        </div><!--end col-->
+    </div>
+</div>
+<div class="modal-footer" *ngIf="!sending">
+    <button class="btn btn-success" (click)="submit()">{{"SEND"|translate}}</button>
+</div>

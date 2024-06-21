@@ -1,0 +1,33 @@
+<div class="modal-header">
+    <h5 class="modal-title">Online Users</h5>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div *ngIf="loading">Loading...</div>
+    <div *ngIf="!loading">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>IP</th>
+                    <th>Group</th>
+                    <th>Counter</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of onlineUsers">
+                    <td>{{ user.user }}</td>
+                    <td>{{ user.ip }}</td>
+                    <td>{{ user.group }}</td>
+                    <td>{{ user.counter }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+</div>

@@ -1,0 +1,152 @@
+<div class="card bg-marketplace ribbon-box right mb-0 h-100" [ngClass]="{'cursor-pointer':isClickable}" (click)="onCardClick()">
+    <!-- <div class="ribbon" class="{{status}}">
+        {{status}}
+    </div> -->
+    <div class="card-body text-muted" [ngClass]="{'bg-light':account?.masterAccountMT4 || account?.masterAccountMT5}">
+        <div *ngIf="account?.platform!=2" class="ribbon-two"
+            [class.ribbon-two-success]="account?.accountType === 0 && !deleted"
+            [class.ribbon-two-warning]="account?.accountType === 1 && !deleted" [class.ribbon-two-dark]="deleted">
+            <span *ngIf="!deleted">{{(account?.accountType == 0? 'CLIENTACCOUNTS.DEMO.TEXT' : 'CLIENTACCOUNTS.LIVE.TEXT')
+                |translate}}</span>
+            <span *ngIf="deleted">{{'CLIENTACCOUNTS.DELETED.TEXT'
+                |translate}}</span>
+        </div>
+        <div class="d-flex">
+            <div
+    class="d-flex align-items-center gap-3">
+    <button class="me-1 btn shadow-none btn-link text-decoration-none text-muted p-0" type="button"
+        ngbTooltip="Change favorite account" id="password-addon" (mousedown)="changeFavAcc()"><i
+            class=" ri-refresh-line fs-20"></i></button>
+
+</div> 
+<h3 class="flex-grow-1 mb-0 d-flex align-items-center">
+     {{"Favorite account"|translate}}
+</h3>
+
+<div class="flex-shrink-0 d-flex justify-content-center gap-2 me-5">
+    <div>
+
+        <button class="btn btn-success" (click)="openDepositForm()">{{"DEPOSIT"|translate}}</button>
+    </div>
+    <div *ngIf="account?.platform!=2 && !account?.deletedAt" class="dropdown " ngbDropdown>
+        <a href="javascript:void(0);" class="arrow-none btn btn-primary" role="button" id="dropdownMenuLink2"
+            data-bs-toggle="dropdown" (click)="$event.stopPropagation()" aria-expanded="false"
+            ngbDropdownToggle>
+{{"Manage"|translate}}
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuLink2" ngbDropdownMenu>
+            <li><a class="dropdown-item" href="javascript:void(0);"
+                    (mousedown)="changeName()">{{'CLIENTACCOUNTS.CHACCNAME.TEXT'|translate}}</a>
+                <!-- </li><li><a class="dropdown-item" href="javascript:void(0);" (mousedown)="changeFirstName()">Change first name</a> -->
+                <!-- </li><li><a class="dropdown-item" href="javascript:void(0);" (mousedown)="changeLastName()">Change last name</a> -->
+            </li>
+            <!-- <li><a class="dropdown-item" href="javascript:void(0);" (mousedown)="changeNote()">Change note</a></li> -->
+            <li><a class="dropdown-item" href="javascript:void(0);" (mousedown)="changeLeverage()">
+                    {{'CLIENTACCOUNTS.CHACCLEV.TEXT'|translate}}</a>
+            </li>
+            <li><a class="dropdown-item" href="javascript:void(0);" (mousedown)="changeMasterPassword()">
+                    {{'CLIENTACCOUNTS.CHMP.TEXT'|translate}}
+                </a></li>
+            <li><a class="dropdown-item" href="javascript:void(0);" (mousedown)="changeInvestorPassword()">
+                    {{'CLIENTACCOUNTS.CHIP.TEXT'|translate}}</a></li>
+            <li *ngIf="!account?.masterAccountMT5 && !account?.masterAccountMT4"><a class="dropdown-item"
+                    href="javascript:void(0);" (mousedown)="deleteAccount()">{{'DELETE'|translate}}</a></li>
+        </ul>
+    </div>
+</div>
+        </div>
+        <div class="d-flex align-items-center flex-wrap">
+
+            
+
+            <img src="assets/images/svg/crypto-icons/{{account?.currency | lowercase}}.svg"
+                *ngIf="account?.platform==Platform.Wallet"
+                class="bg-light rounded-circle p-1 avatar-sm img-fluid shadowarket Stat" alt="">
+            <img src="assets/images/mt4-logo.png" *ngIf="account?.platform==Platform.MT4"
+                class=" rounded p-1 avatar-sm img-fluid shadowarket Stat" alt="">
+            <img src="assets/images/mt5-logo.png" *ngIf="account?.platform==Platform.MT5"
+                class=" rounded p-1 avatar-sm img-fluid shadowarket Stat" alt="">
+
+            <div class="flex-grow-1" [ngClass]="{ 'text-truncate': account?.platform==Platform.Wallet}">
+                <h1 class="ms-4 mb-0 fs-20 d-flex text-justify">
+
+                    {{account?.platform==Platform.Wallet ? (account?.currency + ' Wallet') : account?.accountName}} <!--end col-->
+
+                    <!-- <div class="btn-group">
+                    <button class="btn btn-light dropdown-toggle" type="button" id="defaultDropdown" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                    Default dropdown
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="defaultDropdown">
+                    <li><a class="dropdown-item" (click)="editDataGet()">change master password</a></li>
+                    </ul>
+                    </div> -->
+
+                </h1>
+                <div *ngIf="account?.platform!=2" class="ms-4 fs-13 fw-medium mb-0 text-start ">
+                    <div style="cursor: pointer; white-space: nowrap;"
+                        (click)="copyToClipboard(account?.login.toString())">
+                        Account: {{account?.login}} <i class="mdi mdi-content-copy"></i>
+                    </div>
+                    <div style="cursor: pointer; white-space: nowrap;"
+                        (click)="copyToClipboard(account?.accountType == 0? 'AlamiyaMarkets-Demo' : 'AlamiyaMarkets-Live')">
+                        Server:
+                        {{account?.accountType == 0? 'AlamiyaMarkets-Demo' : 'AlamiyaMarkets-Live'}}
+                        <i class="mdi mdi-content-copy"></i>
+                    </div>
+                </div>
+                <p *ngIf="account?.masterAccountMT5 || account?.masterAccountMT4"
+                    class="mb-0 mt-1 small badge badge-soft-info fs-11 ms-4">Master Account</p>
+
+            </div>
+            
+
+        </div>
+        <div *ngIf="account?.platform==Platform.Wallet" class="row flex align-items-center g-0 h-75">
+            <div class="col">
+                <h6 class="mb-1 mt-4"> {{'CLIENTACCOUNTS.BALANCE.TEXT'|translate}} </h6>
+                <p class="text-success fs-13 fw-medium mb-0">
+                    {{account?.balance}} {{' ' + account?.currency}}
+                </p>
+            </div>
+        </div>
+        <div *ngIf="account?.platform!=2 && !deleted" class="row flex align-items-end g-0">
+            <div class="col-sm-6 col-md-4 col-lg-4 col-xl-2 text-center">
+                <h6 class="mb-1 mt-4"> {{'CLIENTACCOUNTS.BALANCE.TEXT'|translate}} </h6>
+                <p class="text-success fs-13 fw-medium mb-0">
+                    {{account?.balance}} {{' ' + account?.currency}}
+                </p>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-4 col-xl-2 text-center">
+                <h6 class="mb-1 mt-4"> {{'CLIENTACCOUNTS.LEVERAGE.TEXT'|translate}} </h6>
+                <p class="text-success fs-13 fw-medium mb-0">
+                    {{account?.leverage}}
+                </p>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-4 col-xl-2 text-center">
+                <h6 class="mb-1 mt-4">{{'CLIENTACCOUNTS.FREEMARGIN.TEXT'|translate}} </h6>
+                <p class="text-success fs-13 fw-medium mb-0">
+                    {{account?.free_margin}}
+                </p>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-4 col-xl-2 text-center">
+                <h6 class="mb-1 mt-4">{{'CLIENTACCOUNTS.EQUITY.TEXT'|translate}} </h6>
+                <p class="text-success fs-13 fw-medium mb-0">
+                    {{account?.equity}}
+                </p>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-4 col-xl-2 text-center">
+                <h6 class="mb-1 mt-4">{{'CLIENTACCOUNTS.MARGIN.TEXT'|translate}}</h6>
+                <p class="text-success fs-13 fw-medium mb-0">
+                    {{account?.margin}}
+                </p>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-4 col-xl-2 text-center">
+                <h6 class="mb-1 mt-4">{{'CLIENTACCOUNTS.MARGINLVL.TEXT'|translate}} </h6>
+                <p class="text-success fs-13 fw-medium mb-0">
+                    {{account?.margin_level}}
+                </p>
+            </div>
+        </div><!-- end row -->
+    </div><!-- end card body -->
+</div>

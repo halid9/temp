@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h1>{{"MT5 Automation Options"|translate}}</h1>
+        </div>
+        <div class="card-body">
+<div class="row" *ngIf="fetching">
+
+    <h3 class="text-center text-success">{{"Fetching autumation options"|translate}} <i
+        class="mdi mdi-loading mdi-spin fs-20 align-middle me-2" style="line-height: 0.7;"></i></h3>
+</div>
+
+            <div class="row" *ngIf="!fetching">
+                <div class="col-12 mb-3 ">
+                    <div class="form-check form-switch">
+
+                        <label class="form-check-label" for="flexSwitchCheckDefault1"
+                            [ngClass]="{'text-success':options.disableAccountAfterMonthIfNoDeposit}">{{"Disable account after one month if no deposit"|translate}}</label>
+                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault1"
+                            [(ngModel)]="options.disableAccountAfterMonthIfNoDeposit">
+                    </div>
+                </div>
+                <div class="col-12 mb-3 ">
+                    <div class="form-check form-switch ">
+                        <input class="form-check-input mt-2" type="checkbox" role="switch" id="flexSwitchCheckDefault2"
+                        [(ngModel)]="options.disableAccountAfterSomeMonthesIfNoTradesOrDeals">
+                        <label class="form-check-label d-flex align-items-center flex-wrap" for="flexSwitchCheckDefault2"
+                            [ngClass]="{'text-success':options.disableAccountAfterSomeMonthesIfNoTradesOrDeals}"><span>{{"Disable account after "|translate}}</span> <span class="d-flex"><input type="number" id="monthes" class="form-control ms-1 p-1" style="max-width: 50px;"
+                                placeholder="{{'ENTERMONTHENUMBER'|translate}}"
+                                
+                                [(ngModel)]="options.someMonthes" /></span><span>{{" months if no trades or deals"}}</span></label>
+                        
+                    </div>
+                </div>
+                <div class="col-12 mb-3 ">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-12 col-sm-auto">
+
+                              <div class="form-check form-switch">
+        
+                        <label class="form-check-label" for="flexSwitchCheckDefault3"
+                  [ngClass]="{'text-success':options.monthlyCommisionIfAccountLiveButNoActions}">{{"Apply monthly commisin if account is live but has no actions"|translate}} </label>
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault3"
+                    [(ngModel)]="options.monthlyCommisionIfAccountLiveButNoActions">
+
+                              </div>
+                         </div>
+
+                         <div class="col-12 col-sm-2">
+                            <input type="number" id="min-amount" class="form-control p-1"
+                                placeholder="{{'ENTERMINDEPOSITAMMOUNT'|translate}}"
+                                
+                                [(ngModel)]="options.commisionAmount" />
+                         </div>
+                    </div>
+                </div>
+
+             
+
+                <div class="mt-4">
+                    <button class="btn btn-success align-self-end" (click)="save()" [disabled]="saving">{{saving?"SAVING":"SAVE"|translate}} <i class="mdi mdi-loading mdi-spin fs-20 align-middle me-2" style="line-height: 0.7;" *ngIf="saving"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

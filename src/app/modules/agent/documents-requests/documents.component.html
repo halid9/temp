@@ -1,0 +1,304 @@
+
+
+    <!-- Start Breadcrumbs -->
+<app-breadcrumbs title="Documents" *ngIf="singleComponent" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+<div class="row align-items-center mb-4 g-3" *ngIf="singleComponent">
+    <div class="col-sm-3">
+    </div><!--end col-->
+    <div class="col-sm-auto ms-auto">
+        <div class="d-flex flex-wrap gap-2">
+            <button type="button" class="btn btn-info" data-bs-toggle="offcanvas"
+            href="javascript:void(0);" (click)="openEnd(filtetcontent)"><i
+                class="ri-filter-3-line align-bottom me-1"></i> {{"FILTERS"|translate}}</button>
+
+            <a href="javascript:void(0);" (click)="setType('rejected')" data-bs-toggle="modal"
+                class="btn btn-danger">{{"REJECTED"|translate}}</a>
+            <a href="javascript:void(0);" (click)="setType('pending')" data-bs-toggle="modal"
+                class="btn btn-warning">{{"PENDING"|translate}}</a>
+            <a href="javascript:void(0);" (click)="setType('approved')" data-bs-toggle="modal"
+                class="btn btn-success">{{"APPROVED"|translate}}</a>
+        </div>
+    </div><!--end col-->
+</div><!--end row-->
+<div class="card" id="contactList">
+    <div class="card-header">
+        <div class="row align-items-center g-3">
+            <div class="col-md-3">
+                <h5 class="card-title mb-0">{{"ALLDOCS"|translate}}</h5>
+            </div><!--end col-->
+            <div class="col-md-auto ms-auto">
+                <div class="d-flex gap-2">
+                    <div class="search-box">
+                        <input type="text" name="searchTerm" class="form-control"
+                            placeholder="{{'SFD'|translate}}" [(ngModel)]="contentService.searchTerm">
+                        <i class="ri-search-line search-icon"></i>
+                    </div>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end card-header-->
+    <div class="card-body p-0">
+        <ngb-accordion #acc="ngbAccordion" activeIds="static-0" [closeOthers]="true" >
+            <ngb-panel id="static-{{i+1}}" *ngFor="let u of DocList$ | async ;let i = index">
+                <ng-template ngbPanelTitle>
+                    <a class=" shadow-none" data-bs-toggle="collapse" href="javascript:void(0);" aria-expanded="true"
+                        aria-controls="collapseOne">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <div class="avatar-xs">
+                                    <div class="avatar-title bg-soft-warning text-warning rounded-circle fs-16">
+                                        <i class="bi bi-arrow-right-left"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="fs-14 mb-0 ">
+                                    <ngb-highlight [result]="u.user" [term]="contentService.searchTerm"></ngb-highlight>
+                                    
+                                </h6>                             
+                            </div>
+                        </div>
+                    </a>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                        <div id="collapseOne" class="accordion-collapse collapse show p-0 " aria-labelledby="headingOne"
+                            data-bs-parent="#accordionExample">
+                            <div class="table-responsive">
+
+                                <table class="table align-middle table-nowrap table-hover mb-0" id="customerTable">
+                                    <thead class="table-light text-muted">
+                                        <tr>
+                                            <!-- <th *ngIf="colsToView.user" class="sort cursor-pointer" [sortable]="'user'" [direction]="'desc'" (sort)="onSort($event)" data-sort="name" scope="col">{{"USER"|translate}}</th> -->
+                                            <th *ngIf="colsToView.type" class="sort cursor-pointer" [sortable]="'type'" [direction]="'desc'" (sort)="onSort($event)" data-sort="type" scope="col">
+                                                <p class="pe-3 mb-0">
+
+                                                {{"DOCTYPE"|translate}}</p>
+                                                </th>
+                                            <th *ngIf="colsToView.uploadDate" class="sort cursor-pointer" [sortable]="'uploadDate'" [direction]="'desc'" (sort)="onSort($event)" data-sort="uploadDate" scope="col">
+                                                <p class="pe-3 mb-0">
+
+                                                {{"UPLOADDATE"|translate}}</p>
+                                                </th>
+                                            <th *ngIf="colsToView.status" class="sort cursor-pointer" [sortable]="'status'" [direction]="'desc'" (sort)="onSort($event)" data-sort="status" scope="col">
+                                                <p class="pe-3 mb-0">
+
+                                                {{"STATUS"|translate}}</p>
+                                                </th>
+                                            <th *ngIf="colsToView.expirationDate" class="sort cursor-pointer" [sortable]="'expirationDate'" [direction]="'desc'" (sort)="onSort($event)" data-sort="expirationDate"scope="col">
+                                                <p class="pe-3 mb-0">
+
+                                                {{"EXPDATE"|translate}}</p>
+                                                
+                                            </th>
+                                            <th *ngIf="colsToView.details" class="sort cursor-pointer" [sortable]="'details'" [direction]="'desc'" (sort)="onSort($event)" data-sort="details" scope="col">
+                                                <p class="pe-3 mb-0">
+
+                                                {{"DETAILS"|translate}}</p>
+                                                </th>
+                                            <th scope="col">{{"ACTION"|translate}}</th>
+                                        </tr><!--end tr-->
+                                    </thead>
+                                    <tbody class="list form-check-all">
+                                        <tr *ngFor="let data of u?.['requests']">
+                    
+                                            <!-- <td *ngIf="colsToView.user">
+                                                <a href="javascript:void(0);" (mousedown)="openUserDialog()">
+                                                    <ngb-highlight [result]="data.user?.email" [term]="contentService.searchTerm"></ngb-highlight>
+                                                </a>
+                                            </td> -->
+                                            <td *ngIf="colsToView.type"><ngb-highlight [result]="data.title|translate" [term]="contentService.searchTerm" ></ngb-highlight></td>
+                                            <td *ngIf="colsToView.uploadDate"><ngb-highlight [result]="data.uploadDate | date:'yyyy-MM-dd'" [term]="contentService.searchTerm" ></ngb-highlight></td>
+                                    
+                                            <td *ngIf="colsToView.status" class="status">
+                                                <span class="badge badge-soft-{{data.status_color}} fs-11"><i
+                                                        class="ri-checkbox-circle-line align-bottom"></i> {{(data.status|uppercase)|translate}}</span>
+                                            </td>
+                                            <td *ngIf="colsToView.expirationDate"><ngb-highlight [result]="data.expirationDate |date:'yyyy-MM-dd' "[term]="contentService.searchTerm" ></ngb-highlight></td>
+                    
+                                            <td *ngIf="colsToView.details"><ngb-highlight [result]="data.details" [term]="contentService.searchTerm" ></ngb-highlight></td>
+                    
+                                            <td>
+                                                <div class="dropdown" container="body" ngbDropdown>
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-light btn-md arrow-none"
+                                                        id="dropdownMenuLink15"
+                                                        data-bs-toggle="dropdown" aria-expanded="true"
+                                                        ngbDropdownToggle>
+                                                        <i class="ri-equalizer-fill"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end"
+                                                        aria-labelledby="dropdownMenuLink15"
+                                                        ngbDropdownMenu>
+                                                        <li *ngIf="data.status == 'pending'" ><a class="dropdown-item"
+                                                            href="javascript:void(0);" (mousedown)="approve(data.id)"><i
+                                                                class="ri-thumb-up-fill me-2 align-middle text-muted" ></i>{{"APPROVE"|translate}}</a>
+                                                    </li>
+                                                    <li *ngIf="data.status == 'pending'" ><a class="dropdown-item"
+                                                        href="javascript:void(0);" (mousedown)="reject(data.id)"><i
+                                                            class="ri-thumb-down-fill me-2 align-middle text-muted" ></i>{{"REJECT"|translate}}</a>
+                                                </li>
+                                                <li class="dropdown-divider" *ngIf="data.status == 'pending'" ></li>
+                    
+                                                        <li><a class="dropdown-item"
+                                                                href="javascript:void(0);" (mousedown)="openViewContent(data.file.id,data.user,data.status,data.id)"><i
+                                                                    class="ri-eye-fill me-2 align-middle text-muted"></i>{{"VIEW"|translate}}</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item"
+                                                                href="javascript:void(0);" (mousedown)="download(data.file.id)"><i
+                                                                    class="ri-download-2-fill me-2 align-middle text-muted"></i>{{"DOWNLOAD"|translate}}</a>
+                                                        </li>
+                                                          
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table><!--end table-->
+                            
+
+                            </div>
+                      
+                    </div>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+        <!-- <div class="table-responsive table-card">
+            <table class="table align-middle table-nowrap table-hover" id="customerTable">
+                <thead class="table-light text-muted">
+                    <tr>
+                        <th *ngIf="colsToView.user" class="sort cursor-pointer" [sortable]="'user'" [direction]="'desc'" (sort)="onSort($event)" data-sort="name" scope="col">{{"USER"|translate}}</th>
+                        <th *ngIf="colsToView.type" class="sort cursor-pointer" [sortable]="'type'" [direction]="'desc'" (sort)="onSort($event)" data-sort="type" scope="col">{{"DOCTYPE"|translate}}</th>
+                        <th *ngIf="colsToView.uploadDate" class="sort cursor-pointer" [sortable]="'uploadDate'" [direction]="'desc'" (sort)="onSort($event)" data-sort="uploadDate" scope="col">{{"UPLOADDATE"|translate}}</th>
+                        <th *ngIf="colsToView.status" class="sort cursor-pointer" [sortable]="'status'" [direction]="'desc'" (sort)="onSort($event)" data-sort="status" scope="col">{{"STATUS"|translate}}</th>
+                        <th *ngIf="colsToView.expirationDate" class="sort cursor-pointer" [sortable]="'expirationDate'" [direction]="'desc'" (sort)="onSort($event)" data-sort="expirationDate"scope="col">{{"EXPDATE"|translate}}
+                        </th>
+                        <th *ngIf="colsToView.details" class="sort cursor-pointer" [sortable]="'details'" [direction]="'desc'" (sort)="onSort($event)" data-sort="details" scope="col">{{"DETAILS"|translate}}</th>
+                        <th scope="col">{{"ACTION"|translate}}</th>
+                    </tr>
+                </thead>
+                <tbody class="list form-check-all">
+                    <tr *ngFor="let data of DocList$ | async">
+
+                        <td *ngIf="colsToView.user">
+                            <a href="javascript:void(0);" (mousedown)="openUserDialog()">
+                                <ngb-highlight [result]="data.user?.email" [term]="contentService.searchTerm"></ngb-highlight>
+                            </a>
+                        </td>
+                        <td *ngIf="colsToView.type"><ngb-highlight [result]="(data.type|uppercase)|translate" [term]="contentService.searchTerm" ></ngb-highlight></td>
+                        <td *ngIf="colsToView.uploadDate"><ngb-highlight [result]="data.uploadDate | date:'yyyy-MM-dd'" [term]="contentService.searchTerm" ></ngb-highlight></td>
+                
+                        <td *ngIf="colsToView.status" class="status">
+                            <span class="badge badge-soft-{{data.status_color}} fs-11"><i
+                                    class="ri-checkbox-circle-line align-bottom"></i> {{(data.status|uppercase)|translate}}</span>
+                        </td>
+                        <td *ngIf="colsToView.expirationDate"><ngb-highlight [result]="data.expirationDate |date:'yyyy-MM-dd' "[term]="contentService.searchTerm" ></ngb-highlight></td>
+
+                        <td *ngIf="colsToView.details"><ngb-highlight [result]="data.details" [term]="contentService.searchTerm" ></ngb-highlight></td>
+
+                        <td>
+                            <div class="dropdown" container="body" ngbDropdown>
+                                <a href="javascript:void(0);"
+                                    class="btn btn-light btn-md arrow-none"
+                                    id="dropdownMenuLink15"
+                                    data-bs-toggle="dropdown" aria-expanded="true"
+                                    ngbDropdownToggle>
+                                    <i class="ri-equalizer-fill"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end"
+                                    aria-labelledby="dropdownMenuLink15"
+                                    ngbDropdownMenu>
+                                    <li *ngIf="data.status == 'pending'" ><a class="dropdown-item"
+                                        href="javascript:void(0);" (mousedown)="approve(data.id)"><i
+                                            class="ri-thumb-up-fill me-2 align-middle text-muted" ></i>{{"APPROVE"|translate}}</a>
+                                </li>
+                                <li *ngIf="data.status == 'pending'" ><a class="dropdown-item"
+                                    href="javascript:void(0);" (mousedown)="reject(data.id)"><i
+                                        class="ri-thumb-down-fill me-2 align-middle text-muted" ></i>{{"REJECT"|translate}}</a>
+                            </li>
+                            <li class="dropdown-divider" *ngIf="data.status == 'pending'" ></li>
+
+                                    <li><a class="dropdown-item"
+                                            href="javascript:void(0);" (mousedown)="openViewContent(data.file.id,data.user,data.status,data.id)"><i
+                                                class="ri-eye-fill me-2 align-middle text-muted"></i>{{"VIEW"|translate}}</a>
+                                    </li>
+                                    <li><a class="dropdown-item"
+                                            href="javascript:void(0);" (mousedown)="download(data.file.id)"><i
+                                                class="ri-download-2-fill me-2 align-middle text-muted"></i>{{"DOWNLOAD"|translate}}</a>
+                                    </li>
+                                      
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> -->
+        
+        <div id="elmLoader" [ngClass]="{'d-none':!(loading$ | async)}">
+            <div class="spinner-border text-primary avatar-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div><!--end card-body-->
+    <div class="card-footer">
+        <div class="row justify-content-md-between align-items-md-center mt-2">
+            <div class="col col-sm-6">
+                <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                    {{"SHOWING"|translate}}
+                    {{contentService.startIndex}} {{'TO'|translate}}
+                    {{contentService.endIndex}} {{"OF"|translate}} {{contentService.totalRecords}}
+                    {{"ENTERIES"|translate}}
+                </div>
+            </div>
+            <!-- Pagination -->
+            <div class="col col-sm-6">
+                <div class="text-sm-right float-end listjs-pagination">
+                    <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="contentService.page"
+                    [maxSize]="5"
+                    [rotate]="true"
+                    [ellipses]="false"
+                    [boundaryLinks]="true"
+                    [pageSize]="contentService.pageSize" >
+                    </ngb-pagination>
+                </div>
+            </div>
+            <!-- End Pagination -->
+        </div>
+    </div>
+</div><!--end card-->
+<ng-template #filtetcontent let-offcanvas>
+    <div class="offcanvas-header bg-light">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{"TXSFILTER"|translate}}</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"
+            (click)="offcanvas.dismiss('Cross click')"></button>
+    </div>
+    <!--end offcanvas-header-->
+    <form action="" class="d-flex flex-column justify-content-end h-100">
+        <div class="offcanvas-body">
+              <div>
+                <label for="leads-tags" class="form-label text-muted text-uppercase fw-semibold mb-3">{{"COLS"|translate}}</label>
+                <div class="row g-3">
+                    <div class="col-lg-6" *ngFor="let col of cols">
+                        <div class="form-check">
+                            <input  class="form-check-input" type="checkbox" id="{{col.name+'sss'}}" value="{{col.name}}" [checked]="col.visibale"
+                                name="{{col.name+'sss'}}" (change)="col.visibale = !col.visibale">
+                            <label class="form-check-label" for="{{col.name+'sss'}}">{{(col.name|uppercase) | translate}}</label>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!--end offcanvas-body-->
+        <div class="offcanvas-footer border-top p-3 text-center hstack gap-2">
+            <button class="btn btn-light w-100">{{"CLEARFILTER"|translate}}</button>
+            <button type="submit" class="btn btn-primary w-100" (click)="setCols()">{{"FILTER"|translate}}</button>
+        </div>
+        <!--end offcanvas-footer-->
+    </form>
+</ng-template>
+
+
+
+

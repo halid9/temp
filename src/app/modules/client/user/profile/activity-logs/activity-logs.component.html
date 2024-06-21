@@ -1,0 +1,67 @@
+
+       
+        <div class="acitivity-timeline">
+            <div class="profile-timeline order-status  " aria-label="scrollable">
+                <ngb-accordion #acc="ngbAccordion" activeIds="static-1"
+                    [closeOthers]="true">
+                    <ngb-panel id="static-{{i+1}}"
+                        *ngFor="let activity of activityList$|async;let i = index">
+                        <ng-template ngbPanelTitle>
+                            <a class="accordion-button p-2 shadow-none"
+                                data-bs-toggle="collapse" href="javascript:void(0);"
+                                aria-expanded="true" aria-controls="collapseOne">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0">
+                                        <div class="avatar-xs">
+                                            <div
+                                                class="avatar-title bg-soft-warning text-warning rounded-circle fs-16">
+                                                <i class="bi bi-arrow-right-left"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3" >
+                                        <h6 class="fs-14 mb-1">
+                                            {{(activity.type|uppercase)|translate}}
+                                        </h6>
+                                        <small class="text-muted">{{activity.brief}}
+                                            {{activity.creationDate}}</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </ng-template>
+                        <ng-template ngbPanelContent>
+                            <div class="ps-5">
+                                <div id="collapseOne"
+                                    class="accordion-collapse collapse show"
+                                    aria-labelledby="headingOne"
+                                    data-bs-parent="#accordionExample">
+                                    {{activity.details}}
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-panel>
+                </ngb-accordion>
+            </div>
+        </div>
+        <div class="row justify-content-md-between align-items-md-center mt-2">
+            <div class="col col-sm-6">
+                <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                    {{"SHOWING"|translate}}
+                    {{contentService.startIndex}} {{'TO'|translate}}
+                    {{contentService.endIndex}} {{"OF"|translate}} {{contentService.totalRecords}}
+                    {{"ENTERIES"|translate}}
+                </div>
+            </div>
+            <!-- Pagination -->
+            <div class="col col-sm-6">
+                <div class="text-sm-right float-end listjs-pagination">
+                    <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="contentService.page" [maxSize]="5"
+                    [rotate]="true"
+                    [ellipses]="false"
+                    [boundaryLinks]="true"
+                        [pageSize]="contentService.pageSize">
+                    </ngb-pagination>
+                </div>
+            </div>
+            <!-- End Pagination -->
+        </div>

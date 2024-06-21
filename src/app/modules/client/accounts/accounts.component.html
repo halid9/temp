@@ -1,0 +1,202 @@
+<app-breadcrumbs title="ACCOUNTS" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<div class="row mb-5">
+    <div class="d-flex justify-content-end gap-2">
+        <button class="btn btn-primary text-center" (mousedown)="opendialog()" >
+            <!-- <img src="assets/images/plus.png" style="max-width: 25px; max-height: 25px;" alt="" class="me-2"> -->
+                                    {{'CLIENTACCOUNTS.CREATE.TEXT'| translate}}
+        </button>
+        <button class="btn btn-primary text-center" (mousedown)="connectAccountForm()" >
+            <!-- <img src="assets/images/link.png" style="max-width: 25px; max-height: 25px;" alt="" class="me-2"> -->
+                                    {{'CLIENTACCOUNTS.CONNECT.TEXT'| translate}}
+        </button>
+        <div class="btn btn-success" (mousedown)="openDepositForm()">
+            {{'CLIENTDASHBOARD.DEPOSIT.TEXT'| translate}}
+        </div>
+    </div>
+    <!-- test -->
+</div>
+<div class="row " *ngIf="false">
+    <div class="col-lg-6 text-center mb-4">
+        <div class="spinner-border text-primary avatar-sm" role="status" *ngIf="!USDT_TRC20_WalletAddress">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <h2 class="mb-0" *ngIf="USDT_TRC20_WalletAddress">USDT TRC20</h2>
+        <qrcode [qrdata]="USDT_TRC20_WalletAddress" [width]="128" [errorCorrectionLevel]="'M'" *ngIf="USDT_TRC20_WalletAddress"></qrcode>
+        <code id="walletAddress" (click)="copyToClipboard()" *ngIf="USDT_TRC20_WalletAddress"
+            class="user-select-all cursor-pointer">
+            <p class="mb-0 text-break">
+                {{ USDT_TRC20_WalletAddress }}
+            </p>
+            </code>
+    </div>
+    <div class="col-lg-6 mb-4">
+        <ul class="ps-3" *ngIf="translate.currentLang == 'ar'">
+            <li>يمكنك إرسال USDT TRC20 إلى هذا العنوان لإيداعه في حسابك.</li>
+            <li>يجب عليك إرسال 100 USDT على الأقل ، قبل أن تتمكن من إضافته إلى حسابك.</li>
+            <li>يمكنك إرساله في عمليات متعددة.</li>
+            <li>انقر على العنوان لنسخه إلى الحافظة أو مسح رمز الاستجابة السريعة.</li>
+        </ul>
+        <ul *ngIf="translate.currentLang != 'ar'">
+            <li>You can send USDT TRC20 to this address to deposit to your account.</li>
+            <li>You have to send at least 100 USDT, before you can add it to your account.</li>
+            <li>You may send it in multiple transactions.</li>
+            <li>Click on the address to copy it to your clipboard or scan the QR code.</li>
+        </ul>
+        <p class="mb-2" *ngIf="translate.currentLang == 'ar'">
+            انقر فوق "تحديث" لتحديث حالة إيداعك.<br />
+            انقر فوق "إضافة إلى محفظة USD" لإضافة الإيداع إلى محفظتك USD.<br />
+        </p>
+        <p class="mb-2" *ngIf="translate.currentLang != 'ar'">
+            Click "Refresh" to refresh the status of your deposit.<br />
+            Click "Add to USD Wallet" to add the deposit to your USD Wallet.<br />
+        </p>
+        <div class="alert alert-info" *ngIf="USDT_TRC20_WalletBalance > 0">{{ translate.currentLang == 'ar' ?
+            'المبلغ الواصل' : 'Recieved Amount' }} {{ USDT_TRC20_WalletBalance }} USDT</div>
+        <div class="alert alert-warning" *ngIf="USDT_TRC20_ProcessingAmount > 0">{{ translate.currentLang == 'ar' ?
+            'يتم الأن معالجة' : 'Currently Processing' }} {{ USDT_TRC20_ProcessingAmount }} USDT</div>
+        <button class="btn btn-secondary me-2" (click)="refreshTRC20()">{{'Refresh' | translate}}</button>
+        <button class="btn btn-success" (click)="addToWalletTRC20()" *ngIf="USDT_TRC20_WalletBalance > 0">{{'Add to USD Wallet'| translate}}</button>
+        <div class="alert alert-danger d-inline-block p-1" *ngIf="noPaymentReceived">{{ translate.currentLang == 'ar' ?
+            'لم يتم العثور على إيداع' : 'No Deposit Found' }}</div>
+    </div>
+</div>
+<hr class="hr" *ngIf="false" />
+<div class="row">
+    <div class=" col-lg-12 text-center">
+
+        <div _ngcontent-fdy-c238="" class="d-flex align-items-center mb-3">
+            <div _ngcontent-fdy-c238="" class="flex-grow-1">
+                <h2 _ngcontent-fdy-c238="" class="mb-0 ">{{'Wallets & Accounts'|translate}}</h2>
+            </div>
+        </div>
+
+        <!-- <div class="row mb-5">
+
+            <div class="col-12 col-lg mb-3" *ngFor="let account of walletAccounts">
+                <accounts-card [account]="account" [isClickable]="true"></accounts-card>
+            </div>
+            
+            <div class="row" *ngIf="!walletAccounts.length">
+                <h3 class="text-danger mt-5">{{'CLIENTACCOUNTS.WALLETNOTFOUND.TEXT'|translate}}</h3>
+            </div>
+
+        </div> -->
+        <div class="row mb-5">
+           <!-- <div class="col-lg-3 mb-3">
+            <div class="card ribbon-box right mb-0 h-100">
+                <div class="card-body ">
+                    <div class=" d-flex flex-column justify-content-around h-100">
+        
+                        <div class="card border border-success cursor-pointer card-animate mb-0 " (mousedown)="opendialog()"
+                        >
+                            <div class="card-body text-center mb-0">
+                
+                                <h3 class="text-success d-flex justify-content-center align-items-center gap-1"
+                                 
+                                >
+                                    <img src="assets/images/plus.png" style="max-width: 25px; max-height: 25px;" alt="">
+                                    {{'CLIENTACCOUNTS.CREATE.TEXT'| translate}}
+                
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="card border border-warning cursor-pointer card-animate mb-0" (mousedown)="connectAccountForm()"
+                        >
+                            <div class="card-body text-center mb-0">
+                
+                                <h3 class=" text-warning d-flex justify-content-center align-items-center gap-1"
+                                   
+                                >
+                                    <img src="assets/images/link.png" style="max-width: 25px; max-height: 25px;" alt="">
+                                    {{'CLIENTACCOUNTS.CONNECT.TEXT'| translate}}
+                                </h3>
+                            </div>
+                    </div>
+                </div>
+            
+                    
+                </div>
+            </div>
+           </div> -->
+           <div class=" col-md-6 col-lg-4  col-xl-3 mb-3" *ngFor="let account of walletAccounts">
+            <accounts-card [account]="account" [isClickable]="true"></accounts-card>
+        </div>
+            <div class=" col-md-6 col-lg-4 col-xl-3 mb-3" *ngFor="let account of accounts">
+                <accounts-card [account]="account" [isClickable]="true"></accounts-card>
+
+            </div>
+            <!-- <div class="row" *ngIf="!accounts.length">
+
+                <h3 class="text-danger mt-5">{{'CLIENTACCOUNTS.MT4NOTFOUND.TEXT'|translate}}</h3>
+            </div> -->
+
+        </div>
+    </div>
+    <!-- <hr class="hr" /> -->
+    <!-- <div class="col-lg-12 text-center">
+
+        <div _ngcontent-fdy-c238="" class="d-flex align-items-center mb-3">
+            <div _ngcontent-fdy-c238="" class="flex-grow-1">
+                <h2 _ngcontent-fdy-c238="" class="mb-0 ">MT4</h2>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-lg-3 mb-3" *ngFor="let account of accounts">
+                <accounts-card [account]="account" [isClickable]="true"></accounts-card>
+
+            </div>
+            <div class="row" *ngIf="!accounts.length">
+
+                <h3 class="text-danger mt-5">{{'CLIENTACCOUNTS.MT4NOTFOUND.TEXT'|translate}}</h3>
+            </div>
+
+        </div>
+    </div> -->
+    <!-- <hr class="hr" />
+    <div class="col-lg-12 text-center">
+
+        <div _ngcontent-fdy-c238="" class="d-flex align-items-center mb-3">
+            <div _ngcontent-fdy-c238="" class="flex-grow-1">
+                <h2 _ngcontent-fdy-c238="" class="mb-0">MT5</h2>
+            </div>
+
+        </div>
+
+        <div class="row ">
+
+            <div class="col-lg-3 mb-3" *ngFor="let account of mt5Accounts">
+                <accounts-card [account]="account" [isClickable]="true"></accounts-card>
+
+            </div>
+            <div class="row" *ngIf="!mt5Accounts.length">
+
+                <h3 class="text-danger mt-5">{{'CLIENTACCOUNTS.MT5NOTFOUND.TEXT'|translate}}</h3>
+            </div>
+
+
+        </div>
+
+
+    </div> -->
+</div>
+
+<hr class="hr" *ngIf="deletedAccounts?.length > 0" />
+<div class="row" *ngIf="deletedAccounts?.length > 0">
+    <div class=" col-lg-12 text-center">
+
+        <div _ngcontent-fdy-c238="" class="d-flex align-items-center mb-3">
+            <div _ngcontent-fdy-c238="" class="flex-grow-1">
+                <h2 _ngcontent-fdy-c238="" class="mb-0 ">Deleted Accounts</h2>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+
+            <div class=" col-md-4 col-lg-3 mb-3" *ngFor="let account of deletedAccounts">
+                <accounts-card [account]="account" [isClickable]="true" [deleted]="true"></accounts-card>
+            </div>
+                
+        </div>
+    </div>
+</div>

@@ -1,0 +1,269 @@
+<div class="modal-header bg-light " *ngIf="!isTab">
+    <h4 class="modal-title mb-3" id="modal-basic-title">{{"EDITUSER"|translate}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (mousedown)="close()"></button>
+</div>
+<div class="modal-body">
+
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+
+        <div class="mb-3 row">
+            <div class="col-6">
+
+                <label for="useremail" class="form-label">{{"EMAIL"|translate}} <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="useremail" placeholder="{{'ENTEREMAIL'|translate}}" required
+                    formControlName="email" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+                <div class="invalid-feedback">
+                    {{"EMAILREQ"|translate}}
+                </div>
+            </div>
+            <div class="col-6">
+
+                <label for="phone" class="form-label">{{"PHONENUMBER"|translate}}<span class="text-danger">*</span></label>
+                <div class="row ">
+                    <ngx-intl-tel-input [cssClass]="'form-control w-100 '" [preferredCountries]="preferredCountries"
+                        [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                        [searchCountryField]="[
+                                                                                        SearchCountryField.Iso2,
+                                                                                         SearchCountryField.Name
+                                                                                     ]" [selectFirstCountry]="false"
+                        [selectedCountryISO]="CountryISO.Turkey" [maxLength]="15" [phoneValidation]="true"
+                        [separateDialCode]="separateDialCode" [numberFormat]="PhoneNumberFormat.National" name="phone"
+                        [ngClass]="{ 'is-invalid':  f['phone'].errors }" formControlName="phone">
+                    </ngx-intl-tel-input>
+                    <div *ngIf=" f['phone'].errors " class="invalid-feedback" align="left">
+                        <div *ngIf="f['phone'].errors?.['validatePhoneNumber']">
+                            {{"PHONEINVALID"|translate}}
+                        </div>
+                        <div *ngIf="submitted && f['phone'].errors['required']">Phone required!
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+
+            <div class="col-6">
+                <label for="firstName" class="form-label">{{"FNAME"|translate}} <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="firstName" placeholder="{{'ENTERFNAME'|translate}}" required
+                    formControlName="firstName"
+                    [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors ||f['firstName'].errors?.['invalidInput'] ||f['firstName'].errors?.['length'] ||f['firstName'].errors?.['symbols']||f['firstName'].errors?.['numbers']}">
+                <div *ngIf="(submitted&& f['firstName'].errors?.['requierd'])||f['firstName'].errors?.['invalidInput'] ||f['firstName'].errors?.['length']||f['firstName'].errors?.['symbols']||f['firstName'].errors?.['numbers'] "
+                    class="invalid-feedback">
+                    <div *ngIf="f['firstName'].errors['invalidInput']">First name must not have<strong> Consecutive
+                            letters
+                            and sequences</strong></div>
+                    <div *ngIf="f['firstName'].errors['length']">First name must not be longer than 15 letters</div>
+                    <div *ngIf="f['firstName'].errors['symbols']">First name must not contain <strong>symbols</strong>
+                    </div>
+                    <div *ngIf="f['firstName'].errors['numbers']">First name must not contain <strong>numbers</strong>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-6">
+                <label for="lastName" class="form-label">{{"LNAME"|translate}} <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="lastName" placeholder="{{'ENTERLNAME'|translate}}" required
+                    formControlName="lastName"
+                    [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors ||f['lastName'].errors?.['invalidInput'] ||f['lastName'].errors?.['length']|| f['lastName'].errors?.['symbols']|| f['lastName'].errors?.['numbers'] }">
+                <div *ngIf="(submitted&& f['lastName'].errors?.['requierd'])||f['lastName'].errors?.['invalidInput'] ||f['lastName'].errors?.['length'] || f['lastName'].errors?.['symbols']|| f['lastName'].errors?.['numbers']"
+                    class="invalid-feedback">
+                    <div *ngIf="f['lastName'].errors['invalidInput']">Last name must not have<strong> Consecutive
+                            letters
+                            and sequences</strong></div>
+                    <div *ngIf="f['lastName'].errors['length']">Last name must not be longer than 15 letters</div>
+                    <div *ngIf="f['lastName'].errors['symbols']">Last name must not contain <strong>symbols</strong>
+                    </div>
+                    <div *ngIf="f['lastName'].errors['numbers']">Last name must not contain <strong>numbers</strong>
+                    </div>
+
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="mb-3 row">
+ 
+            <div class="col-4">
+                <label for="type" class="form-label">{{'TYPE'|translate}} <span class="text-danger">*</span></label>
+                <select class="form-select form-select" formControlName="type" id="type"
+                    [ngClass]="{ 'is-invalid': f['type'].errors}">
+                    <option *ngFor="let type of userTypes" [value]="type.value" [disabled]="type.value === 1 && !currentUserIsAdmin">
+
+                        {{(type.name |uppercase)|translate}}
+
+                    </option>
+                </select>
+                <div *ngIf=" f['type'].errors " class="invalid-feedback" align="left">
+
+                    <div *ngIf="submitted && f['type'].errors['required']">{{'TYPEREQ'|translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <label for="verified" class="form-label">{{"USERVERIFICATION"|translate}}<span class="text-danger">*</span></label>
+                <select class="form-select form-select" formControlName="verified" id="verified"
+                    [ngClass]="{ 'is-invalid': f['verified'].errors}">
+                    <option class="text-success" [value]="true">
+                        {{"VERIFIED"|translate}}
+                    </option>
+                    <option class="text-danger" [value]="false">
+                        {{"NOTVER"|translate}}
+                    </option>
+                </select>
+                <div *ngIf=" f['verified'].errors " class="invalid-feedback" align="left">
+
+                    <div *ngIf="submitted && f['verified'].errors['required']">Type required!
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <label for="verifyEmailAndPhone" class="form-label">{{"EMAILPHONEVER"|translate}}<span
+                        class="text-danger">*</span></label>
+                <select class="form-select form-select" formControlName="verifyEmailAndPhone" id="verifyEmailAndPhone"
+                    [ngClass]="{ 'is-invalid': f['verifyEmailAndPhone'].errors}">
+                    <option class="text-success" [value]="true">
+                        {{"VERIFIED"|translate}}
+                    </option>
+                    <option class="text-danger" [value]="false">
+                        {{"NOTVER"|translate}}
+                    </option>
+                </select>
+                <div *ngIf=" f['verifyEmailAndPhone'].errors " class="invalid-feedback" align="left">
+
+                    <div *ngIf="submitted && f['verifyEmailAndPhone'].errors['required']">Type required!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="mb-2">
+                        <label for="userpassword" class="form-label">Password <span
+                                class="text-danger">*</span></label>
+                        <input type="password" class="form-control" id="userpassword" 
+                            placeholder="Enter password" required formControlName="password"
+                            [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+                        <div class="invalid-feedback">
+                            Please enter password
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label for="usercpassword" class="form-label">Confirm password <span
+                                class="text-danger">*</span></label>
+                        <input type="password" class="form-control" id="usercpassword" 
+                            placeholder="Confirm password" required formControlName="cpassword"
+                            [ngClass]="{ 'is-invalid': submitted && f['cpassword'].errors }">
+                        <div class="invalid-feedback">
+                            Please confirm password
+                        </div>
+                    </div>
+                    <div id="password-contain" class="p-3 bg-light mb-2 rounded">
+                        <h5 class="fs-13">Password must contain:</h5>
+                        <p id="pass-length" class="invalid fs-12 mb-2">Minimum <b>8 characters</b></p>
+                        <p id="pass-lower" class="invalid fs-12 mb-2">At <b>lowercase</b> letter (a-z)
+                        </p>
+                        <p id="pass-upper" class="invalid fs-12 mb-2">At least <b>uppercase</b> letter
+                            (A-Z)</p>
+                        <p id="pass-number" class="invalid fs-12 mb-2">A least <b>number</b> (0-9)</p>
+                        <p id="pass-match" class="invalid fs-12 mb-0">Password must <b>match</b>!</p>
+                    </div> -->
+        <div class="row">
+
+            <div class="col-lg-4">
+                <div class="mb-3">
+                    <label for="cityInput" class="form-label">{{'PROFILE.CITY.TEXT'|translate}}</label>
+                    <input type="text" class="form-control" id="cityInput" placeholder="{{'ENTERCITY'|translate}}" formControlName="city" [ngClass]="{ 'is-invalid': (submitted && userForm.controls['city'].errors) }" />
+
+                    <div *ngIf="submitted && userForm.controls['city'].errors "
+                        class="invalid-feedback" align="left">
+                        <div
+                            *ngIf="userForm.controls['city'].errors['required']">
+                            {{"CITYREQ"|translate}}
+                        </div>
+                    </div>  </div>
+            </div><!--end col-->
+            <!-- <div class="col-lg-4">
+                        <div class="mb-3">
+                            <label for="countryInput" class="form-label">Country</label>
+                            <input type="text" class="form-control" id="countryInput"
+                                placeholder="Country" [value]="info?.country"
+                                formControlName="country" />
+                        </div>
+                    </div> -->
+            <div class="col-lg-4">
+                <div>
+                    <label for="country">{{'PROFILE.SELECTCOUNTRY.TEXT'|translate}}</label>
+                    <select class="form-select form-select" formControlName="country" id="country"
+                        autocomplete="country">
+                        <option *ngFor="let country of countries" [value]="country.name"
+                            style="background-image: url('assets/images/flags/{{country.iso2 | lowercase}}.svg'); background-size: 30px 30px; background-position: 0 0 ; background-repeat: no-repeat;">
+                            <img src="" alt=""> {{country.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="mb-3">
+                    <label for="zipcodeInput" class="form-label">{{'PROFILE.ZIPCODE.TEXT'|translate}}</label>
+                    <input type="number" class="form-control" minlength="5" maxlength="6" id="zipcodeInput"
+                        placeholder="{{'ENTERZIPCODE'|translate}}" formControlName="zipCode" [ngClass]="{ 'is-invalid': (submitted && userForm.controls['zipCode'].errors) }" />
+
+                        <div *ngIf="submitted && userForm.controls['zipCode'].errors "
+                            class="invalid-feedback" align="left">
+                            <div
+                                *ngIf="userForm.controls['zipCode'].errors['required']">
+                                {{"ZIPCODEREQ"|translate}}
+                            </div>
+                        </div> </div>
+            </div><!--end col-->
+            <div class="col-lg-12">
+                <div class="mb-3">
+                    <label for="zipcodeInput" class="form-label">{{'PROFILE.STADDRESS.TEXT'|translate}}</label>
+                    <textarea type="text" class="form-control" id="streetAddress" placeholder="{{'ENTERSTADD'|translate}}"
+                        formControlName="streetAdress"></textarea>
+                        <div *ngIf="submitted && userForm.controls['streetAdress'].errors "
+                                                                class="invalid-feedback" align="left">
+                                                                <div
+                                                                    *ngIf="userForm.controls['streetAdress'].errors['required']">
+                                                                    {{"STREETADDREQ"|translate}}
+                                                                </div>
+                                                            </div>
+                </div>
+            </div><!--end col-->
+        </div>
+
+        <div class="mt-4" *ngIf="!isTab">
+            <button class="btn btn-success w-100" type="submit" >{{"SAVE"|translate}}</button>
+        </div>
+        <div class="mt-4 row" *ngIf="isTab">
+            <div class="col-6">
+            <button class="btn btn-info w-100" type="button" (click)="close()" >{{"CLOSE"|translate}}</button>
+                
+            </div>
+            <div class="col-6">
+                <button class="btn btn-success w-100" type="submit" [disabled]="applying">{{applying?"APPLYING":"APPLY"|translate}}
+                    <i
+                    class="mdi mdi-loading mdi-spin fs-20 align-middle me-2" style="line-height: 0.7;" *ngIf="applying"></i>
+                </button>
+            </div>
+            
+        </div>
+
+        <!-- <div class="mt-4 text-center">
+                      <div class="signin-other-title">
+                          <h5 class="fs-13 mb-4 title text-muted">Create account with</h5>
+                      </div>
+
+                      <div class="d-flex gap-2 justify-content-center">
+                          <button type="button" class="btn btn-primary btn-icon waves-effect waves-light"><i class="ri-facebook-fill fs-16"></i></button>
+                          <button type="button" class="btn btn-danger btn-icon waves-effect waves-light"><i class="ri-google-fill fs-16"></i></button>
+                          <button type="button" class="btn btn-dark btn-icon waves-effect waves-light"><i class="ri-github-fill fs-16"></i></button>
+                          <button type="button" class="btn btn-info btn-icon waves-effect waves-light"><i class="ri-twitter-fill fs-16"></i></button>
+                      </div>
+                  </div> -->
+    </form>
+
+</div>

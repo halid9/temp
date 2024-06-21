@@ -1,0 +1,182 @@
+<div class="card" [style.direction]="dir" id="contactList">
+    <div class="card-header">
+        <div class="row align-items-center g-3">
+            <div class="col-md-auto">
+                <div class="d-flex flex-wrap gap-2 ">
+                    <!-- <button type="button" class="btn btn-info" data-bs-toggle="offcanvas" href="javascript:void(0);"
+                        (click)="openEnd(filtetcontent)">
+                        <i class="ri-filter-3-line align-bottom me-1"></i>
+                        {{"FILTERS"|translate}}</button> -->
+                    <a href="javascript:void(0);" (click)="setStatus('')" data-bs-toggle="modal" class="btn btn-primary">
+                        {{'CLIENTACCOUNTS.ALL.TEXT' | translate }}
+                    </a>
+                    <a href="javascript:void(0);" (click)="setStatus('Approved')" data-bs-toggle="modal"
+                        class="btn btn-success">
+                        {{'CLIENTACCOUNTS.APPPROVED.TEXT' | translate }}
+                    </a>
+                    <a href="javascript:void(0);" (click)="setStatus('Rejected')" data-bs-toggle="modal" class="btn btn-danger">
+                        {{'CLIENTACCOUNTS.REJECTED.TEXT' | translate }}
+        
+                    </a>
+                    <a href="javascript:void(0);" (click)="setStatus('Pending')" data-bs-toggle="modal" class="btn btn-warning">
+                        {{'CLIENTACCOUNTS.PENDING.TEXT' | translate }}
+                    </a>
+                    <a href="javascript:void(0);" (click)="setStatus('Canceled')" data-bs-toggle="modal" class="btn btn-info">
+                        {{'CLIENTACCOUNTS.CANCELED.TEXT' | translate }}
+                    </a>
+        
+                </div>
+            </div><!--end col-->
+            <div class="col-md-auto flex-grow-1">
+                    <div class="search-box">
+                        <input type="text" name="searchTerm" class="form-control" placeholder="{{'SFR'|translate}}"
+                            [(ngModel)]="contentService.searchTerm">
+                        <i class="ri-search-line search-icon"></i>
+                    </div>
+                    <!-- <button class="btn btn-success"><i class="ri-equalizer-line align-bottom me-1"></i> Filters</button> -->
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end card-header-->
+    <div class="card-body">
+        <div class="table-responsive table-card mb-3">
+            <table class="table align-middle table-nowrap table-hover" id="customerTable">
+                <thead class="table-light text-muted">
+                    <tr>
+                        
+                        <th *ngIf="colsToView.date" class="sort cursor-pointer {{sortCol == 'date'? sortClass:''}}"
+                            [sortable]="'date'" (sort)="onSort($event)" data-sort="date" scope="col">
+                            <p class="mb-0 pe-3">
+                                {{'CLIENTACCOUNTS.TIMESTAMP.TEXT' | translate }}
+                            </p>
+                        </th>
+                        <th *ngIf="colsToView.accountName"
+                            class="sort cursor-pointer {{sortCol == 'accountName'? sortClass:''}}"
+                            [sortable]="'accountName'" (sort)="onSort($event)" data-sort="account_name" scope="col">
+                            <p class="mb-0 pe-3">
+                                {{'CLIENTACCOUNTS.ACCNAME.TEXT' | translate }}
+                            </p>
+                        </th>
+                        <th *ngIf="colsToView.accountLogin"
+                            class="sort cursor-pointer {{sortCol == 'accountLogin'? sortClass:''}}"
+                            [sortable]="'accountLogin'" (sort)="onSort($event)" data-sort="login" scope="col">
+                            <p class="mb-0 pe-3">
+                                {{'CLIENTACCOUNTS.LOGIN.TEXT' | translate }}
+                            </p>
+                        </th>
+                        <th *ngIf="colsToView.platform"
+                            class="sort cursor-pointer {{sortCol == 'platform'? sortClass:''}}" [sortable]="'platform'"
+                            (sort)="onSort($event)" data-sort="platform" scope="col">
+                            <p class="mb-0 pe-3">
+                                {{'CLIENTACCOUNTS.PLATFORM.TEXT' | translate }}
+                            </p>
+                        </th>
+                        <th *ngIf="colsToView.accountType"
+                            class="sort cursor-pointer {{sortCol == 'accountType'? sortClass:''}}"
+                            [sortable]="'accountType'" (sort)="onSort($event)" data-sort="accountType" scope="col">
+                            <p class="mb-0 pe-3">
+                                {{'CLIENTACCOUNTS.TYPE.TEXT' | translate }}
+                            </p>
+                        </th>
+                        <th *ngIf="colsToView.note" class="sort cursor-pointer {{sortCol == 'note'? sortClass:''}}"
+                            [sortable]="'note'" (sort)="onSort($event)" data-sort="note" scope="col">
+                            <p class="mb-0 pe-3">
+                                {{'CLIENTACCOUNTS.NOTE.TEXT' | translate }}
+                            </p>
+                        </th>
+                        <th *ngIf="colsToView.action" class="sort cursor-pointer {{sortCol == 'action'? sortClass:''}}"
+                            [sortable]="'action'" (sort)="onSort($event)" data-sort="action" scope="col">
+                            <p class="mb-0 pe-3">
+                                {{'CLIENTACCOUNTS.ACTION.TEXT' | translate }}
+                            </p>
+                        </th>
+                        <th *ngIf="colsToView.status" class="sort cursor-pointer {{sortCol == 'status'? sortClass:''}}"
+                            [sortable]="'status'" (sort)="onSort($event)" data-sort="status" scope="col">
+                            <p class="mb-0 pe-3">
+                                {{'CLIENTACCOUNTS.STATUS.TEXT' | translate }}
+                            </p>
+                        </th>
+                        <th class="col" data-sort="actions" scope="col">{{'CLIENTACCOUNTS.ACTIONS.TEXT' | translate }}
+                        </th>
+
+                    </tr><!--end tr-->
+                </thead>
+                <tbody class="list form-check-all">
+                    <tr *ngFor="let data of ContentList$ | async" (click)="getInfo(data.account.user.id)"
+                        class="cursor-pointer">
+                        <td *ngIf="colsToView.date" class="date">{{data.date | date:' HH:mm - yyyy-MM-dd'}}
+                            <!-- <small class="text-muted">{{data.time}}</small> -->
+                        </td>
+
+                        <td *ngIf="colsToView.accountName"><ngb-highlight [result]="data.accountName"
+                                [term]="contentService.searchTerm"></ngb-highlight>
+                        </td>
+                        <td *ngIf="colsToView.accountLogin"><ngb-highlight [result]="data.accountLogin"
+                                [term]="contentService.searchTerm"></ngb-highlight>
+                        </td>
+                        <td *ngIf="colsToView.platform"><ngb-highlight [result]="data.platform"
+                                [term]="contentService.searchTerm"></ngb-highlight></td>
+                        <td *ngIf="colsToView.accountType"><ngb-highlight
+                                [result]="(data.accountType | uppercase) |translate"
+                                [term]="contentService.searchTerm"></ngb-highlight>
+                        </td>
+                        <td *ngIf="colsToView.note"><ngb-highlight [result]="data.note"
+                                [term]="contentService.searchTerm"></ngb-highlight></td>
+                        <td *ngIf="colsToView.action"><ngb-highlight [result]="(data.action | translate) + ' ' + data.leverage"
+                                [term]="contentService.searchTerm"></ngb-highlight></td>
+
+                        <td *ngIf="colsToView.status" class="status">
+                            <span class="badge badge-soft-{{data.status_color}} fs-11"><i
+                                    class="ri-checkbox-circle-line align-bottom"></i>
+                                {{(data.status|uppercase)|translate}}</span>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                <a href="javascript:void(0);"
+                                    *ngIf="role == userType.Customer && data.status == 'Pending'"
+                                    class="btn btn-danger btn-sm"
+                                    (mousedown)="do('cancel',data.id)">{{'CLIENTACCOUNTS.CANCEL.TEXT' | translate }}
+                                </a>
+                                <a href="javascript:void(0);"
+                                    *ngIf="role == userType.Customer && data.status == 'Rejected'"
+                                    class="btn btn-warning btn-sm" (mousedown)="do('retry',data.id)">
+                                    {{'CLIENTACCOUNTS.RETRY.TEXT' | translate }}</a>
+                                <a href="javascript:void(0);"
+                                    *ngIf="(canApproveDecline) && data.status == 'Pending'"
+                                    class="btn btn-danger btn-sm"
+                                    (mousedown)="do('reject',data.id)">{{'CLIENTACCOUNTS.REJECT.TEXT' | translate }}</a>
+                                <a href="javascript:void(0);"
+                                    *ngIf="(canApproveDecline) && data.status == 'Pending'"
+                                    class="btn btn-success btn-sm" (mousedown)="data.action=='OPEN_NEW_ACCOUNT' ? openApproveAccountModal(data) : do('approve',data.id)">{{'CLIENTACCOUNTS.APPROVE.TEXT' | translate }}</a>
+                            </div>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table><!--end table-->
+        </div>
+        <div class="row justify-content-md-between align-items-md-center mt-2">
+            <div class="col col-sm-6">
+                <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                    {{"SHOWING"|translate}}
+                    {{contentService.startIndex}} {{'TO'|translate}}
+                    {{contentService.endIndex}} {{"OF"|translate}} {{contentService.totalRecords}}
+                    {{"ENTERIES"|translate}}
+                </div>
+            </div>
+            <!-- Pagination -->
+            <div class="col col-sm-6">
+                <div class="text-sm-right float-end listjs-pagination">
+                    <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="contentService.page" [maxSize]="5"
+                        [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [pageSize]="contentService.pageSize">
+                    </ngb-pagination>
+                </div>
+            </div>
+            <!-- End Pagination -->
+        </div>
+        <div id="elmLoader" [ngClass]="{'d-none':!(loading$ | async)}">
+            <div class="spinner-border text-primary avatar-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div><!--end card-body-->
+</div><!--end card-->

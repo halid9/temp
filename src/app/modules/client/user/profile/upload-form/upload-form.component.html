@@ -1,0 +1,133 @@
+<div class="modal-header" >
+    <div class="alert alert-danger" *ngIf="err">{{msg|translate}}
+                    
+    </div>
+   
+</div>
+<div class="row">
+    <div class="col-12">
+        <user-info-bar [user]="user" *ngIf="user"></user-info-bar>
+    </div>
+</div>
+
+<div class="modal-body">
+    <div class="text-center mt-3" *ngIf="submitted">
+        <a href="javascript:void(0);" class="text-success "><i
+                class="mdi mdi-loading mdi-spin fs-20 align-middle me-2"></i>
+            {{"SAVING"|translate}} </a>
+    </div>
+    <!-- <div class="card">
+        <div class="card-body">
+            
+            <p>ID front</p>
+            <input (change)="picked($event,1)" type="file">
+            
+            <p>ID back</p>
+            <input (change)="picked($event,2)" type="file" >
+            
+            <p>Passport</p>
+            <input (change)="picked($event,3)" type="file">
+            
+            <p>Personal picture</p>
+            <input (change)="picked($event,4)" type="file" >
+            
+            
+        </div>
+    </div> -->
+
+    <div class="carousel-item active " *ngIf="!submitted">
+        <div class="p-lg-5 p-4">
+
+            <p class="fs-15 fst-italic text-center">" {{"UPLOADDOCS"|translate}} "
+            </p>
+            <div class="col-lg-12 ">
+                <div class="alert alert-warning">{{"DOCSWARNING"|translate}}
+                    
+                </div>
+            </div>
+            <!-- <input type="hidden" name="id" formControlName="ids" /> -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="mb-3">
+                        <label>{{'SELECTIDTYPE' | translate }}</label>
+                        <select class="form-select form-select" [(ngModel)]="docTitle">
+                            <option [value]="'id'">
+                                {{'Id card'|translate}}
+                            </option>
+                            <option [value]="'license'">
+                                {{'license card'|translate}}
+                            </option>
+                            <option [value]="'passport'">
+                                {{'passport'|translate}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="mb-3">
+                        <label for="front" class="form-label">{{(docTitle| uppercase) | translate}}
+                            {{"FRONT"|translate}}</label>
+                        <input type="file" class="form-control"
+                            (change)="addFile($event,'idFront')" id="front"
+                            placeholder="{{docTitle}}"
+                            accept=".jpg ,.png ,.svg ,.pdf ,.jpeg ,.bmp" />
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="mb-3">
+                        <label for="back" class="form-label">{{(docTitle | uppercase) | translate}}
+                            {{"BACKID"|translate}}</label>
+                        <input type="file" class="form-control"
+                            (change)="addFile($event,'idBack')" id="back"
+                            placeholder="idType.value"
+                            accept=".jpg ,.png ,.svg ,.pdf ,.jpeg ,.bmp" />
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="mb-3">
+                        <label for="address" class="form-label">{{"BILLORADD"|translate}}</label>
+                        <input type="file" class="form-control"
+                            (change)="addFile($event,'addressDoc')" id="address"
+                            placeholder="idType.value"
+                            accept=".jpg ,.png ,.svg ,.pdf ,.jpeg ,.bmp" />
+                    </div>
+                </div>
+               
+
+
+
+            </div><!--end row-->
+            <!--end row-->
+
+            <div class="modal-footer mt-4 ">
+                <div class="col">
+
+                    <div class="row">
+                        <div class="col">
+
+                            <button class="btn btn-warning" (mousedown)="close()">
+                                {{"CLOSE"|translate}}</button>
+                        </div>
+                        <div class="col">
+
+                            <div class="hstack gap-2 justify-content-end ">
+                                 <button type="button" class="btn btn-success"
+                                    (click)="finalize()">{{"SAVE"|translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- <div class="modal-footer">
+    <button class="btn btn-success" (mousedown)="upload()">
+        {{"UPLOAD"|translate}}
+    </button>
+</div> -->

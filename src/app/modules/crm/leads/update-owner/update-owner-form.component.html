@@ -1,0 +1,31 @@
+
+    <div class="modal-body">
+        <div class="row g-3">
+            
+
+
+            <div class="col-lg-12">
+                <div>
+                        <div>
+                            <label>{{'Select owner' | translate }}</label>
+                                    <select class="form-select form-select-lg" [(ngModel)]="newOwner"  [ngClass]="{ 'is-invalid': submitted && owner === newOwner }">
+                                    <option *ngFor="let owner of owners" [value]="owner.id">
+                                        {{owner.firstName}} {{owner.lastName}}
+                                    </option>
+                                </select>
+                                <div *ngIf="submitted && owner === newOwner" class="invalid-feedback">
+                                    <span *ngIf="submitted && owner === newOwner">You can't choose same owner</span>
+                                  </div>
+                           
+                    </div>
+                </div>
+            <!--end col-->
+            <div class="mt-4">
+                <button class="btn btn-success w-100"  (mousedown)="changeOwner()">Update owner</button>
+            </div>
+           
+        </div>
+        <!--end row-->
+    </div>
+
+        

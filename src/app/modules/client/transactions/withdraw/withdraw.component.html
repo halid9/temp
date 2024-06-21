@@ -1,0 +1,485 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="WITHDRAW" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+<div class="col text-center">
+
+    <div class="spinner-border text-primary" *ngIf="loading && verified" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<div class="card mb-0" *ngIf="!verified">
+    <div class="card-body">
+        <div class="row">
+
+            <p class="text-warning fs-20"> {{"you can't withraw cause your account is not verified yet!"|translate}} <span><a class="cursor-pointer" (click)="openVerificationInfo()">{{"click here"|translate}}</a></span> {{"to see more info"|translate}}</p>
+        </div>
+        
+    </div>
+
+</div>
+<div *ngIf="verified">
+
+<div class="card mb-0" *ngIf="!loading && !accounts?.length">
+
+    <div class="card-body text-center">
+
+        <div class="mb-4">
+            <lord-icon src="https://cdn.lordicon.com/hrqwmuhr.json" trigger="loop"
+                colors="primary:#121331,secondary:#e83a30" style="width:250px;height:250px">
+            </lord-icon>
+        </div>
+        <h5 class="text-danger fs-24 mb-5">{{'CLIENTTXS.ACCWARN1.TEXT' | translate }}
+            <strong>{{'CLIENTTXS.LIVE.TEXT' | translate | lowercase }}</strong>{{'CLIENTTXS.ACCWARN3.TEXT' | translate
+            }}
+        </h5>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-4">
+
+                <button type="button" class="btn btn-success  w-100" (mousedown)="goToAccounts()">
+                    {{'CLIENTTXS.GOTOACC.TEXT' | translate }}</button>
+            </div>
+            <div class="col-4">
+
+                <button type="button" class="btn btn-primary w-100" (mousedown)="goToTxHistory()">
+                    {{'CLIENTTXS.GOTOTXS.TEXT' | translate }}</button>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+</div>
+<form (ngSubmit)="onSubmit()" *ngIf="!loading && accounts?.length">
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">
+                        {{'CLIENTTXS.WITHDRAWPROCESS.TEXT' | translate }}
+                    </h4>
+                </div><!-- end card header -->
+                <div class="card-body form-steps">
+                    <div class="text-center pt-3 pb-4 mb-1">
+                        <h5>
+                            {{'CLIENTTXS.FOLLOWWSTEPS.TEXT' | translate }}
+                        </h5>
+                    </div>
+                    <aw-wizard #aw [navBarLayout]="'none'" class="nav nav-pills progress-bar-tab custom-nav"
+                        [@fadeInOut]>
+
+                        <!-- METHOD STEP -->
+                        <aw-wizard-step [stepId]="'transferMethod'">
+                            <div class="mb-3">
+                                <label for="EndleaveDate" class="form-label fs-20">{{'CLIENTTXS.SELECTMETHOD.TEXT' |
+                                    translate
+                                    }}</label>
+                                <div class="hstack gap-2 flex-wrap align-items-stretch">
+                                    <input type="radio" class="btn-check" id="localTransfer" name="withdrawMethod"
+                                        [value]="transferMethods.LOCAL_TRANSFER" [(ngModel)]="withdraw.transferMethod"
+                                        (change)="goToNextStep()">
+                                    <label
+                                        class="d-flex flex-column justify-content-center align-items-center gap-2 btn btn-outline-primary"
+                                        for="localTransfer">
+                                        <img src="/assets/images/icons/office.png" class="img-fluid" alt=""
+                                            style="max-height: 50px;">
+                                        {{'CLIENTTXS.LOCAL.TEXT' |
+                                        translate }}</label>
+
+                                    <input type="radio" class="btn-check" id="toWallet" name="withdrawMethod"
+                                        [value]="transferMethods.WALLET" [(ngModel)]="withdraw.transferMethod"
+                                        (change)="goToNextStep()">
+                                    <label
+                                        class="btn btn-outline-primary d-flex flex-column justify-content-center align-items-center gap-2"
+                                        for="toWallet">
+                                        <img src="/assets/images/icons/wallet.png" class="img-fluid" alt=""
+                                            style="max-height: 50px;">
+                                        {{
+                                        'CLIENTTXS.TOWALLET.TEXT' |
+                                        translate }}</label>
+
+                                    <input type="radio" class="btn-check" id="fromCrypto" name="withdrawMethod"
+                                        [value]="transferMethods.USDT_TRANSFER" [(ngModel)]="withdraw.transferMethod"
+                                        (change)="goToNextStep()">
+                                    <label
+                                        class="btn btn-outline-primary d-flex flex-column justify-content-center align-items-center gap-2"
+                                        for="fromCrypto">
+                                        <img src="/assets/images/icons/usdt.png" class="img-fluid" alt=""
+                                            style="max-height: 50px;">
+                                        {{
+                                        'CLIENTTXS.FROMCRYPTO.TEXT' |
+                                        translate }}</label>
+                                    <input type="radio" class="btn-check" id="moneyTransfer" name="withdrawMethod"
+                                        [value]="transferMethods.MONEY_TRANSFER" [(ngModel)]="withdraw.transferMethod"
+                                        (change)="goToNextStep()">
+                                    <label
+                                        class="btn btn-outline-primary d-flex flex-column justify-content-center align-items-center gap-2"
+                                        for="moneyTransfer">
+                                        <img src="/assets/images/icons/moneytrans.png" class="img-fluid" alt=""
+                                            style="max-height: 50px;">
+                                        {{
+                                        'CLIENTTXS.MONEYTRANS.TEXT' |
+                                        translate }}</label>
+                                    <input type="radio" class="btn-check" id="bankTx" name="withdrawMethod"
+                                        [value]="transferMethods.BANK_TRANSFER" [(ngModel)]="withdraw.transferMethod"
+                                        (change)="goToNextStep()">
+                                    <label
+                                        class="btn btn-outline-primary d-flex flex-column justify-content-center align-items-center gap-2"
+                                        for="bankTx">
+                                        <img src="/assets/images/icons/bank.png" class="img-fluid" alt=""
+                                            style="max-height: 50px;">
+                                        {{
+                                        'CLIENTTXS.BANKTX.TEXT' |
+                                        translate }}</label>
+                                    <input type="radio" class="btn-check" id="visaCard" name="withdrawMethod"
+                                        [value]="transferMethods.VISA_CARD" [(ngModel)]="withdraw.transferMethod"
+                                        (change)="goToNextStep()">
+                                    <label
+                                        class="btn btn-outline-primary d-flex flex-column justify-content-center align-items-center gap-2 text-nowrap"
+                                        for="visaCard">
+                                        <img src="/assets/images/icons/visa.png" class="img-fluid" alt=""
+                                            style="max-height: 50px;">
+                                        {{
+                                        'CLIENTTXS.VISACARD.TEXT' |
+                                        translate }}</label>
+                                    <input type="radio" class="btn-check" id="masterCard" name="withdrawMethod"
+                                        [value]="transferMethods.MASTER_CARD" [(ngModel)]="withdraw.transferMethod"
+                                        (change)="goToNextStep()">
+                                    <label
+                                        class="btn btn-outline-primary d-flex flex-column justify-content-center align-items-center gap-2 text-nowrap"
+                                        for="masterCard">
+                                        <img src="/assets/images/icons/master.png" class="img-fluid" alt=""
+                                            style="max-height: 50px;">
+                                        {{
+                                        'CLIENTTXS.MASTERCARD.TEXT' |
+                                        translate }}</label>
+                                    <input type="radio" class="btn-check" id="skrill" name="withdrawMethod"
+                                        [value]="transferMethods.SKRILL" [(ngModel)]="withdraw.transferMethod"
+                                        (change)="goToNextStep()">
+                                    <label
+                                        class="btn btn-outline-primary d-flex flex-column justify-content-center align-items-center gap-2 text-nowrap"
+                                        for="skrill">
+                                        <img src="/assets/images/icons/skrill.png" class="img-fluid" alt=""
+                                            style="max-height: 50px;">
+                                        {{
+                                        'CLIENTTXS.SKRILL.TEXT' |
+                                        translate }}</label>
+                                    <input type="radio" class="btn-check" id="neteller" name="withdrawMethod"
+                                        [value]="transferMethods.NETELLER" [(ngModel)]="withdraw.transferMethod"
+                                        (change)="goToNextStep()">
+                                    <label
+                                        class="btn btn-outline-primary d-flex flex-column justify-content-center align-items-center gap-2 text-nowrap"
+                                        for="neteller">
+                                        <div class="d-flex justify-content-center align-items-center "
+                                            style="height: 50px;">
+                                            <img src="/assets/images/icons/neteller.png" class="img-fluid" alt=""
+                                                style="max-height: 50px;">
+                                        </div>
+                                        {{
+                                        'CLIENTTXS.NETELLER.TEXT' |
+                                        translate }}
+                                    </label>
+                                    <input type="radio" class="btn-check h-100" id="wize" name="withdrawMethod"
+                                        [value]="transferMethods.WISE" [(ngModel)]="withdraw.transferMethod"
+                                        (change)="goToNextStep()">
+                                    <label
+                                        class="btn btn-outline-primary  d-flex flex-column justify-content-between align-items-center gap-2 text-nowrap"
+                                        for="wize">
+                                        <div class="d-flex justify-content-center align-items-center "
+                                            style="height: 50px;">
+
+                                            <img src="/assets/images/icons/wize.png" class="img-fluid" alt=""
+                                                style="max-height: 50px;">
+                                        </div>
+                                        {{
+                                        'CLIENTTXS.WIZE.TEXT' |
+                                        translate }}
+                                    </label>
+
+                                </div>
+                            </div>
+                        </aw-wizard-step>
+
+                        <!-- SELECT ACCOUNT STEP -->
+                        <aw-wizard-step [stepId]="'selectAccount'">
+                            <div>
+                                <div class="mb-4">
+                                    <label>{{'CLIENTTXS.SELECTACC.TEXT' | translate }}</label>
+                                    <app-transactions-account-select-option [accounts]="accountsToShow"
+                                        [selectedAccountId]="withdraw?.fromAccount?.id"
+                                        (accountChanged)="accountChanged($event)"></app-transactions-account-select-option>
+                                    <div *ngIf="!withdraw.fromAccount" class="text-danger p-1">
+                                        {{'CLIENTTXS.ACCREQ.TEXT' | translate }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- wizard-tab -->
+                            <div class="d-flex align-items-start gap-3 mt-4">
+                                <button type="button" class="btn btn-link text-decoration-none btn-label previestab"
+                                    data-previous="pills-gen-info-tab" (mousedown)="goToPrevStep()"><i
+                                        class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>
+                                    {{'CLIENTTXS.BACK.TEXT' | translate }}</button>
+                                <button type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab"
+                                    data-nexttab="pills-info-desc-tab" (mousedown)="goToNextStep()"><i
+                                        class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>{{'CLIENTTXS.NEXT.TEXT'
+                                    | translate }}</button>
+                            </div>
+                        </aw-wizard-step>
+
+                        <!-- AMOUNT STEP -->
+                        <aw-wizard-step [stepId]="'amount'" [canEnter]="validateAccount()">
+                            <div class="mb-3">
+                                <label for="EndleaveDate" class="form-label">{{'CLIENTTXS.WAMOUNT.TEXT' | translate
+                                    }}</label>
+                                <div class="input-group ">
+                                    <span class="input-group-text" id="inputGroup">{{withdraw.fromAccount?.currency |
+                                        translate
+                                        }}</span>
+                                    <input type="number" class="form-control" aria-label="input"
+                                        [(ngModel)]="withdraw.withdrawAmount" name="withdrawAmount"
+                                        aria-describedby="inputGroup"
+                                        (input)="validAmount = withdraw.withdrawAmount && withdraw.withdrawAmount > 0 && withdraw.withdrawAmount < withdraw.fromAccount?.balance"
+                                        [ngClass]="{ 'is-invalid': !validAmount }">
+                                </div>
+                                <div *ngIf="!validAmount && !withdraw.withdrawAmount" class="text-danger p-1">
+                                    {{'CLIENTTXS.AMOUNTREQ.TEXT' | translate }}
+                                </div>
+                                <div *ngIf="!validAmount && +withdraw.withdrawAmount <= 0" class="text-danger p-1">
+                                    {{'CLIENTTXS.AMOUNTREQBIG.TEXT' | translate }}
+                                </div>
+                                <div *ngIf="!validAmount && +withdraw.withdrawAmount > withdraw.fromAccount?.balance"
+                                    class="text-danger p-1">
+                                    {{'CLIENTTXS.AMOUNTLIMIT.TEXT' | translate }}
+                                </div>
+                                <div class="mb-3"><span class="text-success fs-18">( {{'CLIENTTXS.SOURCEBALANCE.TEXT' |
+                                        translate }} {{withdraw.fromAccount?.balance}})</span>
+                                    {{withdraw.transferMethod}} </div>
+                            </div>
+
+                            <div class="mb-3" *ngIf="withdraw.transferMethod == transferMethods.USDT_TRANSFER">
+
+                                <label for="EndleaveDate" class="form-label">{{'Withdraw to Wallet Address:' | translate
+                                    }}</label>
+
+                                <input type="text" class="form-control" aria-label="input"
+                                    [(ngModel)]="withdraw.ToWalletAddress" name="withdrawToWalletAddress"
+                                    aria-describedby="inputGroup" (input)="checkWalletAddress()"
+                                    [ngClass]="{ 'is-invalid': !validWalletAddress }">
+
+                                <div *ngIf="!validWalletAddress" class="text-danger p-1">
+                                    {{'You must enter a valid wallet address' | translate }}
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-start gap-3 mt-4">
+                                <button type="button" class="btn btn-link text-decoration-none btn-label previestab"
+                                    data-previous="pills-gen-info-tab" (mousedown)="goToPrevStep()"><i
+                                        class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>
+                                    {{'CLIENTTXS.BACK.TEXT' | translate }}</button>
+                                <button type="button" class="btn btn-success btn-label right ms-auto nexttab
+                                        nexttab" data-nexttab="pills-success-tab"
+                                    (mousedown)="checkAmount();goToNextStep()">
+                                    <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>{{
+                                    'CLIENTTXS.NEXT.TEXT' | translate }}</button>
+                            </div>
+                        </aw-wizard-step>
+
+
+
+
+                        <aw-wizard-step [canEnter]="validateAmount()" *ngIf="withdraw.transferMethod == transferMethods.MONEY_TRANSFER">
+                            <!-- Local transfer -->
+                            <form [formGroup]="address">
+                            <div class="row mb-3">
+                                
+                                <div class="col-lg-4">
+                                    <div>
+                                        <label>
+                                            {{'SELECTCOUNTRY' | translate }}
+                                        </label>
+                                        <select class="form-select form-select" formControlName="country">
+                                            <option *ngFor="let country of countries" [value]="country.isoCode">
+                                                <img src="" alt=""> {{country.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>  
+                                <div class="col-lg-4">
+                                    <div class="mb-3">
+                                        <label for="cityInput" class="form-label">
+                                            {{'SELECTCITY' | translate }}
+                                            </label>
+                                        <!-- <input type="text" class="form-control" id="cityInput" placeholder="{{'ENTERCITY'|translate}}"
+                                            [value]="info?.city" formControlName="city" /> -->
+                                            <select class="form-select form-select" formControlName="city">
+                                                <option *ngFor="let city of cities" [value]="city.isoCode"> {{city.name}}
+                                                </option>
+                                            </select>
+                                    </div>
+                                </div><!--end col-->
+                                
+                                <div class="col-lg-4">
+                                    <div class="mb-3">
+                                        <label for="stateInput" class="form-label">
+                                            {{'SELECTSTATE' | translate }}
+                                            </label>
+                                        <input type="text" class="form-control" id="stateInput" placeholder="{{'ENTERSTATE'|translate}}"
+                                             formControlName="state" />
+                                            <!-- <select class="form-select form-select" formControlName="state">
+                                                <option *ngFor="let state of states" [value]="state.name"> {{state.name}}
+                                                </option>
+                                            </select> -->
+                                    </div>
+                                </div><!--end col-->
+                            </div>
+                        </form>
+
+                            <!-- Controls -->
+                            <div class="d-flex align-items-start gap-3 mt-4">
+                                <button type="button" class="btn btn-link text-decoration-none btn-label previestab"
+                                    data-previous="pills-gen-info-tab" (mousedown)="goToPrevStep()"><i
+                                        class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>
+                                    {{'CLIENTTXS.BACK.TEXT' | translate }}</button>
+                                <button type="button" class="btn btn-success btn-label right ms-auto nexttab
+                                        nexttab" data-nexttab="pills-success-tab" (mousedown)="goToNextStep()">
+                                    <i
+                                        class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>{{'CLIENTTXS.NEXT.TEXT'
+                                    | translate }}</button>
+                            </div>
+                        </aw-wizard-step>
+
+
+                        <aw-wizard-step [canEnter]="validateAmount()">
+                            <!-- Local transfer -->
+                            <div class="mb-3" >
+                                <h3 class="fw-medium text-primary">Withdraw info:</h3>
+
+                                <div class="hstack gap-2 flex">
+                                    <div class="col-sm-2">
+                                        <p class="fw-medium">{{'CLIENTTXS.METHOD.TEXT' | translate }}</p>
+                                    </div>
+                                    <div class="col-sm-4 flex-grow-1">
+                                        <p>{{withdraw.transferMethod | translate }}</p>
+                                    </div>
+                                </div>
+                                <div class="hstack gap-2 flex">
+                                    <div class="col-sm-2">
+                                        <p class="fw-medium">{{'CLIENTTXS.TIMETOFUND.TEXT' | translate }}</p>
+                                    </div>
+                                    <div class="col-sm-4 flex-grow-1">
+                                        <p>{{'CLIENTTXS.DEPINFINGBCH.TEXT' | translate }}</p>
+                                    </div>
+                                </div>
+                                <div class="hstack gap-2 flex border-primary border-bottom">
+                                    <div class="col-sm-2">
+                                        <p class="fw-medium">{{'CLIENTTXS.AMOUNT.TEXT' | translate }}</p>
+                                    </div>
+                                    <div class="col-sm-4 flex-grow-1">
+                                        <p class="fs-18 text-success">{{withdraw.withdrawAmount}}
+                                            {{withdraw.fromAccount?.currency |
+                                            translate }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <h3 class="alert alert-warning" *ngIf="withdraw.transferMethod == transferMethods.LOCAL_TRANSFER">
+
+                                    By procceding to next step WITHRAW request will be sent to your agent and he will
+                                    contact
+                                    you to complete your withdraw procces
+                                </h3>
+                            </div>
+
+                            <!-- Controls -->
+                            <div class="d-flex align-items-start gap-3 mt-4">
+                                <button type="button" class="btn btn-link text-decoration-none btn-label previestab"
+                                    data-previous="pills-gen-info-tab" (mousedown)="goToPrevStep()"><i
+                                        class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>
+                                    {{'CLIENTTXS.BACK.TEXT' | translate }}</button>
+                                <button type="button" class="btn btn-success btn-label right ms-auto nexttab
+                                        nexttab" data-nexttab="pills-success-tab" (mousedown)="onSubmit()">
+                                    <i
+                                        class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>{{'CLIENTTXS.SUBMIT.TEXT'
+                                    | translate }}</button>
+                            </div>
+                        </aw-wizard-step>
+
+                        <aw-wizard-step [stepId]="'last'">
+                            <div class="col text-center" *ngIf="loadingTx">
+
+                                <div class="spinner-border text-primary" *ngIf="loadingTx" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                            <div *ngIf="!loadingTx">
+                                <div class="text-center" *ngIf="!error">
+
+                                    <div class="mb-4">
+                                        <lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop"
+                                            colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px">
+                                        </lord-icon>
+                                    </div>
+                                    <h5 class="text-success fs-24">{{'CLIENTTXS.WITHDRAWDONE.TEXT' | translate }}</h5>
+                                    <p class="text-muted fs-20" *ngIf="approved">
+                                        {{'CLIENTTXS.WITHDRAWDONEMSG.TEXT' | translate }}
+                                    </p>
+                                    <p class="text-warning fs-20" *ngIf="!approved">
+                                        {{'CLIENTTXS.APPROVALDURATIONMSG.TEXT' | translate }}
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-2"></div>
+                                        <div class="col-4">
+
+                                            <button type="button" class="btn btn-success w-100"
+                                                data-nexttab="pills-success-tab" (mousedown)="resetWizard()">
+                                                {{'CLIENTTXS.NEWWITHDRAW.TEXT' | translate }} </button>
+                                        </div>
+                                        <div class="col-4">
+
+                                            <button type="button" class="btn btn-primary w-100"
+                                                (mousedown)="goToTxHistory()">
+                                                {{'CLIENTTXS.GOTOTXS.TEXT' | translate }} </button>
+                                        </div>
+                                        <div class="col-2"></div>
+                                    </div>
+
+
+                                </div>
+                                <div class="text-center" *ngIf="error">
+
+                                    <div class="mb-4">
+                                        <lord-icon src="https://cdn.lordicon.com/hrqwmuhr.json" trigger="loop"
+                                            colors="primary:#121331,secondary:#e83a30" style="width:250px;height:250px">
+                                        </lord-icon>
+                                    </div>
+                                    <h5 class="text-danger fs-24">{{'CLIENTTXS.WITHDRAWFAILED.TEXT' | translate }}</h5>
+                                    <p class="text-danger fs-20">{{note}}</p>
+                                    <div class="row">
+                                        <div class="col-2"></div>
+                                        <div class="col-4">
+
+                                            <button type="button" class="btn btn-success w-100"
+                                                data-nexttab="pills-success-tab" awResetWizard>
+                                                {{'CLIENTTXS.NEWWITHDRAW.TEXT' | translate }}</button>
+                                        </div>
+                                        <div class="col-4">
+
+                                            <button type="button" class="btn btn-primary w-100"
+                                                (mousedown)="goToTxHistory()">
+                                                {{'CLIENTTXS.GOTOTXS.TEXT' | translate }}</button>
+                                        </div>
+                                        <div class="col-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </aw-wizard-step>
+                    </aw-wizard>
+                </div>
+                <!-- end card body -->
+            </div>
+            <!-- end card -->
+        </div>
+        <!-- end col -->
+    </div><!-- end row -->
+</form>
+</div>

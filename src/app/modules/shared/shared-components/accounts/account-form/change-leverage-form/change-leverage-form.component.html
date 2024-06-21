@@ -1,0 +1,38 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" >
+        {{'CLIENTACCOUNTS.CLEVERAGE.TEXT' | translate }}
+        </h4>
+    <button type="button" class="btn-close" aria-label="Close" (mousedown)="close()"></button>
+</div>
+    <div class="modal-body">
+        <div class="row g-3">
+            
+
+
+            <div class="col-lg-12">
+                <div>
+                        <div>
+                            <label>{{'CLIENTACCOUNTS.SELECTLEVERAGE.TEXT' | translate }}</label>
+                                    <select class="form-select form-select-lg" [(ngModel)]="newLeverage"  [ngClass]="{ 'is-invalid': submitted && leverage == newLeverage }">
+                                    <option *ngFor="let l of leverages" [value]="l">
+                                        {{l}}
+                                    </option>
+                                </select>
+                                <div *ngIf="submitted && leverage == newLeverage" class="invalid-feedback">
+                                    <span *ngIf="submitted && leverage == newLeverage">
+                                        {{'CLIENTACCOUNTS.FORBIDLEVERAGE.TEXT' | translate }}
+                                        </span>
+                                  </div>
+                           
+                    </div>
+                </div>
+            <!--end col-->
+            <div class="mt-4">
+                <button class="btn btn-success w-100"  (mousedown)="changeLeverage()">{{'CLIENTACCOUNTS.CLEVERAGE.TEXT' | translate }}</button>
+            </div>
+           
+        </div>
+        <!--end row-->
+    </div>
+
+        

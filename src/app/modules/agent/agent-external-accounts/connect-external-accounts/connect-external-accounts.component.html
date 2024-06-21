@@ -1,0 +1,147 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Connect account</h4>
+    <button type="button" class="btn-close" aria-label="Close" (mousedown)="close()"></button>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+
+        <div class="col-xl-4">
+
+            <div class="row g-3">
+                <div class="col-lg-12">
+                    <div>
+                        <label for="login" class="form-label">Login </label>
+                        <input type="text" id="login" class="form-control" placeholder="Enter login"
+                            [(ngModel)]="account.login" />
+
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div>
+                        <label>{{'Select platform' | translate }}</label>
+                        <select class="form-select form-select" [(ngModel)]="account.platform">
+                            <option *ngFor="let platform of platforms" [value]="platform">
+                                {{platform | translate }}
+                            </option>
+                        </select>
+
+                    </div>
+                </div>
+                <!--end col-->
+                <!-- <div class="col-lg-12">
+                <div>
+                    <label for="masterPassword" class="form-label">Master password</label>
+                    <input type="text" id="masterPassword" class="form-control" [(ngModel)]="account.masterPassword" placeholder="Enter master password" />
+
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div>
+                    <label for="investorPassword" class="form-label">Investor password</label>
+                    <input type="text" id="investorPassword" class="form-control" [(ngModel)]="account.investorPassword" placeholder="Enter master password" />
+
+                </div>
+            </div> -->
+
+
+            </div>
+            <!--end row-->
+            <div class="row g-3 mt-2">
+                <div class="hstack gap-2 justify-content-center">
+
+                    <button type="button" class="btn btn-success w-100" (mousedown)="add()">Add</button>
+                    <button type="button" class="btn btn-danger w-100" (mousedown)="clear()">Clear</button>
+                </div>
+            </div>
+            <div class="row g-3 mt-2 mb-3">
+                <div class="hstack gap-2 justify-content-center">
+
+                    <button type="button" class="btn btn-info w-100" (mousedown)="import()">Import from Excel
+                        file</button>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-xl-8">
+
+            <div class="container mt-2">
+
+                <div class="table-responsive table-card rounded-top">
+                    <table class="table align-middle table-nowrap table-hover " id="customerTable ">
+                        <thead class="table-light text-muted ">
+                            <tr>
+
+                                <!-- <th class="sort cursor-pointer" [sortable]="'username'" [direction]="'desc'" (sort)="onSort($event)" data-sort="username" scope="col">Username</th> -->
+                                <th class="col cursor-pointer" scope="col">Login</th>
+                                <th class="col cursor-pointer" scope="col">Platform</th>
+                                <!-- <th class="col cursor-pointer" 
+                           scope="col">Master password</th>
+                        <th class="col cursor-pointer" 
+                           scope="col">Investor password</th> -->
+                                <th scope="col" style="width: 100px;">Action</th>
+
+                            </tr><!--end tr-->
+                        </thead>
+                        <tbody class="list form-check-all">
+                            <ng-container *ngIf="accounts.length">
+
+                                <tr *ngFor="let account of accountsToview|async " class="cursor-pointer">
+                                    <td>{{account.login}}</td>
+                                    <td>{{account.platform}}</td>
+                                    <!-- <td>{{account.masterPassword}}
+                        </td>
+                        <td>{{account.investorPassword}}
+                        </td> -->
+                                    <td>
+                                        <div class="flex-shrink-0">
+                                            <a type="button" class="btn btn-danger btn-sm" href="javascript:void(0);"
+                                                (mousedown)="remove(account?.id)">Remove</a>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                            <ng-container *ngIf="!accounts.length">
+                                <tr>
+                                    <td colspan="5" class="text-center text-danger">No accounts has been added yet!</td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table><!--end table-->
+                </div>
+                <div class="row justify-content-md-between align-items-md-center mt-2">
+                    <div class="col col-sm-6">
+                        <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                            Showing
+                            {{contentService.startIndex}} to
+                            {{contentService.endIndex}} of {{contentService.totalRecords}}
+                            entries
+                        </div>
+                    </div>
+                    <!-- Pagination -->
+                    <div class="col col-sm-6">
+                        <div class="text-sm-right float-end listjs-pagination">
+                            <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="contentService.page"
+                            [maxSize]="5"
+                    [rotate]="true"
+                    [ellipses]="false"
+                    [boundaryLinks]="true"
+                                [pageSize]="contentService.pageSize">
+                            </ngb-pagination>
+                        </div>
+                    </div>
+                    <!-- End Pagination -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer mt-4 ">
+    <div class="hstack gap-2 justify-content-end ">
+        <!-- <button type="button" class="btn btn-light" data-bs-dismiss="modal"
+                    (click)="accountForm.reset()">reset</button> -->
+        <button type="submit" class="btn btn-success" (mousedown)="connectAccounts()">connect now</button>
+    </div>
+</div>

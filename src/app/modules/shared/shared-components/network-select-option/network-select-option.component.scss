@@ -1,0 +1,80 @@
+
+::ng-deep .ng-select.network-select {
+    min-height:45px;
+}
+
+::ng-deep .ng-select.network-select .ng-select-container  {
+    height:45px;
+}
+.network{
+    color:#fff;
+    background-color: rgb(238, 57, 50);
+}
+
+.trx{
+    background-color: rgb(238, 57, 50);
+}
+.eth{
+    background-color: rgb(79, 173, 208);
+}
+.bsc{
+    background-color: rgb(255, 194, 65);
+}
+.solana{
+    background-color: rgb(143, 74, 246);
+}
+.op{
+    background-color: rgb(254, 4, 32); 
+}
+.arbitrum{
+    background-color: rgb(40, 160, 240);
+}
+.xtz{
+    background-color: rgb(44, 125, 247);
+}
+.eos{
+    background-color: rgb(53, 53, 76);
+}
+.kcc{
+    background-color: rgb(35, 175, 145);
+}
+.ada{
+    background-color: rgb(60, 200, 200);
+}
+.polygon{
+    background-color: rgb(218, 0, 80);
+}
+.near{
+    background-color: rgb(108, 232, 158);
+}
+.kavaevm{
+    background-color: rgb(255, 86, 79);
+}
+.polkadot{
+    background-color: rgb(230, 0, 122);
+}
+.avaxc{
+    background-color:  rgb(238, 57, 50);
+}
+.algo{
+    background-color: rgb(0, 0, 0);
+}
+.xlm{
+    background-color: rgb(57, 29, 210);  
+}
+.celo, .ftm, .neo, .bep2{
+    background-color: rgb(198, 198, 198);
+}
+.lna{
+    background-color: rgb(132, 220, 251);
+}
+.luna, .theta{
+    background-color: rgb(180, 191, 206);
+}
+.zksync{
+    background-color: rgb(30, 105, 255);
+}
+.cosmos{
+    background-color: rgb(16, 63, 104);
+}
+

@@ -1,0 +1,61 @@
+<div class="modal-header">
+    <h5 class="modal-title">Connect MetaTrader Account To CRM</h5>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div *ngIf="loading">Loading...</div>
+    <ng-container *ngIf="!loading">
+        <div *ngIf="accountInfo && accountConnected">
+            <!-- Display account information -->
+            <div>
+                <div class="alert alert-info">Account Already Connected to the CRM</div>
+                <strong>Account Name:</strong> {{ accountInfo.accountName }}<br>
+                <strong>Email:</strong> {{ accountInfo.accountEmail }}<br>
+                <strong>Phone:</strong> {{ accountInfo.accountPhone }}<br>
+            </div>
+        </div>
+        <div *ngIf="!accountConnected">
+            <div class="d-flex gap-1 mb-3">
+                <!-- Search Box -->
+                <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTerm"
+                    (input)="filterUsers()">
+                <button class="btn btn-success" style="white-space: nowrap;" (mousedown)="CreateNewUser()">Create new
+                    user</button>
+            </div>
+            <!-- User Table -->
+            <div class="table-responsive">
+                <table class="table table-bordered" style="max-height: 200px; overflow-y: auto;">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Type</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of filteredUsersList">
+                            <td>{{ user.firstName }}</td>
+                            <td>{{ user.lastName }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.phone }}</td>
+                            <td>{{ user.userType }}</td>
+                            <td><button class="btn btn-primary btn-sm"
+                                    (click)="connectToExistingClientAccount(user.id)">Connect</button>
+                                <button *ngIf="user.type == UsersTypes.Agent" class="btn btn-secondary btn-sm ms-2"
+                                    (click)="connectToExistingClientAccount(user.id,true)">External</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </ng-container>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+</div>

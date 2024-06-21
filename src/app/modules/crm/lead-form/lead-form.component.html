@@ -1,0 +1,254 @@
+<div class="modal-header bg-light p-3" *ngIf="isDialog">
+    <h5 class="modal-title" id="exampleModalLabel">{{'Add Lead' | translate}}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"
+        (click)="closeDialog()"></button>
+</div>
+
+<form [formGroup]="leadForm" (ngSubmit)="onSubmit()">
+    <div class="modal-body">
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <!-- <div class="mb-3">
+                    <label>{{'Lead owner' | translate }}</label>
+                    <select class="form-select form-select" formControlName="leadOwner" >
+                        <option *ngFor="let onwer of leadOwners" [value]="onwer._id">
+                            {{onwer.name | translate }}
+                        </option>
+                    </select>
+                </div> -->
+                <div class="mb-3">
+                    <label for="EndleaveDate" class="form-label">{{'phone' | translate }}</label>
+                    <ngx-intl-tel-input [cssClass]="'form-control w-100 '"
+                    [preferredCountries]="preferredCountries"
+                    [enableAutoCountrySelect]="true" [enablePlaceholder]="true"
+                    [searchCountryFlag]="true" [searchCountryField]="[
+                                                                        SearchCountryField.Iso2,
+                                                                         SearchCountryField.Name
+                                                                     ]" 
+                    [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Turkey" [maxLength]="15"
+                    [phoneValidation]="true" [separateDialCode]="separateDialCode"
+                    [numberFormat]="PhoneNumberFormat.National" name="phone"
+                    [ngClass]="{ 'is-invalid':  f['phone'].errors }"
+                    formControlName="phone">
+                </ngx-intl-tel-input>
+                <div *ngIf=" f['phone'].errors " class="invalid-feedback"
+                    align="left">
+                    <div *ngIf="f['phone'].errors?.['validatePhoneNumber']">
+                        Phone number is invalid
+                      </div>
+                    <div *ngIf="submitted && f['phone'].errors['required']">Phone required!
+                    </div>
+                </div>
+                    <!-- 
+                    <div class="input-group ">
+                        <input type="tel" class="form-control form-control-lg" aria-label="input" value=""
+                            formControlName="phone" aria-describedby="inputGroup"
+                            [ngClass]="{ 'is-invalid': submitted && f['phone'].errors }">
+                        <div *ngIf="submitted && f['phone'].errors" class="invalid-feedback" align="left">
+                            <div *ngIf="f['phone'].errors['required']">Phone is required
+                            </div>
+                        </div>
+                    </div> -->
+
+                </div>
+                <div class="mb-3">
+
+                    <label for="EndleaveDate" class="form-label">{{'Email' | translate }}</label>
+                    <div class="input-group ">
+                        <input type="email" class="form-control form-control" aria-label="input" value="" 
+                            formControlName="email" aria-describedby="inputGroup"[ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+                            <div *ngIf="submitted && f['email'].errors" class="invalid-feedback" align="left">
+                                <div *ngIf="f['email'].errors['required']">Email is required
+                                </div>
+                            </div>
+                    </div>
+
+                </div>
+                <!-- <div class="mb-3">
+
+                    <label for="EndleaveDate" class="form-label">{{'Add date' | translate }}</label>
+                    <div class="input-group ">
+                        <input type="date" class="form-control form-control" aria-label="input" value=""
+                            formControlName="created_at" aria-describedby="inputGroup">
+                    </div>
+                </div> -->
+                <div class="mb-3">
+                    <label for="EndleaveDate" class="form-label">{{'Natunality' | translate }}</label>
+                    <div class="input-group ">
+                        <input type="text" class="form-control form-control" aria-label="input" value=""
+                            formControlName="natunality" aria-describedby="inputGroup">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label>{{'Trading Experience' | translate }}</label>
+                    <select class="form-select form-select" formControlName="tradingExperience">
+                        <option *ngFor="let experience of experiences" [value]="experience">
+                            {{experience }}
+                        </option>
+                    </select>
+                </div>
+                <div class="mb-3">
+
+
+
+
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label" for="inlineCheckbox1">{{'Has account in another company' |
+                            translate
+                            }}</label>
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value=""
+                            formControlName="anotherCompanyAccount">
+                    </div>
+                </div>
+                <div class="mb-3">
+
+                    <label for="EndleaveDate" class="form-label">{{'The other company details' | translate }}</label>
+                    <div class="input-group ">
+                        <input type="text" class="form-control form-control" aria-label="input"
+                            formControlName="anotherCompanyDetails" aria-describedby="inputGroup">
+                    </div>
+                </div>
+                <div class="mb-3">
+
+                    <label for="EndleaveDate" class="form-label">{{'Trading platforms if exist' | translate }}</label>
+                    <div class="input-group ">
+                        <input type="text" class="form-control form-control" aria-label="input"
+                            formControlName="tradingPlatforms" aria-describedby="inputGroup">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label>{{'Call forwarding' | translate }}</label>
+                    <select class="form-select form-select" formControlName="callForwarding">
+                        <option *ngFor="let center of callCenters" [value]="center._id">
+                            {{center.name | translate }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label>{{'Lead source' | translate }}</label>
+                    <select class="form-select form-select" formControlName="leadSource">
+                        <option *ngFor="let source of leadSources" [value]="source._id">
+                            {{source.name | translate }}
+                        </option>
+                    </select>
+                </div>
+
+
+
+
+
+
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+
+                    <label for="EndleaveDate" class="form-label">{{'First name' | translate }}</label>
+                    <div class="input-group ">
+                        <input type="text" class="form-control form-control" aria-label="input"
+                            formControlName="firstName" aria-describedby="inputGroup">
+                    </div>
+                </div>
+                <div class="mb-3">
+
+                    <label for="EndleaveDate" class="form-label">{{'Last name' | translate }}</label>
+                    <div class="input-group ">
+                        <input type="text" class="form-control form-control" aria-label="input"
+                            formControlName="lastName" aria-describedby="inputGroup">
+                    </div>
+                </div>
+                <div class="mb-3">
+
+                    <label for="EndleaveDate" class="form-label">{{'Work' | translate }}</label>
+                    <div class="input-group ">
+                        <input type="text" class="form-control form-control" aria-label="input"
+                            formControlName="work" aria-describedby="inputGroup">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+
+                    <label for="EndleaveDate" class="form-label">{{'Address' | translate }}</label>
+                    <div class="input-group ">
+                        <input type="text" class="form-control form-control" aria-label="input"
+                            formControlName="address" aria-describedby="inputGroup">
+                    </div>
+                </div>
+                <!-- <div class="mb-3" *ngIf="!edit">
+                    <label>{{'Lead status' | translate }}</label>
+                    <select class="form-select form-select" formControlName="leadStatus">
+                        <option *ngFor="let status of leadStatus" [value]="status.value">
+                            {{status.name | translate }}
+                        </option>
+                    </select>
+                </div> -->
+                <!-- <div class="mb-3">
+                    <label>{{'User status' | translate }}</label>
+                    <select class="form-select form-select" formControlName="leadStatus">
+                        <option *ngFor="let status of userStatus" [value]="status.value">
+                            {{status.name | translate }}
+                        </option>
+                    </select>
+                </div> -->
+
+                <div class="mb-3">
+                    <label>{{'Customer interest scale' | translate }}</label>
+                    <select class="form-select form-select" formControlName="customerInterestScale">
+                        <option *ngFor="let scale of scales" [value]="scale">
+                            {{scale }}
+                        </option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label" for="inlineCheckbox1">{{'Black list?' | translate}}</label>
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value=""
+                            formControlName="blackList">
+                    </div>
+                </div>
+                <div class="mb-3">
+
+                    <label for="EndleaveDate" class="form-label">{{'Reason' | translate }}</label>
+                    <div class="input-group ">
+                        <input type="text" class="form-control form-control" aria-label="input"
+                            formControlName="reason" aria-describedby="inputGroup">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label" for="inlineCheckbox1">{{'Has account in our company?' |
+                            translate}}</label>
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value=""
+                            formControlName="hasAccountByUs">
+                    </div>
+                </div>
+                <div class="mb-3">
+
+                    <label for="EndleaveDate" class="form-label">{{'Account Type' | translate }}</label>
+                    <select class="form-select form-select" formControlName="customerInterestScale">
+                        <option *ngFor="let type of accountTypes" [value]="type.value">
+                            {{type.name | translate }}
+                        </option>
+                    </select>
+                </div>
+                <div class="mb-3">
+
+                    <label for="EndleaveDate" class="form-label">{{'Notes' | translate }}</label>
+                    <div class="input-group ">
+                        <input type="text" class="form-control form-control" aria-label="input"
+                            formControlName="notes" aria-describedby="inputGroup">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-end">
+            <button type="submit" class="btn btn-success">{{'proceed' | translate }}</button>
+        </div>
+
+    </div>
+
+</form>

@@ -1,0 +1,78 @@
+    <div class="card" *ngIf="customer?.id">
+        <div class="card-body text-center contact-details">
+            <div class="position-relative d-inline-block">
+                <img [src]="customer.avatar | safeUrl" alt="" class="avatar-lg rounded-circle img-thumbnail">
+                <span class="contact-active position-absolute rounded-circle bg-success"></span><span
+                    class="visually-hidden"></span>
+            </div>
+            <h5 class="mt-4 mb-1">{{customer?.firstName}} {{customer?.lastName}}</h5>
+            <!-- <p class="text-muted">{{customer?.userType}}</p> -->
+
+            <ul class="list-inline mb-0">
+                <!-- <li class="list-inline-item avatar-xs">
+                    <a href="javascript:void(0);" class="avatar-title bg-soft-success text-success fs-15 rounded">
+                        <i class="ri-phone-line"></i>
+                    </a>
+                </li> -->
+                <li class="list-inline-item avatar-xs">
+                    <a href="javascript:void(0);" class="avatar-title bg-soft-danger text-danger fs-15 rounded" (click)="sendMsg('email')">
+                        <i class="ri-mail-line"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item avatar-xs">
+                    <a href="javascript:void(0);" class="avatar-title bg-soft-warning text-warning fs-15 rounded" (click)="sendMsg('sms')">
+                        <i class="ri-question-answer-line"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <!-- <h6 class="text-muted text-uppercase fw-semibold mb-3">Personal Information</h6>
+            <p class="text-muted mb-4">Hello, I'm Tonya Noble, The most effective objective is one that is tailored
+                to the job you are applying for. It states what kind of career you are seeking, and what skills and
+                experiences.</p> -->
+            <div class="table-responsive table-card">
+                <table class="table table-borderless mb-0">
+                    <tbody>
+                        <tr>
+                            <td class="fw-medium" scope="row">{{"COUNTRY"|translate}}</td>
+                            <td class="country">{{customer?.address?.country}}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-medium" scope="row">{{"EMAIL"|translate}}</td>
+                            <td class="email">{{customer?.email}}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-medium" scope="row">{{"PHONE"|translate}}</td>
+                            <td class="phone">{{customer?.phone}}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-medium" scope="row">{{"CITY"|translate}}</td>
+                            <td class="location">{{customer?.address?.city}}</td>
+                        </tr>
+                        <!-- <tr>
+                            <td class="fw-medium" scope="row">Tags</td>
+                            <td class="tags-list">
+                                <div class="d-flex gap-1">
+                                    <span class="badge badge-soft-primary">Lead</span>
+                                    <span class="badge badge-soft-primary">Partner</span>
+                                </div>
+                            </td>
+                        </tr> -->
+                        <!-- <tr>
+                            <td class="fw-medium" scope="row">Last Contacted</td>
+                            <td class="contacted_date">15 Dec, 2021 <small class="text-muted">08:58AM</small></td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--end card-->
+<div class="card">
+    <div class="card-body" *ngIf="!customer?.id">
+        <h5>
+            {{"SELECTCUS"|translate}}
+        </h5>
+    </div>
+</div>

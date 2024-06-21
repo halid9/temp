@@ -1,0 +1,58 @@
+<div class="mt-4 mb-3 border-bottom pb-2" *ngIf="!forUser">
+    <div class="float-end">
+        <a href="javascript:void(0);" class="link-primary" (mousedown)="allLogout()">{{'PROFILE.ALLLOGOUT.TEXT' | translate }}</a>
+    </div>
+    <div class="d-flex justify-content-start gap-2 align-items-center  ">
+
+        <button class="btn shadow-none btn-link text-decoration-none text-muted p-0"
+            type="button" id="password-addon" (mousedown)="refresh()"><i
+                class=" ri-refresh-line fs-20"></i></button>
+        <h5 class="card-title mb-0">
+            {{'PROFILE.LOGGEDDEVICES.TEXT' | translate }}
+            </h5>
+    </div>
+</div>
+<div class="d-flex align-items-center mb-3" *ngFor="let device of devices$|async">
+    <div class="flex-shrink-0 avatar-sm">
+        <div class="avatar-title bg-light text-primary rounded-3 fs-18 shadow">
+            <i class="ri-smartphone-line"></i>
+        </div>
+    </div>
+    <!-- <div class="flex-grow-1 ms-3">
+        <h6>{{device.userAgent?.browser?.name}}</h6>
+        <p class="text-muted mb-0">{{device?.ipAddress | ipv4Extractor}} - {{device?.loginDate |
+            date:'yyyy-MM-dd'}}</p>
+    </div> -->
+    <div class="flex-grow-1 ms-3">
+        <h6>{{device.userAgent?.browser?.name}}, {{device?.userAgent?.os?.name ?? ''}} {{device?.userAgent?.os?.version ?? ''}}</h6>
+        <p class="mb-0">from: {{device?.ipAddress ?? '' | ipv4Extractor}},
+             on: {{device?.loginDate ??
+            '' | date:'yyyy-MM-dd'}}  {{device?.ipDetails?.country ??''}}/{{device?.ipDetails?.city ??''}} {{device?.ipDetails?.postal ??''}}</p>
+    </div>
+    <div>
+        <a href="javascript:void(0);" (mousedown)="logout(device?.deviceId)">Logout</a>
+    </div>
+</div>
+<hr>
+<div class="row justify-content-md-between align-items-md-center mt-2">
+    <div class="col col-sm-6">
+        <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+            {{"SHOWING"|translate}}
+            {{contentService.startIndex}} {{'TO'|translate}}
+            {{contentService.endIndex}} {{"OF"|translate}} {{contentService.totalRecords}}
+            {{"ENTERIES"|translate}}
+        </div>
+    </div>
+    <!-- Pagination -->
+    <div class="col col-sm-6">
+        <div class="text-sm-right float-end listjs-pagination">
+            <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="contentService.page" [maxSize]="5"
+            [rotate]="true"
+            [ellipses]="false"
+            [boundaryLinks]="true"
+                [pageSize]="contentService.pageSize">
+            </ngb-pagination>
+        </div>
+    </div>
+    <!-- End Pagination -->
+</div>

@@ -1,0 +1,23 @@
+<div class="container">
+
+    <div class="row gap-2 align-items-center justify-content-center">
+        
+        <div class="card col-xs-12 col-sm-4 col-md-3 col-lg-2 " *ngFor="let tm of transferMethods">
+            <div class="card-body h-100">
+                <div class="d-flex align-items-center" style="min-height: 100px;">
+
+                    <h6 class="text-primary flex-grow-1 mb-0" [ngClass]="{'text-muted':!tm.enabled}">
+                        
+                        {{tm.name|translate}}
+                    </h6>
+                    
+                    <div class="form-check form-switch form-switch-right form-switch-md">
+                        <input class="form-check-input code-switcher" type="checkbox" id="default" [(ngModel)]="tm.enabled"
+                        (ngChange)="tm.enabled = !tm.enabled">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

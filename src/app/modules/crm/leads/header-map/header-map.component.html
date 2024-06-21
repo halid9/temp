@@ -1,0 +1,142 @@
+<div class="modal-body">
+    <div class="row g-3">
+        <div class="col-md-12 col-lg-6 ">
+                <label>{{'first name'}}</label>
+                <select class="form-select form-select-lg" [(ngModel)]="mappedHeaders.firstName">
+                    <option *ngFor="let head of headers" [value]="head">
+                        {{head}}
+                    </option>
+                </select>
+        </div>
+        <div class="col-md-12 col-lg-6 ">
+            <label>{{'last name'}}</label>
+            <select class="form-select form-select-lg" [(ngModel)]="mappedHeaders.lastName"
+            
+            >
+                <option *ngFor="let head of headers" [value]="head">
+                    {{head}}
+                </option>
+            </select>
+
+    </div>
+    <div class="col-md-12 col-lg-6 ">
+        <label>{{'email'}}</label>
+        <select class="form-select form-select-lg" [(ngModel)]="mappedHeaders.email"
+        [ngClass]="{'invalid':submitted && !mappedHeaders.email}"
+        >
+            <option *ngFor="let head of headers" [value]="head">
+                {{head}}
+            </option>
+        </select>
+</div>
+<div class="col-md-12 col-lg-6 ">
+    <label>{{'phone'}}</label>
+    <select class="form-select form-select-lg" [(ngModel)]="mappedHeaders.phone"
+    [ngClass]="{'invalid':submitted && mappedHeaders.phone}"
+    >
+        <option *ngFor="let head of headers" [value]="head">
+            {{head}}
+        </option>
+    </select>
+</div>
+<div class="col-md-12 col-lg-6 ">
+    <label>{{'natunality'}}</label>
+    <select class="form-select form-select-lg" [(ngModel)]="mappedHeaders.natunality">
+        <option *ngFor="let head of headers" [value]="head">
+            {{head}}
+        </option>
+    </select>
+</div>
+<div class="col-md-12 col-lg-6 ">
+    <label>{{'Trading experience'}}</label>
+    <select class="form-select form-select-lg" [(ngModel)]="mappedHeaders.tradingExperience">
+        <option *ngFor="let head of headers" [value]="head">
+            {{head}}
+        </option>
+    </select>
+</div>
+<div class="col-md-12 col-lg-6 ">
+    <label>{{'has account in another company'}}</label>
+    <select class="form-select form-select-lg" [(ngModel)]="mappedHeaders.anotherCompanyAccount">
+        <option *ngFor="let head of headers" [value]="head">
+            {{head}}
+        </option>
+    </select>
+</div>
+<div class="col-md-12 col-lg-6 ">
+    <label>{{'Another company account details'}}</label>
+    <select class="form-select form-select-lg" [(ngModel)]="mappedHeaders.anotherCompanyDetails">
+        <option *ngFor="let head of headers" [value]="head">
+            {{head}}
+        </option>
+    </select>
+</div>
+<div class="col-md-12 col-lg-6 ">
+    <label>{{'Lead source'}}</label>
+    <select class="form-select form-select-lg" [(ngModel)]="mappedHeaders.leadSource">
+        <option *ngFor="let head of headers" [value]="head">
+            {{head}}
+        </option>
+    </select>
+</div>
+<div class="col-md-12 col-lg-6 ">
+    <label>{{'Lead status'}}</label>
+    <select class="form-select form-select-lg" [(ngModel)]="mappedHeaders.leadStatus">
+        <option *ngFor="let head of headers" [value]="head">
+            {{head}}
+        </option>
+    </select>
+</div>
+<div class="col-md-12 col-lg-6 ">
+    <label>{{'Work'}}</label>
+    <select class="form-select form-select-lg" [(ngModel)]="mappedHeaders.work">
+        <option *ngFor="let head of headers" [value]="head">
+            {{head}}
+        </option>
+    </select>
+</div>
+<div class="col-md-12 col-lg-6 ">
+    <label>{{'Address'}}</label>
+    <select class="form-select form-select-lg" [(ngModel)]="mappedHeaders.address">
+        <option *ngFor="let head of headers" [value]="head">
+            {{head}}
+        </option>
+    </select>
+</div>
+<div class="col-md-12 col-lg-6 ">
+    <label>{{'Interest scale'}}</label>
+    <select class="form-select form-select-lg" [(ngModel)]="mappedHeaders.customerInterestScale">
+        <option *ngFor="let head of headers" [value]="head">
+            {{head}}
+        </option>
+    </select>
+</div>
+<div class="col-md-12 col-lg-6 ">
+    <label>{{'Black list'}}</label>
+    <select class="form-select form-select-lg" [(ngModel)]="mappedHeaders.blackList">
+        <option *ngFor="let head of headers" [value]="head">
+            {{head}}
+        </option>
+    </select>
+</div>
+<div class="col-md-12 col-lg-6 ">
+    <label>{{'Black list reason'}}</label>
+    <select class="form-select form-select-lg" [(ngModel)]="mappedHeaders.reason">
+        <option *ngFor="let head of headers" [value]="head">
+            {{head}}
+        </option>
+    </select>
+</div>
+<div class="col-md-12 col-lg-6 ">
+    <label>{{'Notes'}}</label>
+    <select class="form-select form-select-lg" [(ngModel)]="mappedHeaders.notes">
+        <option *ngFor="let head of headers" [value]="head">
+            {{head}}
+        </option>
+    </select>
+</div>
+        <div class="mt-4">
+            <button class="btn btn-success w-100" (mousedown)="submit()">{{'Import'}}</button>
+        </div>
+        <!--end row-->
+    </div>

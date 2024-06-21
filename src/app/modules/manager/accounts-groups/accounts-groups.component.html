@@ -1,0 +1,168 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="Accounts Ggroups"  [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+
+
+
+
+<div class="card" id="contactList">
+    <div class="card-header">
+        <div class="row align-items-center g-3">
+
+
+            <div class="col-md-auto ">
+                <h5 class="card-title mb-0 d-flex align-items-center gap-2">Select plaform: 
+
+                    <select id="pageSize" class="form-select" [(ngModel)]="selectedPlatform" (change)="platformChaned()"
+                            style="width: 100px;">
+                            <option *ngFor="let p of platforms" [value]="p.value">{{p.name|translate}}</option>
+
+                    </select>
+                </h5>
+            </div><!--end col-->
+            <div class="col-md-auto ">
+                <h5 class="card-title mb-0 d-flex align-items-center gap-2">Select currency: 
+
+                    <select id="pageSize" class="form-select" [(ngModel)]="selectedCurrency" (change)="currencyChanged()"
+                            style="width: 100px;">
+                            <option *ngFor="let c of currencies" [value]="c">{{c|translate}}</option>
+
+                    </select>
+                </h5>
+            </div><!--end col-->
+            <div class="col-md-auto ms-auto">
+                <div class="d-flex gap-2">
+                    <div class="search-box">
+                        <input type="text" name="searchTerm" class="form-control"
+                            placeholder="{{'SEARCHFROGROUP'|translate}}" [(ngModel)]="contentService.searchTerm">
+                        <i class="ri-search-line search-icon"></i>
+                    </div>
+                    <!-- <button class="btn btn-success"><i class="ri-equalizer-line align-bottom me-1"></i> Filters</button> -->
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end card-header-->
+    <div class="card-body">
+        <div class="table-responsive table-card">
+            <table class="table align-middle table-nowrap table-hover" id="customerTable">
+                <thead class="table-light text-muted">
+                    <tr >
+
+
+<th class="sort cursor-pointer" [sortable]="'name'" [direction]="'desc'"
+                            (sort)="onSort($event)" data-sort="name" scope="col">
+                            <p class="pe-3 mb-0">
+{{"NAME"|translate}}
+                            </p>
+                            </th>
+                        <th class="sort cursor-pointer" [sortable]="'title'" [direction]="'desc'"
+                            (sort)="onSort($event)" data-sort="title" scope="col">
+                            <p class="pe-3 mb-0">
+{{"TITLE"|translate}}
+                            </p>
+                            </th>
+
+                        <th class="sort cursor-pointer" [sortable]="'description'" [direction]="'desc'"
+                            (sort)="onSort($event)" data-sort="description" scope="col">
+                            <p class="pe-3 mb-0">
+{{"DESCRIPTION"|translate}}
+                            </p>
+                            </th>
+
+                            <th class="sort cursor-pointer" [sortable]="'enabled'" [direction]="'desc'"
+                            (sort)="onSort($event)" data-sort="enabled" scope="col">
+                            <p class="pe-3 mb-0">
+{{"ENABLEDSTATE"|translate}}
+                            </p>
+                            </th>
+
+                        <th scope="col">{{"ACTION"|translate}}</th>
+
+                    </tr><!--end tr-->
+                </thead>
+                <tbody class="list form-check-all" *ngIf="!(loading$ | async)">
+                    <tr *ngFor="let data of accountsGroupsToView$ | async" class="cursor-pointer"  >
+                        <td>
+                            <div class="d-flex align-items-center ">
+
+                                <ngb-highlight [result]="data?.name"
+                                    [term]="contentService.searchTerm"></ngb-highlight>
+                            </div>
+
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center ">
+
+                                <ngb-highlight [result]="data?.title"
+                                    [term]="contentService.searchTerm"></ngb-highlight>
+                            </div>
+
+                        </td>
+
+                        <td><ngb-highlight [result]="data.description"
+                                [term]="contentService.searchTerm"></ngb-highlight></td>
+
+                                <td>
+                                    <div class="d-flex align-items-center ">
+                                        <div class="form-check form-switch">
+
+                                            <input class="form-check-input me-1" type="checkbox" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="data.enabled" (change)="setAsEnabled(data)"  >
+                                            <label class="form-check-label" for="flexSwitchCheckDefault" [ngClass]="{'text-success':data.enabled}">{{(data.enabled?"ENABLED":"DISABLED")|translate}}</label>
+                                        </div>
+
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <div class="d-flex gap-2 align-items-center">
+
+                                        <a href="javascript:void(0);"
+                                            class="btn btn-danger btn-sm"
+                                            (click)="editAccountGroup(data)">{{'EDIT' | translate }}
+                                        </a>
+
+
+                                        <!-- <a href="javascript:void(0);"
+                                            *ngIf="!data.enabled"
+                                            class="btn btn-success btn-sm" (mousedown)="''">
+                                            {{'ENABLE' | translate }}</a>
+                                            <a href="javascript:void(0);" *ngIf="data.enabled"
+                                            
+                                            class="btn btn-warning btn-sm" (mousedown)="''">
+                                            {{'DISABLE' | translate }}</a> -->
+                                       </div>
+                                </td>
+                    </tr>
+                </tbody>
+            </table><!--end table-->
+        </div>
+        <div class="row justify-content-md-between align-items-md-center mt-2">
+            <div class="col col-sm-6">
+                <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                    {{"SHOWING"|translate}}
+                    {{contentService.startIndex}} {{'TO'|translate}}
+                    {{contentService.endIndex}} {{"OF"|translate}} {{contentService.totalRecords}}
+                    {{"ENTERIES"|translate}}
+                </div>
+            </div>
+            <!-- Pagination -->
+            <div class="col col-sm-6">
+                <div class="text-sm-right float-end listjs-pagination">
+                    <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="contentService.page"
+                    [maxSize]="5"
+                    [rotate]="true"
+                    [ellipses]="false"
+                    [boundaryLinks]="true"
+                        [pageSize]="contentService.pageSize">
+                    </ngb-pagination>
+                </div>
+            </div>
+            <!-- End Pagination -->
+        </div>
+        <div id="elmLoader" *ngIf="loading$ | async">
+            <div class="spinner-border text-primary avatar-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div><!--end card-body-->
+</div><!--end card-->

@@ -1,0 +1,62 @@
+<app-breadcrumbs title="Bounce Campaigns"
+    [breadcrumbItems]="[{ label: 'CRM' },{ label: 'Bounce Campagins', active: true }]"></app-breadcrumbs>
+
+<div class="card" id="contactList">
+    <div class="card-header">
+        <div class="row g-3">
+            <div class="col-lg-12">
+                <div class="d-flex align-items-center flex-wrap gap-2">
+                    <div class="flex-grow-1">
+
+                    </div>
+                    <div class="flex-shrink-0">
+                        <div class="hstack text-nowrap gap-2" ngbDropdown>
+                            <button class="btn btn-info add-btn" data-bs-toggle="modal" data-bs-target="#showModal"
+                                (click)="showCampaignForm()"><i class="ri-add-fill me-1 align-bottom"></i>
+                                {{'CREATE'|translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive table-card">
+            <table class="table align-middle table-nowrap table-hover" id="customerTable">
+                <thead class="table-light text-muted">
+                    <tr>
+                        <th>{{'#' | translate }}</th>
+                        <th>{{'Campagin Title' | translate }}</th>
+                        <th>{{'Bounce Amount' | translate }}</th>
+                        <th>{{'Campaign Start' | translate }}</th>
+                        <th>{{'Campaign End' | translate }}</th>
+                        <th>{{'Trade Start' | translate }}</th>
+                        <th>{{'Trade End' | translate }}</th>
+                        <th>{{'Link' | translate }}</th>
+                        <th>{{'Action' | translate }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let campaign of campaigns">
+                        <td>{{ campaign.id }}</td>
+                        <td>{{ campaign.name }}</td>
+                        <td>{{ campaign.amount }}</td>
+                        <td>{{ campaign.campagin_start | date }}</td>
+                        <td>{{ campaign.campagin_end | date }}</td>
+                        <td>{{ campaign.trade_start | date }}</td>
+                        <td>{{ campaign.trade_end | date }}</td>
+                        <td><a href="{{ campaignLink(campaign.id) }}" target="_blank">{{ campaignLink(campaign.id)
+                                }}</a></td>
+                        <td>
+                            <button (click)="goToLeads('bonus',campaign.id)"
+                                class="btn btn-sm btn-success me-1">Leads</button>
+                            <button (click)="showCampaignForm(campaign)"
+                                class="btn btn-sm btn-primary me-1">Edit</button>
+                            <button (click)="deleteCampaign(campaign.id)" class="btn btn-sm btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

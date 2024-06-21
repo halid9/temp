@@ -1,0 +1,33 @@
+<form #passwordForm="ngForm">
+    <div class="modal-header">
+        <h5 class="modal-title">Change Rights for {{ account.name }}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <label>
+            <input type="checkbox" [(ngModel)]="enabled" name="enabled"> Enable Account
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" [(ngModel)]="readonly" name="readonly"> Client is readonly
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" [(ngModel)]="password" name="password"> Client allowed to change password
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" [(ngModel)]="reports" name="reports"> Trade reports are allowed
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" [(ngModel)]="otp_enabled" name="otp_enabled"> Client allowed to use one-time password
+        </label>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="changeRights()">Save changes</button>
+    </div>
+</form>

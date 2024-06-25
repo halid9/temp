@@ -1,0 +1,1407 @@
+{
+  "HEADER": {
+    "MORE": {
+      "TEXT": "أكثر"
+    }
+  },
+  "MENUITEMS": {
+    "MENU": {
+      "TEXT": "المستخدم"
+    },
+    "DASHBOARD": {
+      "TEXT": "اللوحة الرئيسية",
+      "BADGE": "جديد",
+      "LIST": {
+        "ANALYTICS": "تحليلات",
+        "CRM": "CRM",
+        "ECOMMERCE": "التجارة الإلكترونية",
+        "CRYPTO": "تشفير",
+        "PROJECTS": "المشاريع",
+        "NFT": "NFT",
+        "JOB": "مهنة"
+      }
+    },
+    "ACCOUNTS": {
+      "TEXT": "الحسابات",
+      "BADGE": "جديد",
+      "LIST": {
+        "MT4": "MT4",
+        "MT5": "MT5",
+        "CRYPTO": "Crypto",
+        "ACCOUNTS": "الحسابات",
+        "ACCOUNTSREQUESTS": "طلبات الحسابات"
+      }
+    },
+    "TRANSACTIONS": {
+      "TEXT": "التحويلات",
+      "BADGE": "New",
+      "LIST": {
+        "DEPOSIT": "إيداع",
+        "WITHDRAW": "سحب",
+        "TRANSFERBTWEENACCOUNTSANDWALLETS": "التحويل بين الحسابات",
+        "TRANSACTIONSHISTORY": "التحويلات السابقة"
+      }
+    },
+    "COPYTRADING": {
+      "TEXT": "نسخ التداول",
+      "BADGE": "قريبا"
+    },
+    "LEARN": {
+      "TEXT": "التعليم",
+      "BADGE": "قريبا"
+    }
+    ,"ECONOMICCALENDAR": {
+      "TEXT": "التقويم الاقتصادي"
+    },
+    "PLATFORMS": {
+      "TEXT": "الأنظمة",
+      "BADGE": "جديد",
+      "LIST": {
+        "APPLICATIONSDOWNLOAD": "تحميل التطبيقات",
+        "ENTERWEBTRADER": "تداول على الويب",
+        "MT4DOWNLOAD": "MT4 download",
+        "MT5DOWNLOAD": "MT5 download"
+      }
+    },
+    "SETTINGS": {
+      "TEXT": "الاعدادات",
+      "BADGE": "جديد",
+      "LIST": {
+        "PROFILE": "الملف الشخصي"
+      }
+    },
+    "SUPPORT": {
+      "TEXT": "الدعم",
+      "BADGE": "قريبا",
+      "LIST": {
+        "LIVESUPPORT": "الدعم المباشر",
+        "SUPPORTTICKETS": "بطاقات الدعم"
+      }
+    },
+    "CALLCENTER": {
+      "TEXT": "Call center",
+      "BADGE": "New"
+    },
+    "LOGOUT": {
+      "TEXT": "Logout",
+      "BADGE": "New"
+    },
+    "CRM": {
+      "TEXT": "مدير العملاء"
+    },
+    "CRMDASHBOARD": {
+      "TEXT": "لوحة مدير العملاء"
+    },
+    "LEADSOURCES": {
+      "TEXT": "مصادر العملاء المحتملين",
+      "BADGE": "قريبا"
+    },
+    "LEADSLIST": {
+      "TEXT": "قائمة العملاء المحتملين"
+    },
+    "CAMPAIGNS": {
+      "TEXT": "إدارة الحملات",
+      "BADGE": "قريبا"
+    },
+    "AGENT": {
+      "TEXT": "الوكيل"
+    },
+    "ADMINALLTXREQUESTSHISTORY":{
+      "TEXT":"طلبات التحويل السابقة"
+    }
+    ,
+    "AGENTDASHBOARD": {
+      "TEXT": "اللوحة الرئيسية"
+    },
+    "AGENTCUSTOMERS": {
+      "TEXT": "عملائي"
+    },
+    "AGENTEXTERNALACCOUNTS": {
+      "TEXT": "الحسابات الخارجية"
+    },
+    "AGENTACCOUNTREQUESTS": {
+      "TEXT": "إدارة طلبات الحسابات"
+    },
+    "AGENTTXREQUESTS": {
+      "TEXT": "إدارة طلبات التحويل"
+    },
+    "AGENTDOCREQUESTS": {
+      "TEXT": "إدارة طلبات المستندات"
+    },
+    "ADMIN": {
+      "TEXT": "المسؤول"
+    },
+    "ADMINDASHBOARD": {
+      "TEXT": "لوحة المسؤول"
+    },
+    "ADMINTRANSFERMETHODS": {
+      "TEXT": "طرق الدفع"
+    },
+    "ADMINUSERS": {
+      "TEXT": "المستخدمون"
+    },
+    "ADMINROLES": {
+      "TEXT": "الادوار"
+    },
+    "ADMINALLACCOUNTSREQUESTS": {
+      "TEXT": "إدارة طلبات الحسابات"
+    },
+    "ADMINALLTXREQUESTS": {
+      "TEXT": "إدارة طلبات النحويل"
+    },
+    "ADMINALLDOCUMENTS": {
+      "TEXT": "إدارة طلبات المستندات"
+    },
+    "LAYOUTS": {
+      "TEXT": "Layouts",
+      "LIST": {
+        "HORIZONTAL": "Horizontal",
+        "DETACHED": "Detached",
+        "TWOCOLUMN": "Two Column",
+        "HOVERED": "Hovered"
+      }
+    },
+    "AUTHENTICATION": {
+      "TEXT": "Authentication",
+      "LIST": {
+        "BASIC": "Basic",
+        "COVER": "Cover",
+        "SIGNIN": "Sign In",
+        "SIGNUP": "Sign Up",
+        "PASSWORDRESET": "Password Reset",
+        "PASSWORDCREATE": "Password Create",
+        "LOCKSCREEN": "Lock Screen",
+        "LOGOUT": "Logout",
+        "SUCCESSMESSAGE": "Success Message",
+        "TWOSTEPVERIFICATION": "Two Step Verification",
+        "ERRORS": "Errors",
+        "404BASIC": "404 Basic",
+        "404COVER": "404 Cover",
+        "404ALT": "404 Alt",
+        "500": "500",
+        "OFFLINE": "Offline Page"
+      }
+    },
+    "LEADSMANAGEMENT": {
+      "TEXT": "إدارة العملاء المحتملين"
+    },
+    "CUSTOMERSMANAGEMENT": {
+      "TEXT": "إدارة العملاء"
+    },
+    "USERSMANAGEMENT": {
+      "TEXT": "إدارة المستخدمون"
+    },
+    "MANAGERS": {
+      "TEXT": "مدراء العمليات"
+    }, "MT5AUTOMATION":{
+      "TEXT":"خيارات أتمتة MT5"
+    }
+  },
+  "CLIENTDASHBOARD": {
+    "DOWNLOADPLATFORMS": {
+      "TEXT": "تحميل الانظمة"
+    },
+    "WEBTRADER": {
+      "TEXT": "تداول الويب"
+    },
+    "DEPOSIT": {
+      "TEXT": "إيداع"
+    },
+    "PROFILEALERT": {
+      "TEXT": "لم تقم بإنهاء المعلومات الخاصة بك بعد!"
+    },
+    "CLICKTOCOMPLETE": {
+      "TEXT": "إضغط هنا للإكمال"
+    },
+    "UNDERREVIEW": {
+      "TEXT": "حسابك قيد المعالجة, قد يستغرق الأمر 24 ساعة لموافقة المسؤول"
+    },
+    "DEPOSITTOSTART": {
+      "TEXT": "أودع أول وديعة لك و ابدأ التدوال الآن!!!"
+    },
+    "DEPOSITNOW": {
+      "TEXT": "أودع الآن"
+    },
+    "LIVEACCOUNT": {
+      "TEXT": " حساب رسمي"
+    },
+    "LIVEDESC": {
+      "TEXT": "حساب حقيقي يستخدم للتداول و تحقيق ارباح حقيقية"
+    },
+    "CREATE": {
+      "TEXT": "إنشاء"
+    },
+    "DEMOACCOUNT": {
+      "TEXT": "حساب تجريبي "
+    },
+    "DEMODESC": {
+      "TEXT": "حساب وهمي يستخدم لتجربة نظام التداول"
+    }
+  },
+  "CLIENTACCOUNTS": {
+    "CONNECT": {
+      "TEXT": "ادخال حساب"
+    },
+    "CREATE": {
+      "TEXT": "إنشاء حساب"
+    },
+    "MT4NOTFOUND": {
+      "TEXT": "لم يتم ايجاد اي حسابات MT4!"
+    },
+    "MT5NOTFOUND": {
+      "TEXT": "لم يتم ايجاد اي حسابات MT5!"
+    },
+    "DEMO": {
+      "TEXT": "تجريبي"
+    },
+    "LIVE": {
+      "TEXT": "رسمي"
+    },
+    "CHACCNAME": {
+      "TEXT": "تبديل الاسم"
+    },
+    "CHACCLEV": {
+      "TEXT": "تبديل الرافعة"
+    },
+    "CHMP": {
+      "TEXT": "تبديل كلمة المرور الرئيسية"
+    },
+    "CHIP": {
+      "TEXT": " تبديل كلمة مرور المستثمر"
+    },
+    "BALANCE": {
+      "TEXT": "الرصيد "
+    },
+    "LEVERAGE": {
+      "TEXT": "الرافعة"
+    },
+    "FREEMARGIN": {
+      "TEXT": "الهامش الحر"
+    },
+    "EQUITY": {
+      "TEXT": "Equity"
+    },
+    "MARGIN": {
+      "TEXT": "الهامش"
+    },
+    "MARGINLVL": {
+      "TEXT": "مستوى الهامش"
+    },
+    "NOTVERIFIED": {
+      "TEXT": " حسابك غير موثق بعد! تستطيع فتح حساب تجريبي فقط"
+    },
+    "ACCNAME": {
+      "TEXT": "اسم الحساب"
+    },
+    "ACCNAMEREQ": {
+      "TEXT": "الأسم مطلوب!"
+    },
+    "ACCNAME15": {
+      "TEXT": "لا يجب أن يزيد الاسم عن 15 حرف"
+    },
+    "ACCNAMEMUST1": {
+      "TEXT": "لا يجب أن يحوي الاسم"
+    },
+    "ACCNAMEMUST2": {
+      "TEXT": "على احرف متكررة او متتابعة"
+    },
+    "SELECTPLAT": {
+      "TEXT": "اختر النظام"
+    },
+    "SELECTTYPE": {
+      "TEXT": "اختر النوع"
+    },
+    "SELECTLEVERAGE": {
+      "TEXT": "اختر الرافعة"
+    },
+    "AMOUNT": {
+      "TEXT": "كمية الإيداع"
+    },
+    "PLATFORM": {
+      "TEXT": "النظام"
+    },
+    "DEPOSITREQ": {
+      "TEXT": "كمية الإيداع مطلوبة!"
+    },
+    "MPASS": {
+      "TEXT": "كلمة المرور الرئيسية"
+    },
+    "GPASS": {
+      "TEXT": "توليد كلمة مرور"
+    },
+    "MPASSREQ": {
+      "TEXT": "كلمة المرور الرئيسية مطلوبة"
+    },
+    "CMPASS": {
+      "TEXT": "تأكيد كلمة المرور الرئيسية"
+    },
+    "IPASS": {
+      "TEXT": "كلمة مرور المستثمر"
+    },
+    "RESET": {
+      "TEXT": "إعادة"
+    },
+    "ADDACC": {
+      "TEXT": "إضافة الحساب"
+    },
+    "FNAME": {
+      "TEXT": "الاسم الأول"
+    },
+    "CFNAME": {
+      "TEXT": "تغيير الاسم الأول"
+    },
+    "CIPASS": {
+      "TEXT": "تغيير كلمة سر المستثمر"
+    },
+    "IPASSREQ": {
+      "TEXT": "كلمة سر المستثمر مطلوبة"
+    },
+    "CLEVERAGE": {
+      "TEXT": "تبديل الرافعة"
+    },
+    "FORBIDLEVERAGE": {
+      "TEXT": "لا تستطيع اختيار نفس الرافعة"
+    },
+    "CHMPASS": {
+      "TEXT": "تغيير كلمة السر الرئيسية"
+    },
+    "LOGIN": {
+      "TEXT": "رقم الحساب"
+    },
+    "LOGINREQ": {
+      "TEXT": "رقم الحساب مطلوب"
+    },
+    "PLATREQ": {
+      "TEXT": "النزام مطلوب"
+    },
+    "ALL": {
+      "TEXT": "الكل"
+    },
+    "APPPROVED": {
+      "TEXT": "تم الموافقة"
+    },
+    "REJECTED": {
+      "TEXT": "تم الرفض"
+    },
+    "PENDING": {
+      "TEXT": "قيد الانتظار"
+    },
+    "CANCELED": {
+      "TEXT": "تم الالغاء"
+    },
+    "ALLREQUESTS": {
+      "TEXT": "جميع الطلبات"
+    },
+    "TIMESTAMP": {
+      "TEXT": "التاريخ"
+    },
+    "TYPE": {
+      "TEXT": "النوع"
+    },
+    "NOTE": {
+      "TEXT": "ملاحظات"
+    },
+    "ACTION": {
+      "TEXT": "عملية الطلب"
+    },
+    "STATUS": {
+      "TEXT": "الحالة"
+    },
+    "ACTIONS": {
+      "TEXT": "التحكم"
+    },
+    "CANCEL": {
+      "TEXT": "الغاء"
+    },
+    "RETRY": {
+      "TEXT": "اعادة"
+    },
+    "REJECT": {
+      "TEXT": "رفض"
+    },
+    "APPROVE": {
+      "TEXT": "قبول"
+    },
+    "ADDREJECTNOTE": {
+      "TEXT": "أضف سبب الرفص"
+    },
+    "SUBMIT": {
+      "TEXT": "اعتمد"
+    }
+  },
+  "CLIENTTXS": {
+    "ACCWARN1": {
+      "TEXT": " يجب ات يكون لديك على الأقل حساب"
+    },
+    "ACCWARN2": {
+      "TEXT": "واحد للإيداع"
+    },
+    "LIVE": {
+      "TEXT": "رسمي"
+    },
+    "GOTOACC": {
+      "TEXT": "إذهب للحسابات"
+    },
+    "GOTOTXS": {
+      "TEXT": "إذهب الى التحويلات السابقة"
+    },
+    "DEPOSITPROCESS": {
+      "TEXT": "عملية الإيداع"
+    },
+    "FOLLOW": {
+      "TEXT": "اتبع خطوات عملية الإيداع"
+    },
+    "SELECTACC": {
+      "TEXT": "اختر حساب"
+    },
+    "ACCREQ": {
+      "TEXT": "الحساب مطلوب"
+    },
+    "NEXT": {
+      "TEXT": "التالي"
+    },
+    "METHODREQ": {
+      "TEXT": "الطريقة مطلوبة"
+    },
+    "SELECTMETHOD": {
+      "TEXT": "اختر طريقة"
+    },
+    "LOCAL": {
+      "TEXT": "دفع محلي"
+    },
+    "FROMWALLET": {
+      "TEXT": "من المحفظة"
+    },
+    "FROMCRYPTO": {
+      "TEXT": "دفع CRYPTO "
+    },
+    "BANKTX": {
+      "TEXT": "تحويل بنكي"
+    },
+    "MONEYTRANS": {
+      "TEXT": "حوالة محلية"
+    },
+    "CREDITCARD": {
+      "TEXT": "البطاقة الإتمنانية"
+    },
+    "VISACARD": {
+      "TEXT": "VISA Card"
+    },
+    "MASTERCARD": {
+      "TEXT": "MASTER Card"
+    },
+    "SKRILL": {
+      "TEXT": "Skrill"
+    },
+    "NETELLER": {
+      "TEXT": "NETELLER"
+    },
+    "WIZE": {
+      "TEXT": "WISE"
+    },
+    "TOWALLET": {
+      "TEXT": "إلى المحفظة"
+    },
+    "BACK": {
+      "TEXT": "الخلف"
+    },
+    "DAMOUNT": {
+      "TEXT": "كمية الإيداع"
+    },
+    "AMOUNTREQ": {
+      "TEXT": "الكمية مطلوبة"
+    },
+    "AMOUNTREQBIG": {
+      "TEXT": "يجب أن تكون الكمية أكبر من 0"
+    },
+    "INFO": {
+      "TEXT": "المعلومات"
+    },
+    "DESC": {
+      "TEXT": "الوصف"
+    },
+    "TIMETOFUND": {
+      "TEXT": "وقت التحويل"
+    },
+    "DEPINFINGBCH": {
+      "TEXT": "اعتمادا على المنصة"
+    },
+    "UPLOADLATER": {
+      "TEXT": "تحميل ايصال لاحقا"
+    },
+    "UPLOADRECIPT": {
+      "TEXT": "تحميل ايصال"
+    },
+    "RECIPTREQ": {
+      "TEXT": "الايصال مطلوب"
+    },
+    "SUBMIT": {
+      "TEXT": "اعتمد"
+    },
+    "DEPOSITDONE": {
+      "TEXT": "تم الإيداع!"
+    },
+    "DEPOSITDONESUCCESS": {
+      "TEXT": "لقد اودعت اموالك بنجاح"
+    },
+    "APPROVALDURATIONMSG": {
+      "TEXT": "الرجاء الانتظار لموافقة المسؤول قد يستغرق الامر 24 ساعة"
+    },
+    "RECIPTREMINDER": {
+      "TEXT": "الرجاء تحميل ايصال في قسم التحويلات السابقة لاكمال الإيداع"
+    },
+    "NEWDEPOSIT": {
+      "TEXT": "إيداع جديد"
+    },
+    "DEPOSITFAILD": {
+      "TEXT": "فشل الإيداع!"
+    },
+    "ACCWARN3": {
+      "TEXT": "واحد للسحب"
+    },
+    "ACCWARN4": {
+      "TEXT": " يجب ات يكون لديك على الأقل حساب"
+    },
+    "ACCWARN5": {
+      "TEXT": "عدد 2 للتحويل بينهما"
+    }, 
+    "WAITINGFORCRYPTO": {
+      "TEXT": "بانتظار الدفع الرقمي..."
+    },
+    "PAYWALLETADDRESS": {
+      "TEXT": "يرجى ارسال الدفعة الى المحفظة"
+    },
+    "WITHDRAWPROCESS": {
+      "TEXT": "عملية السحب"
+    },
+    "FOLLOWWSTEPS": {
+      "TEXT": "اتبع خطوات عملية السحب"
+    },
+    "NOLOGIN": {
+      "TEXT": "لم يتم ايجاد رقم حساب"
+    },
+    "BALANCE": {
+      "TEXT": "الرصيد"
+    },
+    "WAMOUNT": {
+      "TEXT": "كمية السحب"
+    },
+    "AMOUNTLIMIT": {
+      "TEXT": "الكمية يجب أن لا تكون أكبر من رصيد الحساب المختار"
+    },
+    "SOURCEBALANCE": {
+      "TEXT": "رصيد الحساب المختار:"
+    },
+    "WITHDRAWDONE": {
+      "TEXT": "تم السحب!"
+    },
+    "WITHDRAWDONEMSG": {
+      "TEXT": "لقد اتممت سحب اموالك بنجاح"
+    },
+    "NEWWITHDRAW": {
+      "TEXT": "سحب جديد"
+    },
+    "WITHDRAWFAILED": {
+      "TEXT": "فشل السحب!"
+    },
+    "TRANSPROCESS": {
+      "TEXT": "عملية التحويل بين الحسابات"
+    },
+    "FOLLOWTRANSFERSTEPS": {
+      "TEXT": "اتبع عمليات التحويل"
+    },
+    "ACCFROM": {
+      "TEXT": "اختر حساب للتحويل منه"
+    },
+    "ACCTO": {
+      "TEXT": "اختر حساب للتحويل اليه"
+    },
+    "CANTTRANSFERWARN": {
+      "TEXT": "لا تستطيع التحويل بين حساب  <strong>تحريبي</strong> و <strong>رسمي</strong>!"
+    },
+    "AMOUNT": {
+      "TEXT": "الكمية"
+    },
+    "TRABSDONE": {
+      "TEXT": "تم التحويل"
+    },
+    "TRABSDONEMSG": {
+      "TEXT": "لقد حولت المبلغ بنجاح"
+    },
+    "NEWTRANS": {
+      "TEXT": "تحويل جديد"
+    },
+    "TXFAILED": {
+      "TEXT": "هشل التحويل"
+    },
+    "METHOD": {
+      "TEXT": "الطريقة"
+    },
+    "VIEWRECIPT": {
+      "TEXT": "اظهر الايصال"
+    },
+    "APPROVEDWITHOUTRECIPT": {
+      "TEXT": "تم الموافقة بدون ايصال!"
+    },
+    "ALLTXS": "جميع التحويلات"
+  },
+  "PROFILE": {
+    "OVERVIEW": {
+      "TEXT": "لمحة"
+    },
+    "SELECTFAVLANGUAGE": {
+      "TEXT": "لغة الدعم"
+    },
+    "COMPLETEPROFILE": {
+      "TEXT": "أكمل الملف الشخصي"
+    },
+    "FULLNAME": {
+      "TEXT": "الاسم الكامل:"
+    },
+    "MOBILE": {
+      "TEXT": " الهاتف:"
+    },
+    "EMAIL": {
+      "TEXT": "البريد:"
+    },
+    "LOCATION": {
+      "TEXT": "الموقع:"
+    },
+    "JOINDATE": {
+      "TEXT": "تاريخ الانضمام"
+    },
+    "CREATEDATE": {
+      "TEXT": "تاريخ الإنشاء"
+    },
+    "LASTLOGINS": {
+      "TEXT": "تسجيلات الدخول الأخيرة"
+    },
+    "RECENTACTIVITY": {
+      "TEXT": "النشاطات الأخيرة"
+    },
+    "SUCCESSDEALS": {
+      "TEXT": "الصفقات الناجحة"
+    },
+    "LOSTDEALS": {
+      "TEXT": "الصفقات الخاسرة"
+    },
+    "ACTIVITIES": {
+      "TEXT": "النشاطات"
+    },
+    "DEALSHIXTORY": {
+      "TEXT": "الصفقات السابقة"
+    },
+    "DOCS": {
+      "TEXT": "المستندات"
+    },
+    "LOGINHIS": {
+      "TEXT": "تسجيلات الدخول"
+    },
+    "EDITPROFILE": {
+      "TEXT": "تعديل الملف الشخصي"
+    },
+    "DEALS": {
+      "TEXT": "الصفقات"
+    },
+    "STATUS": {
+      "TEXT": "الحالة"
+    },
+    "UPLOADNEWDOC": {
+      "TEXT": "رفع مستند جديد"
+    },
+    "PERSONALDETAILS": {
+      "TEXT": "المعلومات الشخصية"
+    },
+    "FNAME": {
+      "TEXT": "الاسم الأول"
+    },
+    "LNAME": {
+      "TEXT": "الاسم الاخير"
+    },
+    "CITY": {
+      "TEXT": "المدينة"
+    },
+    "SELECTCOUNTRY": {
+      "TEXT": "البلد"
+    },
+    "EMPLOYMENT": {
+      "TEXT": "حالة التوظيف"
+    },
+    "INCOME-SOURCE": {
+      "TEXT": "مصدر الأموال"
+    },
+    "OTHER-INCOME-SOURCE": {
+      "TEXT": "مصدر دخل آخر"
+    },
+    "EXPERIENCE-TYPE": {
+      "TEXT": "ما أنواع الاستثمارات التي لديك خبرة بها؟"
+    },
+    "ZIPCODE": {
+      "TEXT": "الرمز البريدي"
+    },
+    "STADDRESS": {
+      "TEXT": "عنوان الشارع"
+    },
+    "UPDATE": {
+      "TEXT": "تحديث"
+    },
+    "BACKTOPROFILE": {
+      "TEXT": "عودة للملف الشخصي"
+    },
+    "CHPASS": {
+      "TEXT": "تغيير كلمة المرور"
+    },
+    "OLDPASS": {
+      "TEXT": "كملة السر الحالية"
+    },
+    "NEWPASS": {
+      "TEXT": "كلمة السر الجديدة"
+    },
+    "NEWPASSREQ": {
+      "TEXT": "كلمة السر الجديدة مطلوبة!"
+    },
+    "CPASS": {
+      "TEXT": "تأكيد كلمة السر"
+    },
+    "CPASSREQ": {
+      "TEXT": "تأكيد كلمة السر مطلوب"
+    },
+    "WANTTORESET": {
+      "TEXT": "هل تريد اعادة ضبط كلمة السر؟"
+    },
+    "LOGGEDDEVICES": {
+      "TEXT": "الأجهزة المسجلة"
+    },
+    "ALLLOGOUT": {
+      "TEXT": "تسجيل الخروج من الكل"
+    }
+  },
+  "CLIENTPLATFORMS": {
+    "FETCHING": {
+      "TEXT": " جلب البيانات..."
+    },
+    "SELECTACCTOCONNECT": {
+      "TEXT": "اختر حساب للدخول"
+    },
+    "NOACCWARN": {
+      "TEXT": "ليس لديك اي حساب للدخول"
+    },
+    "CREATE": {
+      "TEXT": "إنشاء"
+    }
+  },
+  "TOPBAR": {
+    "PROFILE": "الملف الشخصي"
+  },
+  "LOGOUT": "نسجيل الخروج",
+  "SETTINGS": "الإعدادات",
+  "BALANCE": "الرصيد",
+  "LOCKSCREEN": "قفل الشاشة",
+  "WELCOME": "أهلا",
+  "ACTIVE": "نشط",
+  "PENDING": "انتظار",
+  "LIVEACCOUNTS": "الحسابات النشطة",
+  "DEMOACCOUNTS": "الحسابات التجريبية",
+  "WALLETBALANCE": "رصيد المحفظة",
+  "ACCOUNTSBALANCE": "رصيد الحسابات",
+  "DATE": "التاريخ",
+  "CURRENCY": "العملة",
+  "FROM": "من",
+  "TO": "إلى",
+  "METHOD": "الطريقة",
+  "DETAILS": "تفاصيل",
+  "REF": "المرجع",
+  "TYPE": "النوع",
+  "AMOUNT": "الكمية",
+  "ACTION": "الإجراء",
+  "APPROVE": "قبول",
+  "REJECT": "رفض",
+  "RETRY": "إعادة",
+  "CANCEL": "إلغاء",
+  "DELETE": "حذف",
+  "CREATE": "إنشاء",
+  "SUBMIT": "إعتماد",
+  "VIEW": "عرض",
+  "UPLOAD": "رفع",
+  "DOWNLOAD": "تنزيل",
+  "STATUS": "الحالة",
+  "LOGIN": "تسجيل دخول",
+  "SIGNUP": "تسجيل",
+  "SIGNIN": "تسجيل دخول",
+  "ALL": "الكل",
+  "TRANSFER": "تحويل",
+  "DEPOSIT": "إيداع",
+  "WITHDRAW": "سحب",
+  "APPROVED": "موافق عليه",
+  "REJECTED": "مرفوض",
+  "CANCELED": "ملغى",
+  "DELETED": "محذوف",
+  "USER": "مستخدم",
+  "EXPDATE": "تاريخ الانتهاء",
+  "DOC": "مستند",
+  "DOCS": "مستندات",
+  "DOCTYPE": "نوع المستند",
+  "UPLOADDATE": "تاريخ الرفع",
+  "CLOSE": "إغلاق",
+  "ZOOM": "تكبير",
+  "SHOWING": "إظهار",
+  "OF": "من",
+  "ENTERIES": "حقل",
+  "ALLDOCS": "جميع المستندات",
+  "SELECTLANG": "اختر لغه",
+  "EMAIL": "البريد الالكتروني",
+  "ENTER2FAUTHCODE": "أدخل رمز المصادقة الثنائية",
+  "TOTPREQ": "رمز المصادقة الثنائية مطلوب",
+  "INVALIDTOTP": "رمز المصادقة الثنائية غير صحيح",
+  "FORGOTPASSWORD": "نسيت كلمة المرور؟",
+  "PASS": "كلمة المرور",
+  "CPASS": "تأكيد كلمة المرور",
+  "GPASS": "توليد كلمة مرور",
+  "REMEMBERME": "تذكرني",
+  "EMAILREQ": "البريد الالكتروني مطلوب",
+  "PASSREQ": "كلمة المرور مطلوبة",
+  "INVALIDEMAILFORMAT": "صيغة البريد غير صحيحة",
+  "DONTHAVEACC": "لا تملك حساب لدينا؟",
+  "WELCOMBACK": "أهلا بك",
+  "SIGNINTOCONTAINUE": "يرجى تسجيل الدخول للمتابعة",
+  "ENTEREMAIL": "ادخل البريد الالكتروني",
+  "ENTERPASS": "أدخل كلمة المرور",
+  "ENTERCPASS": "أكد كلمة المرور",
+  "ENTERFNAME": "أدخل الاسم الأول",
+  "ENTERLNAME": "أدخل الاسم الأخير",
+  "ENTERPHONE": "أدخل رقم الهاتف",
+  "CREATENEWACCOUNT": "أنشئ حساب جديد",
+  "GETFREEACCOUNT": " احصل على حسابك الآن",
+  "FNAME": "الاسم الأول",
+  "LNAME": "الاسم الاخير",
+  "PHONE": "الهاتف",
+  "PHONENUMBER": "رقم الهاتف",
+  "PHONENUMBERREQ": "رقم الهاتف مطلوب",
+  "CPASSREQ": "تأكيد كلمة المرور مطلوب",
+  "PHONEINVALID": "رقم الهاتف غير صحيح",
+  "PASSMUSTCONTAIN": "كلمة المرور يجب أن تحوي:",
+  "MIN8": "8 أحرف على الأقل",
+  "LOWER": "حرف صغير (a-z)",
+  "UPPER": "حرف كبير (A-Z)",
+  "ONENUMBER": "رقم (0-9)",
+  "MUSTMATCH": "يجب ان تتطابق كلمة المرور",
+  "AGREEMENT": "بهذا التسجيل انت توافق على Alamiya Markets",
+  "TERMS": "اتفاقية الاستخدام",
+  "HAVEACC": "هل لديك حساب؟",
+  "LIVE": "رسمي",
+  "DEMO": "تجريبي",
+  "ENTERMASTERPASS": "أدخل كلمة المرور الرئيسية",
+  "ENTERCMPASS": "أكد كلمة المرور الرئيسية",
+  "ENTERIPASS": "أدخل كلمة مرور المستثمر",
+  "SETIPASS": "اضف كلمة مرور المستثمر",
+  "NOSUCCESSDEALS": "لا يوجد صفقات ناجحة",
+  "NOLOSTDEALS": "لا يوجد صفقات خاسرة",
+  "ENTERCITY": "أدخل المدينة",
+  "ENTERZIPCODE": "ادخل الرمز البريدي",
+  "ENTERSTADD": "أدخل عنوان الشارع",
+  "PERINFO": "المعلومات الشخصية",
+  "PASSREQUERMENTS": "متطلبات كلمة السر",
+  "ENTERACCNAME": "أدخل اسم الحساب",
+  "NEXT": "التالي",
+  "BACK": "السابق",
+  "SAVE": "حفظ",
+  "RESET": "إعادة",
+  "COMPLETELATER": "إكمال لاحقا",
+  "ENTERPASSTOUNLOCK": "أدحل كلمة المرور لإلغاء القفل!",
+  "UNLOCK": "إلغاء القفل",
+  "NOTYOU": "ليس أنت؟ عد إلى ",
+  "CREATEACCTOSTART": "أنشئ حساب رسمي لبدء التداول",
+  "GRATE": " ممتاز! لقد اقتربت خطوة من بدء التداول عليكإنشاء حساب رسمي لبدء استخدام النظام ",
+  "ADDINFO": "عليك إضافة بعض المعلومات لحمايتك من العمليات الغير قانونية",
+  "UPLOADINFO": "بعد إضافة المستندات الخاصة بك بإمكانك البدء في التداول",
+  "THATSALL": "هذا كل شيء, بإمكانك الاستمتاع بالتداول والربح",
+  "STARTNOW": "ابدأ التداول الآن",
+  "FILLINFO": "الرجاء ملئ المعلومات التالية",
+  "CONSENT": "معلومات التوظيف",
+  "EMPLOYED": "موظف",
+  "SELF-EMPLOYED": "العمل لحسابهم الخاص",
+  "UNEMPLOYED": "عاطل عن العمل",
+  "RETIRED": "متقاعد",
+  "SALARY": "راتب",
+  "INVESTMENT": "استثمار",
+  "SAVINGS": "ادخار",
+  "REAL-ESTATE": "عقارات",
+  "PENSION": "معاش",
+  "OTHER": "أخرى",
+  "INVESTMENT-EXPERIENCE": "خبرة الاستثمار",
+  "FINANCIAL-RISK?": "هل تفهم طبيعة ومخاطر الأسواق المالية والتداول بالهامش؟",
+  "FINANCIAL-EXPERIENCE?": "هل لديك أي خبرة سابقة في الأسواق المالية والتداول بالهامش؟",
+  "SHARES": "أسهم",
+  "OPTIONS": "خيارات",
+  "FUTURES": "العقود الآجلة",
+  "FOREX": "فوركس",
+  "OTHER-INVESTMENTS": "استثمارات أخرى",
+  "EXPERIENCE-YEARS": "كم عدد سنوات خبرة الاستثمار لديك؟",
+  "LESS-THAN-ONE": "أقل من سنة",
+  "ONE-AND-FIVE": "من 1 إلى 5 سنوات",
+  "FIVE-AND-MORE": "أكثر من 5 سنوات",
+  "AGREEMENT-DETAILS": "إعلان",
+  "CLIENT-AGREEMENT": "اتفاقية العميل",
+  "PRIVACY-AGREEMENT": "سياسة الخصوصية",
+  "RISK-AGREEMENT": "إفصاح عن المخاطر",
+  "REGULATIONS-AGREEMENT": "لوائح العمليات غير التجارية",
+  "METATRADER-AGREEMENT": "شروط العمل لحسابات MetaTrader",
+  "I-AGREE": "أؤكد أن المعلومات السابقة صحيحة ودقيقة. في حالة حدوث تغييرات كبيرة في المعلومات العامة المذكورة هنا، أتعهد بإبلاغ أسواق الأمية على الفور على support@alamiyamarkets.com. أعلن أنني قرأت بعناية وفهمت تمامًا النص الكامل لـ",
+  "I-AGREE-POST": "، الذي أقبله وأوافق عليه بشكل كامل.",
+  "I-AGREE-CONFIRM": "أقبل وأوافق بشكل كامل",
+  "FINANCIALRISKREQ": "لا يمكنك الاستمرار بدون قبول المخاطر المالية",
+  "FINANCIALEXPREQ": "لا يمكنك الاستمرار إذا لم يكن لديك أي خبرة",
+  "EXPERIENCETYPEREQ": "لا يمكنك الاستمرار بدون اختيار نوع الخبرة",
+  "EXPERIENCEYEARREQ": "لا يمكنك الاستمرار بدون اختيار سنوات الخبرة",
+  "EMPLOYMENTREQ": "مطلوب حالة العمل",
+  "INCOMESOURCEREQ": "مطلوب مصدر الدخل",
+  "YES": "نعم",
+  "NO": "لا",
+  "VERIFYINFO": "تحقق من المعلومات",
+  "TRADEEXPERIENCE": "خبرة التداول",
+  "NOEXPERIENCE": "لا يوجد خبرة",
+  "LESSTHANYEAR": "أقل من سنة",
+  "ONEYEAR": "سنة واحدة",
+  "TWOYEARS": "سنتين",
+  "THREEYEARS": "3 سنوات",
+  "FOURYEARS": "4 سنوات",
+  "MORETHANFOURYEARS": "أكثر من 4 سنوات",
+  "LEADSRC": "مصدر الزبون",
+  "DOCSWARNING": "احرص على ان تكون المستندات مطابقة للمعومات التي زودتها من قبل",
+  "UPLOADDOCS": "رفع المستندات الشخصية",
+  "FRONT": "وجه",
+  "BACKID": "خلف",
+  "BILLORADD": "فاتورة او قيد سكن",
+  "ID": "هوية شخصية",
+  "Id card": "هوية شخصية",
+  "PERPHOTO": "صورة شخصية",
+  "LICENSE": "شهادة القيادة",
+  "license card": "شهادة القيادة",
+  "PASSPORT": "جواز السفر",
+  "passport": "جواز السفر",
+  "SAVING": "جاري الحفظ",
+  "ENTERLOGIN": "أدخل رقم الحساب",
+  "FILENAME": "اسم الملف",
+  "SIZE": "الحجم",
+  "REPLACE": "استبدال",
+  "INFO": "المعلومات الشخصية",
+  "COLS": "الأعمدة",
+  "CLEARFILTER": "مسح الفلتر",
+  "FILTER": "فلتر",
+  "TXSFILTER": "قلتر التحويلات",
+  "FILTERS": "الفلترة",
+  "SELECTIDTYPE": "اختر نوع وثيقة التعريف",
+  "ALLTXS": "جميع التحويلات",
+  "CREATEUSER": "إنشاء مستخدم",
+  "CUSTOMER": "زبون",
+  "AGENT": "وكيل",
+  "CALLCENTER": "مركز النواصل",
+  "CALL CENTER": "مركز النواصل",
+  "MANAGER": "مدير",
+  "ADMIN": "مسؤول",
+  "ALLUSERS": "جميع المستخدمون",
+  "SERCHFORUSER": "البحث عن مستخدم",
+  "VERIFIED": "موثوق",
+  "ROLES": "الأدوار",
+  "COUNTRY": "البلد",
+  "EDITUSER": "تعديل المستخدم",
+  "SHOWACC": "عرض الحسابات",
+  "ADDROLE": "إضافة دور",
+  "SETASVER": "تعيين كموثوق",
+  "REMOVEROLE": "إزالة دور",
+  "CHANGETYPE": "تغيير النوع",
+  "CHANGEAGENT": "تغيير الوكيل",
+  "USERVERIFICATION": "توثيق المستخدم",
+  "NOTVER": "غير موثق",
+  "EMAILPHONEVER": "توثيق الهاتف و البريد",
+  "ACCREQUSERINFO": "معلومات المستخدم الخاصة بطلب الحساب",
+  "idFront": "وجه الهوية الشخصية",
+  "IDFRONT": "وجه الهوية الشخصية",
+  "idBack": "خلف الهوية الشخصية",
+  "IDBACK": "خلف الهوية الشخصية",
+  "licenseFront": "وجه شهادة القيادة",
+  "LICENSEFRONT": "وجه شهادة القيادة",
+  "licenseBack": "خلف شهادة القيادة",
+  "LICENSEBACK": "خلف شهادة القيادة",
+  "passportFront": "وجه جواز السفر",
+  "PASSPORTFRONT": "وجه جواز السفر",
+  "passportBack": "خلف جواز السفر",
+  "PASSPORTBACK": "خلف جواز السفر",
+  "personalPhoto": "صورة شخصية",
+  "PERSONALPHOTO": "صورة شخصية",
+  "RECEIPT": "الايصال",
+  "ICON": "الأيقونة",
+  "ACCOUNTNAME": "اسم الحساب",
+  "ACCOUNTTYPE": "نوع الحساب",
+  "ACCOUNTLOGIN": "رقم الحساب",
+  "PLATFORM": "النظام",
+  "NOTE": "ملاحظات",
+  "SFR": "ابحث عن طلب...",
+  "EXPIRATIONDATE": "تاريخ الانتهاء",
+  "SFD": "ابحث عن مستند...",
+  "addressDoc": "وثيقة عنوان",
+  "ADDRESSDOC": "وثيقة عنوان",
+  "UPLOADFILE": "رفع ملف",
+  "NAME": "الاسم",
+  "IMPORT": "استيراد",
+  "EXPORT": "تصدير",
+  "USERSFILTER": "فلتر المستخدمون",
+  "ACCFILTER": "فلتر الحسابات",
+  "CREATEDAT": "تاريخ الانشاء",
+  "ZIPCODE": "الرمز البريدي",
+  "STREETADDRESS": "عنوان الشارع",
+  "CITY": "المدينة",
+  "SFC": "ابحث عن زبون...",
+  "SFA": "ابحث عن حساب...",
+  "SELECTCUS": "حدد زبون للعرض!",
+  "SELECTACC": "حدد زبون لإظهار حساباته",
+  "ACTIONS": "الإجراءات",
+  "ALFU": "قائمة الحسابات للمستخدم",
+  "COAFU": "توصيل حساب للمستخدم",
+  "CRAFU": "إنشاء حساب للمستخدم",
+  "SETMASTERACCOUNT": "تحديد كحساب رئيسي",
+  "UNSETMASTERACCOUNT": "إلغاء كحساب رئيسي",
+  "MASTERACC": "حساب رئيسي",
+  "MSG": "رسالة",
+  "ENTERMSG": "ادخل الرسالة",
+  "SEND": "ارسل",
+  "SENDEMAIL": "ارسل بريد",
+  "SENDSMS": "ارسل رسالة",
+  "SUBJECT": "الموضوع",
+  "ENTERSUBJECT": "أدخل الموضوع",
+  "ADDRESS": "العنوان",
+  "TRADINGEXP": "خبرة التداول",
+  "CUSINTERESTSCALE": "مدى اهتمام الزبون",
+  "HASACCUS": "هل لديه حساب لدينا؟",
+  "NATUNALITY": "الجنسية",
+  "ANOTHERCOMACC": "حساب في شركة اخرى",
+  "BLACKLIST": "اللائحة السوداء",
+  "NOTES": "ملاحظات",
+  "REASON": "السبب",
+  "ANOTHERCOMDET": "معلومات الحساب في الشركة الأخرى",
+  "CREDITCARD": "البطاقة الإئتمانية",
+  "CARDHOLDER": "حامل البطاقة",
+  "FULLNAME": "الاسم الكامل",
+  "EXPIRES": "الانتهاء",
+  "CARDNUMBER": "رقم البطاقة",
+  "EXPIRYMONTH": "شهر الانتهاء",
+  "EXPIRYYEAR": "سنة الانتهاء",
+  "PAYNOW": "ادفع الآن",
+  "ENTERHOLDERNAME": "ادخل اسم حامل البطاقة",
+  "CHOOSEPREFPLAT": "اختر النظام المفضل للتحميل",
+  "NORECIPT": "لم يتم رفع إيصال",
+  "SFT": "بحث عن تحويل...",
+  "TRANSACTIONS": "التحويلات",
+  "NOREQ": "رقم الإشعار مطلوب!",
+  "SNO": "رقم الإشعار",
+  "PASSCODE": "الرقم السري",
+  "PASSCODEREQ": "الرقم السري مطلوب!",
+  "ADDTICKET": "إضافة تذكرة",
+  "CHANNEL": "القناة",
+  "TOPIC": "الموضوع",
+  "GENERAL": "عام",
+  "IDVERIFICATION": "توثيق الهوية",
+  "DESCRIPTION": "الوصف",
+  "SUCCESS": "نجاح",
+  "AREYOUSURE": "هل أنت متأكد؟",
+  "CONFIRMWARNING": "لن تستطيع التراجع عن ذلك!",
+  "DONE": "تم!",
+  "SOMTHINGWENTWRONG": "حدث خطأ ما!",
+  "DISSMES": "إغلاق",
+  "You want to logout": "أنت على وشك تسجيل الخروج",
+  "Check registration requirments!": "تأكد من متطلبات التسجيل",
+  "Please enter first name": "يرجى ادخال الاسم الأول",
+  "Please enter last name": "يرجى ادخال الاسم الأخير",
+  "Please enter email": "يرجى ادخال البريد الالكتروني",
+  "Please enter phone number": "يرجى ادخال رقم الهاتف",
+  "Please enter email OTP": "يرجى ادخال رمز التحقق المرسل الى البريد",
+  "Please enter phone OTP": "يرجى ادخال رمز التحقق المرسل الى الهاتف",
+  "Something went wrong, please try again later": "Something went wrong, please try again later",
+  "Role already exist!": "الدور موجود مسبقا",
+  "you need to select role!": "عليك تحديد دور",
+  "you need to select type!": "عليك ان تحدد نوع",
+  "please complete form requirnments!": "يرجى اكمال الحقول المطلوبة",
+  "No accounts to connect": "لا يوجد حسابات للربط",
+  "Please fill all fields": "يرجى تعبئة جميع الحقول",
+  "Invalid 2FA token": "الرمز المميز للمصادقة الثنائية غير صالح",
+  "invalid format": "النمط غير صالح",
+  "Check for password requirements": "يرجى التحقق من متطلبات كلمة المرور",
+  "complete previues step!": "أكمل الخطوة السابقة",
+  "you need to complete your profile first!": "تحتاج لإكمال الملف الشخصي أولا!",
+  "you need to verify your account first!": "تحتاج لتأكيد حسابك أولا!",
+  "Failed to add campagin info. Please try again.": "فشل إضافة الحملة, يرحى المحاولة لاحقا!",
+  "An error occurred while adding the campagin info. Please try again later.": "لقد حدث خطأ أقناء إضافة معلومات الحملة يرجى المحاولة لاحقا",
+  "Failed to update campagin info. Please try again.": "فشل تحديق الحملة يرجى المحاولة لاحقا!",
+  "An error occurred while updating the campagin info. Please try again later.": "لقد حدق خطأ أثناء تحديق الحملة يرجى المحاولة لاحقا!",
+  "Failed to deposit the amount. Please try again.": "فشل إيداع المبلغ يرجى المحاولة لاحفا",
+  "An error occurred while depositing. Please try again later.": "لقد حدق خطأ أثناء إيجاع المبلغ يرجى المحاولة لاحقا",
+  "Failed to withdraw the amount. Please try again.": "فشل سحب المبلغ يرجى المحاولة لاحقا",
+  "An error occurred while withdrawing. Please try again later.": "لقد حدق خطأ أقناء عملية السحب يرجى المحاولة لاحقا!",
+  "No history found for this account in the selected date range.": "لم يتم ايجاد بيانات لهذا الحساب ضمن النطاق المحدد",
+  "Failed to fetch account history. Please try again.": "فشل جلب معلومات الحساب يرجى المحاولة لاحقا",
+  "An error occurred while fetching account history. Please try again later.": "لقد حدث حطأ أثناء جلب بيانات الحساب يرجى المحاولة لاحقا!",
+  "Failed to update user rights. Please try again.": "فشل تحديث الحقوق يرجى المحاولة لاحقا!",
+  "An error occurred while updating user rights. Please try again later.": "لقد حدث خطأ أقناء تحديق الحقوق يرجى المحاولة لاحقا!",
+  "Failed to add account info. Please try again.": "فشل اضافة بيانات الحساب يرجى المحاولة لاحقا!",
+  "An error occurred while adding the account info. Please try again later.": "لقد حدث خطأ أثناء إضافة الحساب يرجى المحاولة لاحقا!",
+  "Failed to update account info. Please try again.": "فشل تحديث بيانات الحساب برجى المحاولة لاحقا!",
+  "An error occurred while updating the account info. Please try again later.": "لقد حدق خطأ أثناء تحديق بيانات الحساب يرجى المحاولة لاحقا!",
+  "Passwords do not match!": "كلمات السر غير متطابقة",
+  "An error occurred while changing the password.": "لقج حدث خطأ أقناء تغيير كلمة المرور",
+  "An error occurred while checking the password.": "لقد حدث خطأ أثناء تفحص كلمة المرور",
+  "Error while checking account, please try again.": "لقد حدث خطأ أقناء تفحص الحساب يرجى المحاولة مرة أخرى",
+  "Error while connecting account, please try again.": "لقد حدث خطأ أثناء الاتصال يرجى المحاولة مرة أخرى",
+  "licenseidFront": "وجه شهادة القيادة",
+  "ididBack": "خلف الهوية",
+  "ididFront": "وجه الهوية",
+  "licenseidBack": " خلف شهادة القيادة",
+  "passportidFront": "وجه جواز السفر",
+  "passportidBack": "خلق جواز السفر",
+  "CONSENT-STATE": "الحالة الوظيفية",
+  "INCOME-SOURCES": "مصدر الدخل",
+  "FINANCIAL-RISK-STATE": "تفهم مخاطر الأسواق المالية و التداول",
+  "FINANCIAL-EXPERIENCE-STATE": "خبرة سابقة في الاسواق المالية و التداول",
+  "INVESTMENT-EXPERIENCE-STATE": "خبرة الاستثمار",
+  "OTHER-INVESTMENTS-STATE": "خبرات الاستثمار الاخرى",
+  "EXPERIENCE-YEARS-STATE": "سنوات الخبرة",
+  "OTHER-INCOME-SOURCES": "مصدر دخل آخر",
+  "100% genuine iPhone app": "%100 تطبيق iPhone أصلي",
+  "100% genuine iPad app": "%100 تطبيق iPad أصلي",
+  "Fully functional MT5 account": "حساب MT5 كامل الوظائف",
+  "Supports all types of trading orders": "يدعم جميع أنواع أوامر التداول",
+  "Built-in market analysis tools": "أدوات مدمجة لتحليل السوق",
+  "100% native Android application": "100٪ تطبيق أندرويد أصلي",
+  "Full performance of MT5 account functions": "أداء كامل لوظائف حساب MT5",
+  "3 types of charts": "3 أنواع من الرسوم البيانية",
+  "30 technical indicators": "30 مؤشر تقني",
+  "A complete historical record of trading activity": "سجل تاريخي كامل لنشاط التداول",
+  "One login to 5 platforms": "تسجيل دخول واحد إلى 5 منصات",
+  "Spreads as low as 0.9 pips": "سبريد منخفض يصل إلى 0.9 نقطة",
+  "Full performance trading software": "أداء كامل لبرامج التداول",
+  "Supports all types of commands": "يدعم جميع أنواع الأوامر",
+  "80 formats for technical analysis": "80 شكل للتحليل التقني",
+  "Hedging is allowed": "يسمح بالهدجينغ",
+  "Trade with one click": "تداول بنقرة واحدة",
+  "Technical analysis tools with 50 indicators and charting tools": "أدوات تحليل تقني مع 50 من المؤشرات وأدوات الرسوم البيانية",
+  "Micro lot accounts (optional)": "حسابات عقود ميكرو (اختياري)",
+  "MANAGEUSER": "إدارة المستخدم",
+  "MISSINGSTEPS": "النواقص",
+  "APPLYING": "جاري التطبيق",
+  "APPLY": "تطبيق",
+  "NTWORKREQ": "الشبكة مطلوبة",
+  "MANAGELEAD": "ادارة الزبون المحتمل",
+  "You didn't upload all required documents": "لم تقم بتحميل جميع الملفات",
+  "You need live account to start earning": "تحتاج لحساب رسمي لتحقيق الأرباح",
+  "Wallets & Accounts": "المحفظات والحسابات",
+  "Wallet": "المحفظة",
+  "ACCOUNTS": "الحسابات",
+  "Accounts requets": "طلبات الحسابات",
+  "TRANSFERBTWEENACCOUNTSANDWALLETS": "التحويل بين الحسابات",
+  "Tickets": "بطاقات الدعم",
+  "user information has been updated!": "تم تحديث معلومات المستخدم!",
+  "DASHBOARD": "اللوحة الرئيسية",
+  "ACCREQS": "طلبات الحسابات",
+  "TXHISTORY": "التحويلات السابقة",
+  "APPDOWNLOAD": "تحميل التطبيقات",
+  "PLATFORMS": "الأنظمة",
+  "AGENTNAME": "اسم العميل",
+  "CHANNELID": "معرف القناة",
+  "Search for...": "بحث عن...",
+  "Successful login": "دخول ناجح",
+  "Failed login": "فشل الدخول",
+  "TRANSACTION": "تحويل",
+  "Get deals": "جلب الصفقات",
+  "Time": "الوقت",
+  "Type": "النوع",
+  "Deal ID": "معرف الصفقة",
+  "Login": "الرقم",
+  "Platform": "النظام",
+  "Symbol": "الرمز",
+  "Volume": "الحجم",
+  "Profit": "العوائد",
+  "Status": "الحالة",
+  "Comment": "تعليقات",
+  "Privacy Policy": "الأمان و الخصوصية",
+  "TFA": "المصادقة الثنائية",
+  "TFATEXT": "المصادقة الثنائية هي وسيلة أمنية محسنة. بمجرد التمكين، سيُطلب منك تقديم نوعين من التعريف عند تسجيل الدخول إلى Google Authentication ويتم دعم الرسائل النصية القصيرة (SMS).",
+  "ETFA": "تمكين المصادقة الثنائية",
+  "SVM": "التحقق الثانوي",
+  "SVMTEXT": "العامل الأول هو كلمة المرور والثاني يتضمن عادةً نصًا يحتوي على رمز يتم إرساله إلى هاتفك الذكي أو القياسات الحيوية باستخدام بصمة إصبعك أو وجهك أو شبكية العين.",
+  "SETSVM": "تجهيز التحقق الثانوي",
+  "BACKUPCODES": "رموز الاستعادة",
+  "BACKUPCODESTEXT": "يتم إنشاء رمز احتياطي تلقائيًا لك عند تشغيل المصادقة الثنائية من خلال تطبيق Twitter على iOS أو Android. يمكنك أيضًا إنشاء رمز احتياطي على twitter.com.",
+  "GCODES": "توليد رموز استعادة",
+  "APPNOTI": "إشعارات التطبيق:",
+  "DM": "رسالة مباشرة",
+  "DMTEXT": "رسائل من الأشخاص الذين تتابعهم",
+  "SHOWDESKTOPNOTI": "إظهار إشعارات سطح المكتب",
+  "SHOWDESKTOPNOTITEXT": "اختر الخيار الذي تريده كإعداد افتراضي. حظر موقع: بجوار \"غير مسموح له بإرسال إشعارات\"، انقر فوق \"إضافة\".",
+  "SHOWEMAILNOTI": "إظهار إشعارات البريد الإلكتروني",
+  "SHOWEMAILNOTITEXT": "ضمن الإعدادات، اختر الإشعارات. ضمن تحديد حساب، اختر الحساب لتمكين الإشعارات له.",
+  "SHOWCHATNOTI": "إظهار إشعارات الدردشة",
+  "SHOWCHATNOTITEXT": "لمنع إشعارات الهاتف المحمول المكررة من تطبيقي Gmail والدردشة، في الإعدادات، قم بإيقاف تشغيل إشعارات الدردشة.",
+  "DELETEACCOUNT": "حذف هذا الحساب:",
+  "DELETEACCOUNTTEXT": "انتقل إلى قسم البيانات والخصوصية في حساب ملفك الشخصي. قم بالتمرير إلى \"بياناتك وخيارات الخصوصية\" وحذف حساب ملفك الشخصي. اتبع التعليمات لحذف حسابك:",
+  "CANDDACC": "إغلاق وحذف هذا الحساب",
+  "Verified": "موثق",
+  "Unverified": "غير موثق",
+  "NODEALS": "لا يوجد صفقات لعرضها",
+  "Admin": "مسؤول",
+  "Customer": "زبون",
+  "Manager": "مدير",
+  "Call center": "مركز اتصال",
+  "Agent": "عميل",
+  "INVALIDFN": "يجب أن يكون الاسم الأول من A الى Z او a الى z",
+  "Please try again later": "الرجاء المحاولة لاحقا",
+  
+  "SELECTCOUNTRY":"اختر الدولة",
+  "SELECTCITY":"اختر المدينة",
+  "Please upload ID photo":"يرجى تحميل صورة الهوية",
+  "Please enter your country and city":"يرحى ادخال بلدك و مدينتك",
+  "Please enter your city":"يرحى ادخال مدينتك",
+  "You need to add reason":"يجب أن تكتب سبب الرفض",
+  "Email is already in use":"لا يمكنك التسجيل باستخدام هذا البريد الالكتروني",
+  "Phone number is already in use":"لا يمكنك التسجيل باستخدام رقم الهاتف هذا",
+  "We sent a reset code to the email you entered":"لقد ارسلنا رمز اعادة تعيين كلمة المرور للبريد الذي ادخلته",
+  "Forgot Password?":"هل نسيت كلمة المرور؟",
+  "Reset password with Alamiya CRM":"اعد ضبط كلمة المرور الآن",
+  "Enter your email and OTP will be sent to you!":"أدخل بريدك الالكتروني لكي نرسل لك رمز التحقق",
+  "Email":"البريد الالكتروني",
+  "Wait, I remember my password...":"لحظة, لقد تذكرت كلمة المرور...",
+  "Email is required":"البريد الالكتروني مطلوب",
+  "Email is not valid":"البريد الالكتروني غير صحيح",
+  "Send...":"ارسل...",
+  "Click here":"اضغط هنا",
+  "Enter Email":"ادخل البريد هنا",
+  "Enter your OTP that you received to":"ادخل رمز التحقق المرسل الى",
+  "OTP is required":"ركز التحقق مطلوب",
+  "Verify":"تأكيد",
+  "Enter OTP":"أدخل رمز التحقق",
+  "OTP":"رمز التحقق",
+  "SIGNINWITHDEFACC":"تسجيل الدخول بحساب مختلف",
+  "OR":"أو",
+  "BIRTHDATE":"تاريخ الميلاد",
+  "Hey! You have no any notifications":"مرحبا! ليس لديك اشعارات جديدة",
+  "Notifications":"الاشعارات",
+  "Unread":"غير مقروءة",
+  "Favorite account":"الحساب المفضل",
+  "Manage":"إدارة",
+  "Save changes":"حفظ التغييرات",
+  "Saving":"جاري الحفظ",
+  "Please select account":"يرجى اختيار حساب",
+  "Favorite account updated!":"تم تغيير الحساب المفضل!",
+  "Deposit":"ايداع",
+  "To":"الى",
+  "Account":"الحساب",
+  "How much would you like to deposit? Please Enter amount in USD":"كم المبلغ الذي تريد إيداعه؟ يرجى ادخال الكمية بالـ USD",
+  "Calculating minimum deposit amount":"جاري حساب الحد الأدنى للإيداع",
+  "Note: Exchange and transfer fees will be added to this approximate value":"ملاحظة: سيتم إضافة رسوم الصرف والتحويل إلى هذه القيمة التقريبية",
+  "Minimum deposit amount:":"الحد الأدنى لكمية الإيداع",
+  "To deposit":"من اجل إيداع",
+  "USD to your account":"USD لحسابك",
+  "Please send":"يرجى ارسال",
+  "to the above address":"إلى العنوان المذكور أعلاه",
+  "Expiration time":"وقت انتهاء الصلاحية",
+  "Click here when you send the deposit":"إضغط هنا عندما تتم عملية الإيداع",
+  "An error occurred while getting payment info.":"حدث خطأ اثناء جلب معلومات الدفعة.",
+  "Payment not processed yet, Please try again later. Note that some crypto payments may take more time to be processed.":"لم تتم عملية الدفع, يرجى المحاولة مرى أخرى لاحقا. يرجى الملاحظة أن بعض عمليات الدفع الرقمية قد تحتاج بعض الوقت ليتم معالجتها.",
+ "Expired, Please try again":"انتهت الصلاحية, يرجى المحاولة مرة أخرى",
+ "You completed your information":"لقد أكملت معلوماتك الشخصية",
+ "You didn't complete your information":"لم تقم بإكمال معلوماتك الشخصية",
+ "Complete now":"أكمل الآن",  
+ "Your documents is verified":"تم الموافقة على مستنداتك",
+ "Your docs is under review":"مستنداتك قيد التدقيق",
+ "You didn't upload your docs":"لم تقم برفع مستندات",
+ "Upload now":"رفع الآن",
+ "You have live account":"لديك حساب رسمي",
+ "Your request to live account is under review":"طلبك لفتح حساب رسمي قيد التدقيق",
+ "You don't have live account":"ليس لديك حساب رسمي",
+ "Request now":"اطلب الآن",
+ "You have deposit your fund":"لقد قمت بإيداع الأموال",
+ "Your deposit request is under review":"عملية الإيجاع قيج التدقيق",
+ "You didn't deposit your fund yet!":"لم تقم بعملية إيداع",
+ "Deposit now":"إيداع الآن",
+ "LOGGININ":"جاري تسجيل الدخول",
+ "We are working hard to bring you this section":"نحن نعمل جاهدين لتجهيز هذا القسم لكم",
+ "All rights reserved for ©Alamiya Markets.":"جميع الحقوق محفوظة لـ©Alamiya Markets.",
+ "Verify Your Email":"تأكيد البريد الالكتروني",
+ "Please enter the 6 digit code sent to":"يرجى إدخال الرمز المكون من 6 أحرف الذي تم ارساله إلى",
+ "remember this device for the next 60 days":"تذكر هذا الجهاز لـ60 يوم",
+ "Didn't receive a code?":"لم يصلك الرمز؟",
+ "Resend":"إعادة إرسال",
+ "Confirm":"تأكيد",
+ "All rights reserved for Alamiya markets":"جميع الحقوق محفوظة لـAlamiya markets",
+ "Verify Your phone":"تأكيد الهاتف",
+ "Request Entity Too Large ":"حجم الملفات كبير جداً",
+ "Request Entity Too Large":"حجم الملفات كبير جداً",
+ "SELECTGROUP":"حدد مجموعة",
+ "EDIT":"تعديل",
+ "TITLE":"العنوان",
+ "ENABLEDSTATE":"التفعيل",
+ "ENABLED":"فعال",
+ "DISABLED":"غير فعال",
+ "RULES":"الشروط",
+ "DETAIL":"تفصيل",
+ "ENTERDETAIL":"أدخل تفصيل",
+ "ADDDETAIL":"إضافة التفصيل",
+ "LEVERAGES":"الرافعات",
+ "ENTERLEVERAGE":"أدخل رافعة",
+ "ADDLEVERAGE":"أضف الرافعة",
+ "MINDEPOSITAMOUNT":"الحد الأدنى للإيداع",
+ "ENTERMINDEPOSITAMMOUNT":"أدخل الحد الأدنى للإيداع",
+ "SEARCHFROGROUP":"بحث عن مجموعة",
+ "NOLEVERAGESADDED":"لم يتم إضافة أي رافعة",
+ "NODETAILSADDED":"لم يتم إضافة أي تفصيل",
+ "QUICKSELECT":"تحديد سريع",
+ "SELECTNETWORK":"حدد شبكة",
+ "Please send your ":"يرجى ارسال ",
+ "deposit to the above address":"إلى العنوان المبين أعلاه",
+ "Note: Exchange and transfer fees will be applied":"ملاحظة: ستم تطبيق أجور النقل او التحويل",
+ "TXREQSHISTORY":"طلبات التحويل السابقة",
+ "ALLTXREQSHIS":"طلبات التحويل السابقة",
+ "Get history":"جلب التحويلات",
+ "crypto":"عملة رقمية",
+ "localTransfer":"إيداع محلي",
+ "wallet":"محفظة",
+ "moneyTransfer":"حوالة مالية",
+ "bank":"حوالة بنكية",
+ "visaCard":"بطاقة VISA",
+ "skrill":"",
+ "netteller":"",
+ "wize":"",
+ "Proccesing time":"وقت المعالجة",
+ "Fees":"الرسوم",
+ "Limits":"الحدود",
+ "Select your prefered deposit method":"حدد طريقة الإيداع",
+ "Deposit methods":"طرق الإيداع",
+ "Select Account":"حدد حساب",
+ "Terms":"الشروط",
+ "Back":"الخلف",
+ "Select amount":"حدد كمية",
+ "By procceding to next step deposit request will be sent to your agent and he will contact you to complete your Deposit procces":"بالتقدم إلى الخطوة التالية سبتم إرسال طلب للعميل الخاص بك و سيقوم بالإتصال بك لإكمال عملية الإيداع",
+ "Notification number and pass code will be provided to you from transfer center":"رقم الإشعار والرقم السري يتم توفيرهم من قبل مركز الحوالات ",
+ "Notification info":"معلومات الإشعار",
+ "NOT AVAILABLE IN YOUR COUNTRY NOW!":"هذه الطريقة غير متوفرة في بلدكم الآن!",
+"Prepairing deposit methods please wait":"يرجى الانتظار ريثما يتم تجهيز طرق الدفع",
+ "NTIFICATIONNO": "رقم الإشعار",
+ "Proccesing your deposit please wait!":"جاري معالجة عملية الإيداع!",
+ "TRANSFERMETHOD": "طريقة الدفع",
+ "ENTERTRANSFERMETHOD": "أدخل طريقة الدفع",
+ "ENTERFEE": "أدخل الرسوم",
+ "ENTERLIMITS": "أدخل الحدود",
+ "ENTERPTIME": "أدخل وقت المعالجة",
+ "ENTERWARNING": "أدخل تنبيه",
+ "ADDWARNING": "أضف التنبيه",
+ "NOWARNINGSADDED": "لا يوجد تنبيهات مضافة!",
+ "Warnings": "التنبيهات",
+ "Set as enabled": "فعل طريقة الدفع",
+ "Set as disabled": "اوقف طريقة الدفع",
+ "Disabled":"غير فعال",
+ "ُEnabled":"فعال",
+ "Transfer method updated!":"تم تحديث طريقة الدفع بنجاح"
+
+
+  
+
+  
+}

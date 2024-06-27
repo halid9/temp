@@ -11,7 +11,7 @@ import { ToastsContainer } from './login/toasts-container.component';
 import { defineElement } from '@lordicon/element';
 import lottie from 'lottie-web';
 
-import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '../shared/shared.module';
 import { AccountRoutingModule } from './account-routing.module';
 import { SigninModule } from "./auth/signin/signin.module";
 import { LoginComponent } from './login/login.component';
@@ -28,10 +28,11 @@ import { RegisterComponent } from './register/register.component';
         ReactiveFormsModule,
         FormsModule,
         AccountRoutingModule,
-        TranslateModule.forChild(),
         SigninModule,
+        SharedModule,
         NgbToastModule
     ],
+
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AccountModule {

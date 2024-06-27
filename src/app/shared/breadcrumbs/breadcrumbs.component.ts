@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { BreadcrumbItem } from '../interfaces';
 
 @Component({
-  selector: 'app-breadcrumbs',
-  templateUrl: './breadcrumbs.component.html',
-  styleUrls: ['./breadcrumbs.component.scss']
+    selector: 'app-breadcrumbs',
+    templateUrl: './breadcrumbs.component.html',
+    styleUrls: ['./breadcrumbs.component.scss']
 })
 
 /**
@@ -11,16 +12,13 @@ import { Component, OnInit, Input } from '@angular/core';
  */
 export class BreadcrumbsComponent implements OnInit {
 
-  @Input() title: string | undefined;
-  @Input()
-  breadcrumbItems!: Array<{
-    active?: boolean;
-    label?: string;
-  }>;
+    @Input() title: string = '';
+    @Input()
+    breadcrumbItems!: BreadcrumbItem[];
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }

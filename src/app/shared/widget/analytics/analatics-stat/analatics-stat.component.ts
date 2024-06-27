@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-analatics-stat',
-  templateUrl: './analatics-stat.component.html',
-  styleUrls: ['./analatics-stat.component.scss']
+    selector: 'app-analatics-stat',
+    templateUrl: './analatics-stat.component.html',
+    styleUrls: ['./analatics-stat.component.scss']
 })
 
 /**
@@ -11,24 +11,24 @@ import { Component, OnInit, Input } from '@angular/core';
  */
 export class AnalaticsStatComponent implements OnInit {
 
-  @Input() title: string | undefined;
-  @Input() value: any | undefined;
-  @Input() icon: string | undefined;
-  @Input() persantage: string | undefined;
-  @Input() profit: string | undefined;
-  @Input() icon_bg_color: string | undefined;
+    @Input() title: string = '';
+    @Input() value: number = 0;
+    @Input() icon: string | undefined;
+    @Input() persantage: string | undefined;
+    @Input() profit: string | undefined;
+    @Input() icon_bg_color: string | undefined;
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
-  num: number = 0;
-  option = {
-    startVal: this.num,
-    useEasing: true,
-    duration: 2,
-    decimalPlaces: 2,
-  };
+    num: number = 0;
+    option = {
+        startVal: this.num,
+        useEasing: true,
+        duration: 2,
+        decimalPlaces: 2,
+    };
 
 }

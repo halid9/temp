@@ -1,0 +1,51 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs [title]="localeKeys.CLIENT_ACCOUNTS" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+<div class="row">
+    <div class="col-md-4" *ngFor="let item of analyticsData">
+        <app-analatics-stat [title]="item.name" [value]="item.value" [icon]="item.icon"
+            [icon_bg_color]="item.icon_bg_color"></app-analatics-stat>
+
+    </div>
+</div>
+<div class="row mt-4">
+    @for(data of accounts;track $index){
+    <div class="col-md-4">
+        <div class="card ribbon-box right overflow-hidden">
+            <div class="card-body text-center p-4">
+                @if(data.accountType == 0){
+                <div class="ribbon ribbon-info ribbon-shape trending-ribbon"><i
+                        class="ri-flashlight-fill text-white align-bottom"></i> <span
+                        class="trending-ribbon-text">Trending</span></div>
+                }
+                <img src="https://quickchart.io/qr?text=test" alt="" height="100">
+                <h5 class="mb-1 mt-4"><a routerLink="/ecommerce/seller-details"
+                        class="link-primary">{{data.accountName}}</a>
+                </h5>
+                <p class="text-muted mb-4">{{data.accountName}}</p>
+                <!-- <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <apx-chart [series]="data.chart.series" [chart]="data.chart.chart"
+                            [dataLabels]="data.chart.dataLabels" [stroke]="data.chart.stroke" [fill]="data.chart.fill"
+                            [colors]="data.chart.colors" dir="ltr"></apx-chart>
+                    </div>
+                </div> -->
+                <div class="row mt-4">
+                    <div class="col-lg-6 border-end-dashed border-end">
+                        <h5>{{data.equity}}</h5>
+                        <span class="text-muted">Item Stock</span>
+                    </div>
+                    <div class="col-lg-6">
+                        <h5>{{data.balance}}</h5>
+                        <span class="text-muted">Wallet Balance</span>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <a routerLink="/ecommerce/seller-details" class="btn btn-light w-100">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+    <!--end col-->
+</div>

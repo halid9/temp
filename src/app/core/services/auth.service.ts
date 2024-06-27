@@ -6,7 +6,6 @@ import { catchError, map } from 'rxjs/operators';
 import { ConfigData } from 'src/app/shared/config-data';
 import { User } from 'src/app/store/Authentication/auth.models';
 import { loginFailure, logout } from 'src/app/store/Authentication/authentication.actions';
-import Swal from 'sweetalert2';
 import { getFirebaseBackend } from '../../authUtils';
 // import { GlobalComponent } from "../../global-component";
 
@@ -87,20 +86,8 @@ export class AuthenticationService {
                 return user;
             }),
             catchError((error: any) => {
-                if (typeof error === 'object') {
-                    error = error[0];
-                }
-                Swal.mixin({
-                    icon: 'error',
-                    toast: true,
-                    // position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    text: error,
-                }).fire();
-                return throwError(error);
                 // return throwError(errorMessage);
+                return throwError(error);
             })
         );
     }

@@ -287,7 +287,18 @@
     top: 0; 
     bottom: 0;
 }
-
+#elmLoaderOverlay{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center; 
+    position: absolute; 
+    left: 0; 
+    top: 0; 
+    bottom: 0;
+    background-color: rgba(var(--#{$prefix}body-color-rgb), .5);
+    z-index: 999;
+}
 .email-compose-input {
     padding-right: 80px;
 }

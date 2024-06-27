@@ -5,8 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 // Login Auth
 import { ConfigData } from 'src/app/shared/config-data';
 import { LocaleKeys } from 'src/app/shared/locale_keys';
+import Swal from 'sweetalert2';
 import { AuthenticationService } from '../../core/services/auth.service';
-import { ToastService } from './toast-service';
 
 @Component({
     selector: 'app-login',
@@ -28,13 +28,13 @@ export class LoginComponent implements OnInit {
     returnUrl!: string;
     // set the current year
     year: number = new Date().getFullYear();
+    isLoading = true;
 
     constructor(
         private formBuilder: UntypedFormBuilder,
         private authenticationService: AuthenticationService,
         private router: Router,
         private route: ActivatedRoute,
-        public toastService: ToastService
     ) {
         // redirect to home if already logged in
         if (this.authenticationService.currentUserValue) {
@@ -67,6 +67,7 @@ export class LoginComponent implements OnInit {
         }
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.isLoading = false;
     }
 
     // convenience getter for easy access to form fields
@@ -81,8 +82,9 @@ export class LoginComponent implements OnInit {
     get config() {
         return ConfigData.config;
     }
-    onSubmit() {
+    async onSubmit() {
         this.submitted = true;
+        this.isLoading = true;
         // Login Api
         const currentUUID = localStorage.getItem('uuid')
         if (!currentUUID) {
@@ -94,17 +96,30 @@ export class LoginComponent implements OnInit {
         } else {
             this.uuid = currentUUID
         }
-        this.authenticationService.login(this.f['email'].value.toLocaleLowerCase(), this.f['password'].value, this.f['rememberMe'].value, this.uuid, this.f['totp'].value).subscribe(
-            (data: any) => {
-                if (data.status == 'success') {
-                    localStorage.setItem('toast', 'true');
-                    localStorage.setItem('currentUser', JSON.stringify(data.data));
-                    localStorage.setItem('token', data.token);
-                    this.router.navigate(['/']);
-                } else {
-                    this.toastService.show(data.data, { classname: 'bg-danger text-white', delay: 15000 });
-                }
-            });
+        try {
+            const data = await this.authenticationService.login(this.f['email'].value.toLocaleLowerCase(), this.f['password'].value, this.f['rememberMe'].value, this.uuid, this.f['totp'].value).toPromise();
+
+            if (data.success) {
+                const user = data.payload;
+                localStorage.setItem('token', user.access_token);
+                delete user.access_token;
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                this.router.navigate(['/']);
+            }
+        } catch (error) {
+            Swal.mixin({
+                icon: 'error',
+                toast: true,
+                // position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                text: error?.toString() ?? 'Login failed',
+            }).fire();
+        } finally {
+            this.isLoading = false;
+        }
+
     }
 
     /**

@@ -41,11 +41,12 @@ export class AccountComponent {
 
         this.store.select(selectAccountData).subscribe((data) => {
             // console.log(data);
+            const balance = data.filter((item) => item.platform === AccountPlatform.Wallet && item.currency.toLocaleLowerCase() == "usd").map((item) => item.balance).reduce((a, b) => a + b, 0);
             this.analyticsData = [
-                { name: LocaleKeys.CLIENT_ACCOUNTS_ACTIVE, icon: 'check-circle', value: data.filter((item) => item.status === AccountStatus.Active).length, icon_bg_color: 'success' },
-                { name: LocaleKeys.CLIENT_ACCOUNTS_INACTIVE, icon: 'x-circle', value: data.filter((item) => item.status === AccountStatus.Inactive).length, icon_bg_color: 'danger' },
-                { name: LocaleKeys.CLIENT_ACCOUNTS_PENDING, icon: 'clock', value: data.filter((item) => item.status === AccountStatus.Pending).length, icon_bg_color: 'warning' },
-                { name: LocaleKeys.GLOBAL_BALANCE, icon: 'dollar-sign', value: data.filter((item) => item.platform === AccountPlatform.Wallet && item.currency.toLocaleLowerCase() == "usd")[0].balance, icon_bg_color: 'primary' }
+                { name: LocaleKeys.CLIENT_ACCOUNTS_ACTIVE, icon: 'check-circle', value: data.filter((item) => item.status === AccountStatus.Active && item.platform !== AccountPlatform.Wallet).length, icon_bg_color: 'success' },
+                { name: LocaleKeys.CLIENT_ACCOUNTS_INACTIVE, icon: 'x-circle', value: data.filter((item) => item.status === AccountStatus.Inactive && item.platform !== AccountPlatform.Wallet).length, icon_bg_color: 'danger' },
+                { name: LocaleKeys.CLIENT_ACCOUNTS_PENDING, icon: 'clock', value: data.filter((item) => item.status === AccountStatus.Pending && item.platform !== AccountPlatform.Wallet).length, icon_bg_color: 'warning' },
+                { name: LocaleKeys.GLOBAL_BALANCE, icon: 'dollar-sign', value: balance, icon_bg_color: 'primary' }
             ];
 
             this.accounts = data.filter((item) => item.platform !== AccountPlatform.Wallet);

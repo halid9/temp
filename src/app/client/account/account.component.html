@@ -10,19 +10,31 @@
 </div>
 <div class="row mt-4">
     @for(data of accounts;track $index){
-    <div class="col-md-4">
+    <div class="col-lg-4 col-md-6">
         <div class="card ribbon-box right overflow-hidden">
             <div class="card-body text-center p-4">
                 @if(data.accountType == 0){
-                <div class="ribbon ribbon-info ribbon-shape trending-ribbon"><i
-                        class="ri-flashlight-fill text-white align-bottom"></i> <span
-                        class="trending-ribbon-text">Trending</span></div>
+                <div class="ribbon ribbon-warning ribbon-shape trending-ribbon">
+                    <i class=" ri-loader-2-fill text-white align-bottom"></i>
+                    <span class="trending-ribbon-text">{{localeKeys.CLIENT_ACCOUNTS_DEMO | translate}}</span>
+                </div>
                 }
-                <img src="https://quickchart.io/qr?text=test" alt="" height="100">
+                <img src="https://quickchart.io/qr?text={{'' | buildMtScheme:data.login+'':data.accountMasterPassword??'':'WaliSt-Server':true}}"
+                    alt="" height="100">
                 <h5 class="mb-1 mt-4"><a routerLink="/ecommerce/seller-details"
                         class="link-primary">{{data.accountName}}</a>
+                    <i class="ri-pencil-line text-muted float-end" placement="start"
+                        ngbTooltip="{{localeKeys.CLIENT_ACCOUNTS_CHANGE_NAME | translate}}"></i>
                 </h5>
-                <p class="text-muted mb-4">{{data.accountName}}</p>
+                <span class="text-muted">{{data.login}}</span><br>
+                <span class="badge badge-gradient-dark">WaliSt-Server</span>
+                <!-- <div class="row">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
+                        <span class="text-muted">Currency</span>
+                    </div>
+                </div> -->
                 <!-- <div class="row justify-content-center">
                     <div class="col-lg-8">
                         <apx-chart [series]="data.chart.series" [chart]="data.chart.chart"
@@ -30,18 +42,56 @@
                             [colors]="data.chart.colors" dir="ltr"></apx-chart>
                     </div>
                 </div> -->
-                <div class="row mt-4">
-                    <div class="col-lg-6 border-end-dashed border-end">
-                        <h5>{{data.equity}}</h5>
-                        <span class="text-muted">Item Stock</span>
+                <div class="row mt-2">
+                    <div class="col-md-6  mt-2">
+                        <h6>{{data.balance}}</h6>
+                        <span class="text-muted">{{localeKeys.GLOBAL_BALANCE | translate}}</span>
                     </div>
-                    <div class="col-lg-6">
-                        <h5>{{data.balance}}</h5>
-                        <span class="text-muted">Wallet Balance</span>
+                    <div class="col-md-6  mt-2">
+
+                        <h6>{{data.leverage}}</h6>
+
+                        <span class="text-muted">{{localeKeys.CLIENT_ACCOUNTS_LEVERAGE |
+                            translate}}</span>
+                        <!-- <a class="btn btn-sm btn-light material-shadow-none"> -->
+                        <i class="ri-pencil-line float-end" placement="start"
+                            ngbTooltip="{{localeKeys.CLIENT_ACCOUNTS_CHANGE_LEVERAGE | translate}}"></i>
+                        <!-- </a> -->
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <h6>{{data.free_margin}}</h6>
+                        <span class="text-muted">{{localeKeys.CLIENT_ACCOUNTS_FREE_MARGIN | translate}}</span>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <h6>{{data.equity}}</h6>
+                        <span class="text-muted">{{localeKeys.CLIENT_ACCOUNTS_EQUITY | translate}}</span>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <h6>{{data.margin}}</h6>
+                        <span class="text-muted">{{localeKeys.CLIENT_ACCOUNTS_MARGIN | translate}}</span>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <h6>{{data.margin_level}}</h6>
+                        <span class="text-muted">{{localeKeys.CLIENT_ACCOUNTS_MARGIN_LEVEL |
+                            translate}}</span>
                     </div>
                 </div>
-                <div class="mt-4">
+                <!-- <div class="mt-4">
                     <a routerLink="/ecommerce/seller-details" class="btn btn-light w-100">View Details</a>
+                </div> -->
+                <div class="mt-4 btn-group btn-group-sm mt-2 material-shadow">
+                    <button class="btn btn-info material-shadow-none">
+                        {{localeKeys.CLIENT_ACCOUNTS_CHANGE_PASSWORD | translate}}
+                    </button>
+                    <!-- <button class="btn btn-warning material-shadow-none">
+                        {{localeKeys.CLIENT_ACCOUNTS_CHANGE_LEVERAGE | translate}}
+                    </button>
+                    <button class="btn btn-primary material-shadow-none">
+                        {{localeKeys.CLIENT_ACCOUNTS_CHANGE_NAME | translate}}
+                    </button> -->
+                    <button class="btn btn-danger material-shadow-none">
+                        {{localeKeys.CLIENT_ACCOUNTS_DELETE | translate}}
+                    </button>
                 </div>
             </div>
         </div>

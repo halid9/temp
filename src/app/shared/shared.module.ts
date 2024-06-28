@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NgbAccordionModule, NgbDropdownModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionModule, NgbDropdownModule, NgbNavModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Swiper Slider
 import { SlickCarouselModule } from 'ngx-slick-carousel';
@@ -34,6 +34,7 @@ import { WalletComponent } from './landing/nft/wallet/wallet.component';
 
 // Job Landing 
 import { TranslateModule } from '@ngx-translate/core';
+import { BuildMtSchemePipe } from './build-mt-scheme.pipe';
 import { BlogComponent } from './landing/job/blog/blog.component';
 import { CandidateComponent } from './landing/job/candidate/candidate.component';
 import { FindjobsComponent } from './landing/job/findjobs/findjobs.component';
@@ -44,6 +45,7 @@ import { LandingScrollspyDirective } from './landingscrollspy.directive';
 import { WidgetModule } from './widget/widget.module';
 
 @NgModule({
+    providers: [],
     declarations: [
         BreadcrumbsComponent,
         ClientLogoComponent,
@@ -72,7 +74,7 @@ import { WidgetModule } from './widget/widget.module';
         FindjobsComponent,
         JobFooterComponent,
         JobcategoriesComponent,
-        ProcessComponent
+        ProcessComponent, BuildMtSchemePipe
     ],
     imports: [
         CommonModule,
@@ -81,9 +83,10 @@ import { WidgetModule } from './widget/widget.module';
         NgbDropdownModule,
         SlickCarouselModule,
         CountUpModule,
-        TranslateModule, WidgetModule
+        TranslateModule, WidgetModule, NgbTooltipModule
     ],
     exports: [BreadcrumbsComponent,
+        NgbTooltipModule,
         ClientLogoComponent,
         ServicesComponent,
         TranslateModule,
@@ -111,7 +114,7 @@ import { WidgetModule } from './widget/widget.module';
         CandidateComponent,
         BlogComponent,
         JobcategoriesComponent,
-        WidgetModule,
+        WidgetModule, BuildMtSchemePipe,
         JobFooterComponent]
 })
 export class SharedModule { }

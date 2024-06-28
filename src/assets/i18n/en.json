@@ -46,6 +46,39 @@
             },
             "PENDING": {
                 "text": "Pending Accounts"
+            },
+            "DEMO": {
+                "text": "Demo Account"
+            },
+            "LEVERAGE": {
+                "text": "Leverage"
+            },
+            "FREE_MARGIN": {
+                "text": "Free Margin"
+            },
+            "EQUITY": {
+                "text": "Equity"
+            },
+            "MARGIN": {
+                "text": "Margin"
+            },
+            "DELETE": {
+                "text": "Delete"
+            },
+            "CHANGE_NAME": {
+                "text": "Change Name"
+            },
+            "BALANCE": {
+                "text": "Balance"
+            },
+            "MARGIN_LEVEL": {
+                "text": "Margin Level"
+            },
+            "CHANGE_LEVERAGE": {
+                "text": "Change Leverage"
+            },
+            "CHANGE_PASSWORD": {
+                "text": "Change Password"
             }
         },
         "TRANSACTIONS": {

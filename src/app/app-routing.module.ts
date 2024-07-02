@@ -7,10 +7,23 @@ import { LayoutComponent } from './layouts/layout.component';
 // Auth
 
 const routes: Routes = [
-    { path: 'client', component: LayoutComponent, loadChildren: () => import('./client/client.module').then(m => m.ClientModule), canActivate: [AuthGuard] },
-    { path: 'auth', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
+    {
+        path: '', redirectTo: 'client'
+    },
+    {
+        path: 'client',
+        component: LayoutComponent,
+        loadChildren: () => import('./client/client.module').then(m => m.ClientModule), canActivate: [AuthGuard]
+    },
+    {
+        path: 'auth',
+        loadChildren: () => import('./account/account.module').then(m => m.AccountModule)
+    },
     //   { path: 'pages', loadChildren: () => import('./extraspages/extraspages.module').then(m => m.ExtraspagesModule), canActivate: [AuthGuard] },
-    { path: 'landing', loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule) },
+    {
+        path: 'landing',
+        loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule)
+    },
 ];
 
 @NgModule({

@@ -29,7 +29,7 @@ export class AccountComponent {
         return LocaleKeys;
     }
     ngOnInit(): void {
-        console.log('AccountComponent');
+        // console.log('AccountComponent');
         // Todo Data Get
         this.store.dispatch(fetchAccountListData());
         this.store.select(selectAccountLoading).subscribe((data) => {

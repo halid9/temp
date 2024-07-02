@@ -7,6 +7,10 @@ import { AccountComponent } from './account/account.component';
 
 const routes: Routes = [
     {
+        path: '',
+        redirectTo: 'accounts',
+    },
+    {
         path: 'accounts',
         component: AccountComponent
     }]

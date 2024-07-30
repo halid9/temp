@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { restApiService } from "src/app/core/services/rest-api.service";
+import { RestApiService } from "src/app/core/services/rest-api.service";
 import { fetchAccountListData, fetchAccountListFailure, fetchAccountListSuccess } from "./account_action";
 import { AccountModel } from "./account_model";
 
@@ -57,6 +57,6 @@ export class AccountEffects {
 
     constructor(
         private actions$: Actions,
-        private restApiService: restApiService
+        private restApiService: RestApiService
     ) { }
 }

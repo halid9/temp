@@ -26,6 +26,42 @@
         },
         "BALANCE": {
             "text": "Balance"
+        },
+        "SAVE": {
+            "text": "Save"
+        },
+        "SUCCESS": {
+            "text": "Success"
+        },
+        "ERROR": {
+            "text": "Error"
+        },
+        "NAME": {
+            "text": "Name",
+            "REQUIRED": {
+                "text": "Name is required"
+            }
+        },
+        "PASSWORD": {
+            "text": "Password",
+            "REQUIRED": {
+                "text": "Password is required"
+            },
+            "CONFIRM": {
+                "text": "Confirm Password",
+                "REQUIRED": {
+                    "text": "Confirm Password is required"
+                },
+                "NOT_MATCH": {
+                    "text": "Passwords do not match"
+                }
+            }
+        },
+        "CHANGE": {
+            "text": "Change"
+        },
+        "CANCEL": {
+            "text": "Cancel"
         }
     },
     "CLIENT": {
@@ -35,6 +71,9 @@
         },
         "ACCOUNTS": {
             "text": "Accounts",
+            "LOGIN": {
+                "text": "Login"
+            },
             "REQUESTS": {
                 "text": "Account Requests"
             },
@@ -66,7 +105,10 @@
                 "text": "Delete"
             },
             "CHANGE_NAME": {
-                "text": "Change Name"
+                "text": "Change Name",
+                "SUCCESS": {
+                    "text": "Name changed successfully"
+                }
             },
             "BALANCE": {
                 "text": "Balance"
@@ -75,10 +117,16 @@
                 "text": "Margin Level"
             },
             "CHANGE_LEVERAGE": {
-                "text": "Change Leverage"
+                "text": "Change Leverage",
+                "SUCCESS": {
+                    "text": "Leverage changed successfully"
+                }
             },
             "CHANGE_PASSWORD": {
-                "text": "Change Password"
+                "text": "Change Password",
+                "SUCCESS": {
+                    "text": "Password changed successfully"
+                }
             }
         },
         "TRANSACTIONS": {

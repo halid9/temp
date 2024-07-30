@@ -5,7 +5,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 
-import { restApiService } from "src/app/core/services/rest-api.service";
+import { RestApiService } from "src/app/core/services/rest-api.service";
 import { addTodo, addTodoFailure, addTodoSuccess, fetchTodoListData, fetchTodoListFailure, fetchTodoListSuccess, updateTodo, updateTodoFailure, updateTodoSuccess } from "./todo_action";
 
 
@@ -56,6 +56,6 @@ export class TodoEffects {
 
     constructor(
         private actions$: Actions,
-        private restApiService: restApiService
+        private restApiService: RestApiService
     ) { }
 }

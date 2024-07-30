@@ -45,7 +45,10 @@ import { LandingScrollspyDirective } from './landingscrollspy.directive';
 import { WidgetModule } from './widget/widget.module';
 
 @NgModule({
-    providers: [],
+    providers: [
+
+        // importProvidersFrom(NgSelectModule),
+    ],
     declarations: [
         BreadcrumbsComponent,
         ClientLogoComponent,
@@ -74,7 +77,8 @@ import { WidgetModule } from './widget/widget.module';
         FindjobsComponent,
         JobFooterComponent,
         JobcategoriesComponent,
-        ProcessComponent, BuildMtSchemePipe
+        ProcessComponent,
+        BuildMtSchemePipe
     ],
     imports: [
         CommonModule,
@@ -83,9 +87,12 @@ import { WidgetModule } from './widget/widget.module';
         NgbDropdownModule,
         SlickCarouselModule,
         CountUpModule,
-        TranslateModule, WidgetModule, NgbTooltipModule
+        TranslateModule,
+        WidgetModule,
+        NgbTooltipModule
     ],
-    exports: [BreadcrumbsComponent,
+    exports: [
+        BreadcrumbsComponent,
         NgbTooltipModule,
         ClientLogoComponent,
         ServicesComponent,
@@ -115,6 +122,7 @@ import { WidgetModule } from './widget/widget.module';
         BlogComponent,
         JobcategoriesComponent,
         WidgetModule, BuildMtSchemePipe,
-        JobFooterComponent]
+        JobFooterComponent
+    ]
 })
 export class SharedModule { }

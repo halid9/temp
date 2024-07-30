@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="card mb-0">
+
+            <div id="elmLoaderOverlay" *ngIf="isInProcess">
+                <div class="spinner-border text-primary avatar-sm" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <form [formGroup]="changeNameForm" (ngSubmit)="submit()">
+                <div class="card-body">
+                    <h4 class="card-title">{{localeKeys.CLIENT_ACCOUNTS_CHANGE_NAME | translate}}</h4>
+                    <div class="row my-2">
+                        <!-- <div class="col-md-12  my-2">
+                            <h6>{{data.login}}</h6>
+                            <span class="text-muted">{{localeKeys.CLIENT_ACCOUNTS_LOGIN | translate}}</span>
+                        </div> -->
+
+                        <div class="col-md-12 mb-2">
+                            <label for="name" class="form-label">{{localeKeys.GLOBAL_NAME |
+                                translate}}</label>
+                            <input type="text" class="form-control" id="name" aria-describedby="inputGroupPrepend"
+                                required formControlName="name"
+                                [ngClass]="{'is-invalid': isSubmit && form['name'].errors && form['name'].errors['required']}">
+                            <div class="invalid-feedback">
+                                {{localeKeys.GLOBAL_NAME_REQUIRED | translate}}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">{{localeKeys.GLOBAL_SAVE | translate}}</button>
+                    <button type="button" class="btn btn-light" (click)="dismiss()">{{localeKeys.GLOBAL_CANCEL |
+                        translate}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

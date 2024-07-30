@@ -8,7 +8,7 @@ import { LayoutComponent } from './layouts/layout.component';
 
 const routes: Routes = [
     {
-        path: '', redirectTo: 'client'
+        path: '', redirectTo: 'client', pathMatch: 'full'
     },
     {
         path: 'client',

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { AccountPlatform, AccountStatus, BreadcrumbItem } from 'src/app/shared/interfaces';
 import { LocaleKeys } from 'src/app/shared/locale_keys';
@@ -6,6 +7,9 @@ import { RootReducerState } from 'src/app/store';
 import { fetchAccountListData } from 'src/app/store/Account/account_action';
 import { AccountModel } from 'src/app/store/Account/account_model';
 import { selectAccountData, selectAccountLoading } from 'src/app/store/Account/account_selector';
+import { ChangeLeverageComponent } from './change-leverage/change-leverage.component';
+import { ChangeNameComponent } from './change-name/change-name.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @Component({
     selector: 'app-account',
@@ -17,7 +21,9 @@ export class AccountComponent {
     accounts: AccountModel[] = [];
     breadCrumbItems: BreadcrumbItem[];
     analyticsData: { name: string, icon: string, value: number, icon_bg_color: string }[] = [];
-    constructor(private store: Store<{ data: RootReducerState }>) {
+    constructor(private store: Store<{ data: RootReducerState }>,
+        private modalService: NgbModal
+    ) {
 
         this.breadCrumbItems = [
             { label: LocaleKeys.CLIENT, url: '/client' },
@@ -53,5 +59,17 @@ export class AccountComponent {
             //   this.dataSource = cloneDeep(data);
         });
 
+    }
+    changePassword(accountId: number) {
+        const modal = this.modalService.open(ChangePasswordComponent, { centered: true, size: 'sm', backdrop: 'static', keyboard: false });
+        modal.componentInstance.data = this.accounts.find((item) => item.id === accountId);
+    }
+    changeName(accountId: number) {
+        const modal = this.modalService.open(ChangeNameComponent, { centered: true, size: 'sm', backdrop: 'static', keyboard: false });
+        modal.componentInstance.data = this.accounts.find((item) => item.id === accountId);
+    }
+    changeLeverage(accountId: number) {
+        const modal = this.modalService.open(ChangeLeverageComponent, { centered: true, size: 'sm', backdrop: 'static', keyboard: false });
+        modal.componentInstance.data = this.accounts.find((item) => item.id === accountId);
     }
 }

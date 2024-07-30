@@ -62,6 +62,9 @@
         },
         "CANCEL": {
             "text": "Cancel"
+        },
+        "ALL": {
+            "text": "All"
         }
     },
     "CLIENT": {
@@ -73,6 +76,9 @@
             "text": "Accounts",
             "LOGIN": {
                 "text": "Login"
+            },
+            "CREATE": {
+                "text": "Create Account"
             },
             "REQUESTS": {
                 "text": "Account Requests"
@@ -88,6 +94,9 @@
             },
             "DEMO": {
                 "text": "Demo Account"
+            },
+            "LIVE": {
+                "text": "Live Account"
             },
             "LEVERAGE": {
                 "text": "Leverage"

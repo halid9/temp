@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SharedModule } from '../shared/shared.module';
 import { AccountComponent } from './account/account.component';
@@ -27,7 +28,8 @@ const routes: Routes = [
         SharedModule,
         RouterModule.forChild(routes),
         NgSelectModule, FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgbModule
     ],
     schemas: [
         // CUSTOM_ELEMENTS_SCHEMA

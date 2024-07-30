@@ -1,5 +1,43 @@
 <!-- Start Breadcrumbs -->
 <app-breadcrumbs [title]="localeKeys.CLIENT_ACCOUNTS" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<div class="card">
+    <div class="card-header">
+        <div class="d-flex align-items-center flex-wrap gap-2">
+            <div class="flex-grow-1">
+                <button class="btn btn-primary material-shadow-none" (click)="addAccount()">
+                    {{localeKeys.CLIENT_ACCOUNTS_CREATE | translate}}
+                </button>
+            </div>
+
+            <div class="flex-shrink-0">
+                <div class="hstack text-nowrap gap-2" ngbDropdown>
+                    <button type="button" id="dropdownMenuLink1" data-bs-toggle="dropdown" aria-expanded="false"
+                        class="btn btn-soft-info arrow-none" ngbDropdownToggle><i class="ri-more-2-fill"></i></button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1" ngbDropdownMenu>
+                        <li><a class="dropdown-item" href="javascript:void(0);" (click)="filterAccounts('all')"
+                                [class.active]="filterType=='all'">{{localeKeys.GLOBAL_ALL | translate}}</a></li>
+                        <li><a class="dropdown-item" href="javascript:void(0);" (click)="filterAccounts('demo')"
+                                [class.active]="filterType=='demo'">{{localeKeys.CLIENT_ACCOUNTS_DEMO | translate}}</a>
+                        </li>
+                        <li><a class="dropdown-item" href="javascript:void(0);" (click)="filterAccounts('live')"
+                                [class.active]="filterType=='live'">{{localeKeys.CLIENT_ACCOUNTS_LIVE | translate}}</a>
+                        </li>
+                        <li><a class="dropdown-item" href="javascript:void(0);" (click)="filterAccounts('active')"
+                                [class.active]="filterType=='active'">{{localeKeys.CLIENT_ACCOUNTS_ACTIVE |
+                                translate}}</a>
+                        </li>
+                        <li><a class="dropdown-item" href="javascript:void(0);" (click)="filterAccounts('inactive')"
+                                [class.active]="filterType=='inactive'">{{localeKeys.CLIENT_ACCOUNTS_INACTIVE |
+                                translate}}</a></li>
+                        <li><a class="dropdown-item" href="javascript:void(0);" (click)="filterAccounts('pending')"
+                                [class.active]="filterType=='pending'">{{localeKeys.CLIENT_ACCOUNTS_PENDING |
+                                translate}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- End Breadcrumbs -->
 <div class="row">
     <div class="col-md-4" *ngFor="let item of analyticsData">

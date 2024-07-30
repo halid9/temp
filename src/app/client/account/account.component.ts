@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
-import { AccountPlatform, AccountStatus, BreadcrumbItem } from 'src/app/shared/interfaces';
+import { AccountPlatform, AccountStatus, AccountType, BreadcrumbItem } from 'src/app/shared/interfaces';
 import { LocaleKeys } from 'src/app/shared/locale_keys';
 import { RootReducerState } from 'src/app/store';
 import { fetchAccountListData } from 'src/app/store/Account/account_action';
@@ -17,7 +17,37 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     styleUrl: './account.component.scss'
 })
 export class AccountComponent {
+    filterAccounts(type: 'all' | 'demo' | 'live' | 'active' | 'inactive' | 'pending') {
+        // this.allAccounts = this.accounts;
+        this.accounts = this.allAccounts.filter((item) => {
+            switch (type) {
+                case 'demo':
+                    this.filterType = 'demo';
+                    return item.accountType === AccountType.Demo;
+                case 'live':
+                    this.filterType = 'live';
+                    return item.accountType === AccountType.Live;
+                case 'active':
+                    this.filterType = 'active';
+                    return item.status === AccountStatus.Active;
+                case 'inactive':
+                    this.filterType = 'inactive';
+                    return item.status === AccountStatus.Inactive;
+                case 'pending':
+                    this.filterType = 'pending';
+                    return item.status === AccountStatus.Pending;
+                default:
+                    this.filterType = 'all';
+                    return true;
+            }
+        });
+    }
+    addAccount() {
+        throw new Error('Method not implemented.');
+    }
+    filterType: 'all' | 'demo' | 'live' | 'active' | 'inactive' | 'pending' = 'all';
     isLoading = true;
+    allAccounts: AccountModel[] = [];
     accounts: AccountModel[] = [];
     breadCrumbItems: BreadcrumbItem[];
     analyticsData: { name: string, icon: string, value: number, icon_bg_color: string }[] = [];
@@ -55,21 +85,22 @@ export class AccountComponent {
                 { name: LocaleKeys.GLOBAL_BALANCE, icon: 'dollar-sign', value: balance, icon_bg_color: 'primary' }
             ];
 
-            this.accounts = data.filter((item) => item.platform !== AccountPlatform.Wallet);
+            this.allAccounts = data.filter((item) => item.platform !== AccountPlatform.Wallet);
+            this.accounts = this.allAccounts;
             //   this.dataSource = cloneDeep(data);
         });
 
     }
     changePassword(accountId: number) {
         const modal = this.modalService.open(ChangePasswordComponent, { centered: true, size: 'sm', backdrop: 'static', keyboard: false });
-        modal.componentInstance.data = this.accounts.find((item) => item.id === accountId);
+        modal.componentInstance.data = this.allAccounts.find((item) => item.id === accountId);
     }
     changeName(accountId: number) {
         const modal = this.modalService.open(ChangeNameComponent, { centered: true, size: 'sm', backdrop: 'static', keyboard: false });
-        modal.componentInstance.data = this.accounts.find((item) => item.id === accountId);
+        modal.componentInstance.data = this.allAccounts.find((item) => item.id === accountId);
     }
     changeLeverage(accountId: number) {
         const modal = this.modalService.open(ChangeLeverageComponent, { centered: true, size: 'sm', backdrop: 'static', keyboard: false });
-        modal.componentInstance.data = this.accounts.find((item) => item.id === accountId);
+        modal.componentInstance.data = this.allAccounts.find((item) => item.id === accountId);
     }
 }

@@ -57,12 +57,18 @@
     <div class="col-lg-3 col-md-4">
         <div class="card ribbon-box right overflow-hidden">
             <div class="card-body text-center p-4">
-                @if(data.accountType == 0){
-                <div class="ribbon ribbon-warning ribbon-shape trending-ribbon">
+                <div class="ribbon ribbon-shape trending-ribbon" [class.ribbon-info]="data.status === 0"
+                    [class.ribbon-success]="data.status === 1" [class.ribbon-warning]="data.status === 2"
+                    [class.ribbon-danger]="data.status === 3">
+
+                    @if(data.accountType == 0){
                     <i class=" ri-loader-2-fill text-white align-bottom"></i>
                     <span class="trending-ribbon-text">{{localeKeys.CLIENT_ACCOUNTS_DEMO | translate}}</span>
+                    }@else{
+                    <i class=" ri-checkbox-circle-fill text-white align-bottom"></i>
+                    <span class="trending-ribbon-text">{{localeKeys.CLIENT_ACCOUNTS_LIVE | translate}}</span>
+                    }
                 </div>
-                }
                 <img src="https://quickchart.io/qr?text={{'' | buildMtScheme:data.login+'':data.accountMasterPassword??'':'WaliSt-Server':true}}"
                     alt="" height="100">
                 <h5 class="mb-1 mt-4"><a routerLink="" class="link-primary">{{data.accountName}}</a>

@@ -10,6 +10,7 @@ import { selectAccountData, selectAccountLoading } from 'src/app/store/Account/a
 import { ChangeLeverageComponent } from './change-leverage/change-leverage.component';
 import { ChangeNameComponent } from './change-name/change-name.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { CreateAccountComponent } from './create-account/create-account.component';
 
 @Component({
     selector: 'app-account',
@@ -43,7 +44,7 @@ export class AccountComponent {
         });
     }
     addAccount() {
-        throw new Error('Method not implemented.');
+        const modal = this.modalService.open(CreateAccountComponent, { centered: true, size: 'sm', backdrop: 'static', keyboard: false });
     }
     filterType: 'all' | 'demo' | 'live' | 'active' | 'inactive' | 'pending' = 'all';
     isLoading = true;

@@ -9,6 +9,7 @@ import { AccountComponent } from './account/account.component';
 import { ChangeLeverageComponent } from './account/change-leverage/change-leverage.component';
 import { ChangeNameComponent } from './account/change-name/change-name.component';
 import { ChangePasswordComponent } from './account/change-password/change-password.component';
+import { CreateAccountComponent } from './account/create-account/create-account.component';
 
 
 const routes: Routes = [
@@ -22,7 +23,7 @@ const routes: Routes = [
         component: AccountComponent
     }]
 @NgModule({
-    declarations: [AccountComponent, ChangePasswordComponent, ChangeNameComponent, ChangeLeverageComponent],
+    declarations: [AccountComponent, ChangePasswordComponent, ChangeNameComponent, ChangeLeverageComponent, CreateAccountComponent],
     imports: [
         CommonModule,
         SharedModule,
